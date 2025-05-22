@@ -1,0 +1,25 @@
+<!-- hw/templates/hw/base.html -->
+{% load static %}
+<html>
+    <head>
+        <title>Hello, world!</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+
+    </nav>
+        
+    {% block content %}
+    {% endblock %}
+    
+    <hr>
+    The current time is {{time}}.
+
+    </body>
+</html>

@@ -27,7 +27,8 @@ SECRET_KEY = 'django-insecure-pox%*0b@a5y_s-h^4c)7z=tv7bnzmugpfqzo1&k_i9i03x0$__
 DEBUG = True
 
 ALLOWED_HOSTS = ["cs-webapps.bu.edu",
-                 '127.0.0.1']
+                 '127.0.0.1'
+                 ]
 
 
 # Application definition
@@ -141,3 +142,4 @@ CS_DEPLOYMENT_HOSTNAME = 'cs-webapps.bu.edu'
 if socket.gethostname() == CS_DEPLOYMENT_HOSTNAME:
     STATIC_URL = '/username/static/'
     MEDIA_URL = '/username/media/'
+

@@ -1,9 +1,7 @@
 {% extends "quotes/base.html" %}
 
-{% load static %}
-
 {% block content %}
-    <img src="{% static image %}" alt="Lil Wayne image" style="max-width: 400px;">
+    <img src="{{ image }}" width="200"><br>
     <p><strong>Quote:</strong> {{ quote }}</p>
 {% endblock %}
  

@@ -15,9 +15,9 @@ quotes_list = [
 ]
 
 images_list = [
-    "static/quotes/lil_wayne_1.jpeg",
-    "static/quotes/lil-wayne-2.jpeg",
-    "static/quotes/lil_wayne_3.jpeg",
+    "https://static.wikia.nocookie.net/hip-hop-music/images/2/2f/Lil_Wayne.png/revision/latest?cb=20140916154841",
+    "https://hips.hearstapps.com/hmg-prod/images/lil_wayne_photo_by_ray_tamarra_getty_images_entertainment_getty_56680625.jpg",
+    "https://vegnews.com/media/W1siZiIsIjQ3MDk3L0xpbC1XYXluZS5qcGciXSxbInAiLCJjcm9wX3Jlc2l6ZWQiLCI3NjF4NzYxKzI0OSswIiwiOTQ2eDk0Nl4iLHsiZm9ybWF0IjoianBnIn1dLFsicCIsIm9wdGltaXplIl1d/Lil-Wayne.jpg?sha=ac80881601bc6090",
     ]
 
 def quote(request):

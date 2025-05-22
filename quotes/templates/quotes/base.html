@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Quotes App</title>
+    </head>
+    <body>
+        <header>
+            <h1>Quotes by Lil Wayne</h1>
+            <nav>
+                <a href="{% url 'quotes' %}">Home</a> |
+                <a href="{% url 'show_all' %}">Show All</a> |
+                <a href="{% url 'about' %}">About</a>
+            </nav>
+        </header>
+        <hr>
+        {% block content %}{% endblock %}
+    </body>
+</html>

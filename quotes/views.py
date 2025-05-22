@@ -10,13 +10,14 @@ import time
 quotes_list = [
     "Real G's move in silence like lasagna",
     "Weezy f. Baby and the f is for phenomenal",
-    "We gonna be alright if we put Drake on every hook"
+    "We gonna be alright if we put Drake on every hook",
+    "Most of yall don’t get the picture unless the flash is on",
 ]
 
 images_list = [
-    "quotes/images/lil_wayne_1.jpeg",
-    "quotes/images/lil-wayne-2.jpeg",
-    "quotes/images/lil_wayne_3.jpeg",
+    "static/quotes/lil_wayne_1.jpeg",
+    "static/quotes/lil-wayne-2.jpeg",
+    "static/quotes/lil_wayne_3.jpeg",
     ]
 
 def quote(request):

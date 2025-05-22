@@ -1,17 +1,18 @@
-<!DOCTYPE html>
+{% load static %}
 <html>
     <head>
         <title>Quotes App</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
-        <header>
-            <h1>Quotes by Lil Wayne</h1>
-            <nav>
-                <a href="{% url 'quotes' %}">Home</a> |
-                <a href="{% url 'show_all' %}">Show All</a> |
-                <a href="{% url 'about' %}">About</a>
-            </nav>
-        </header>
+        <h1>Quotes by Lil Wayne</h1>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quotes' %}">Home</a></li>
+                <li><a href="{% url 'show_all' %}">Show All</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+            </ul>
+        </nav>
         <hr>
         {% block content %}{% endblock %}
     </body>

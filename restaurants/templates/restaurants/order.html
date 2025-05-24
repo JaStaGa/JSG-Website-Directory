@@ -1,0 +1,88 @@
+<html>
+    {% load static %}
+    <head>
+        <title>Anime Meals</title>
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+
+    <body>
+        <div class="grid-container">
+        <header>
+            <h1>Anime Meals</h1>
+        </header>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
+        <nav>
+        <li><a href="{% url 'main' %}">Main Page</a></li>    
+        <li><a href="{% url 'order' %}">Order Page</a></li>    
+        </nav>
+        
+        <main>
+        
+        
+    <h2>Place an Order</h2>
+
+        <form action="{% url 'confirmation' %}" method="POST">
+            {% csrf_token %}
+            <p>
+            <h3>Make your selection:</h3>
+            <div><input type="checkbox" name="onigiri">Brock's Onigiri $40</div>
+            <div><input type="checkbox" name="apple">Ryuk's Apple $15</div>
+            <div><input type="checkbox" name="ramen">Naruto's Ramen $60</div>     
+            <div><input type="checkbox" name="drumstick">Luffy's Drumsticks $200</div>    
+            </p>
+
+        <p>
+        <h3>Today's Special:</h3>
+        <div><input type="checkbox" name="special">Eren's Spinal Fluid $15</div>
+        </p>
+        
+        <p>
+        <h3>Special Instructions</h3>
+        Please share any special instructions:
+        <div><textarea name="special_instructions" rows="3" cols="60"></textarea></div>
+        </p>
+        <p>
+        <h3>Customer Information</h3>
+
+        <div>Name:</div> <div><input name="name"></div>
+        <div>Phone:</div> <div><input name="phone"></div>
+
+        <div>Email:</div> <div><input name="email"></div>
+        </p>
+
+        <p>
+        <h3>Place your order!</h3>
+        <input type="submit">        
+        </p>
+
+        <br>
+        <br><br>
+
+    </form>
+
+    </p>
+
+
+        </main>
+
+        <aside>
+            <p></p>
+        </aside>
+
+        <footer>
+            <p>
+                Page created by jstarlin@bu.edu.<br>
+            </p>
+
+        </footer>
+        
+    
+    </div>
+    </body>
+<html>

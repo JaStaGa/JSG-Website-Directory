@@ -1,228 +1,169 @@
-body {
-    background-color: #fff;
-    color: rgb(144, 132, 112);
-    font-family: arial;
-}
-
-h1,h2,h3,h4,h5{
-    font-weight: normal;
-    background:aliceblue;
-    margin: 30px;
-}
-
-a, a:visited {
-    color: slategrey;
-    text-decoration: none;
-}
-
-a:hover {
-    color: darkblue;
-    text-decoration: none;
-    background-color: white;
-    /* font-weight: bold; */
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 body {
-    max-width: 960px;
-    margin: 20px auto;
-    padding: 20px auto;
+    background: linear-gradient(to right, #1f1c2c, #928dab);
+    color: #fff;
+    font-family: 'Trebuchet MS', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    line-height: 1.6;
 }
 
+/* Headers */
+h1, h2, h3, h4, h5 {
+    font-weight: bold;
+    text-shadow: 2px 2px 5px #000;
+    background: linear-gradient(to right, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin: 20px 0;
+}
+
+/* Header Bar */
 header {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    background:aliceblue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    padding: 20px;
+    border-bottom: 2px solid #ff6ec4;
     position: fixed;
-    top: 0px;
-    z-index: 999;
-    /* padding-right: 50px auto; */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
 }
 
-footer {
-    width: 100%;
-    background:aliceblue;
-    position: fixed;
-    bottom: 0px;
+header h1 {
+    font-size: 2.2em;
 }
 
-
-.wrapper {              /* centering and margin around whole wrapper element */
-    border: 2px solid;
-    max-width: 100%;
-    position: relative;
-    top: 50px;
-    scroll-padding-top: 100px;
-    /* scroll-padding-bottom: 100px; */
-    padding-bottom: 50px;
-    
-    /* top:100px; */
-    /* bottom: 100px; */
-}
-
-
-div.wrapper h1 {
-    text-align: center;
-    color: darkblue;
-    margin: 10px auto;
-    font-size: 2.4 em; 
-
-}
-
-div.wrapper h2 {
-    text-align: left;
-    color: darkblue;
-    margin: 5px auto;
-    font-size: 2 em; 
-}
-
-
-section {
-    border: 2px solid darkblue;    /* border around each event */
-    position: relative;
-    padding-bottom: 4px;
-}
-
-
+/* Navigation */
 nav {
-    justify-self: end;
-    background: none;
-    color: darkblue;
-    /* border: 1px solid; */
+    margin-top: 80px;
+    text-align: center;
 }
 
 nav li {
     display: inline-block;
-    margin-left: 20px;
+    margin: 10px 20px;
+    list-style: none;
 }
 
-nav button {
-    background: none;
-    color: slategray;
-    font-family: Arial;
-    cursor: pointer; 
-    border: 0;
-    font-size: 1.2 em;
-}
-
-.mc-table {
-    display: table;
-    width: 100%;
-    table-layout: fixed;
-}
-
-
-.mc-table-head {
-    border: 1px dashed darkblue;    /*border around each row */
-    display: table-row;
-    font-size: 1.2em;
-}
-
-.mc-table-head .detail {
-    display: table-cell;
-    color:darkblue;
+nav a {
+    color: #f9f9f9;
+    background: #ff6ec4;
+    padding: 10px 20px;
+    border-radius: 30px;
+    text-decoration: none;
     font-weight: bold;
-    background-color: white;
-    padding: 5px;
-    position: relative;
-   
+    box-shadow: 0 0 10px #ff6ec4;
+    transition: all 0.3s ease-in-out;
 }
 
-.mc-table-row  {
-    display: table-row;
-    border: 1px dashed darkblue;    /*border around each row */
-    background-color: white;
+nav a:hover {
+    background: #7873f5;
+    box-shadow: 0 0 15px #7873f5;
+    color: #fff;
 }
 
-
-.mc-table-row .detail {
-    color:darkblue;
-    display: table-cell;
-   
-    padding: 5px;
+/* Main content */
+main {
+    margin-top: 40px;
+    padding: 30px;
+    background-color: rgba(255, 255, 255, 0.05);
+    border-radius: 15px;
+    box-shadow: 0 0 10px #000;
 }
 
-.mc-table-row .detail img {
-    max-height: 75px;
-    align-content: right;
+/* Forms */
+form {
+    margin-top: 20px;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    box-shadow: 0 0 15px #ff6ec4;
 }
 
-/* must have no space before :hover */
-.mc-table-row:hover {
-    background-color: aliceblue;    
-    border: 1px solid;
-}
-
-.site-form {
-    margin-top: 10px;
-    /* border: 2px solid darkblue; */
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+textarea {
+    width: 100%;
     padding: 10px;
-}
-
-/* style the forms with class site-form */
-.site-form input, .site-form textarea, .site-form select {
-    display: block;
-    margin: 5px 0 0 0;
-    padding: 5px;
-}
-
-/* style the submit button ; didn't quite work?? */
-.site-form input [type="submit"] {
-    background: slategray;
-    border: 0;
-    color: fff;
-    font-size: 1.2em;
-    border-radius: 4px;
-    margin: 5px 0;
-}
-
-
-/* style the help text in the forms */
-.helptext, .helptext.ul {
-    margin-top: 0 auto;
-    bottom: 20px;
-    color: #bbb;
-    font-size: 0.9em;
-}
-
-/* style the error list in the forms validation */
-.errorlist li {
-    padding: 10px;
-    list-style-type: none;
-    border: 1px solid crimson;
-    color: crimson;
     margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    font-size: 1em;
 }
 
-
-.errorlist {
-    padding: 0px;
+input[type="checkbox"] {
+    margin-right: 10px;
 }
 
+input[type="submit"] {
+    background: #ff6ec4;
+    color: white;
+    font-size: 1.2em;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.3s ease-in-out;
+    box-shadow: 0 0 10px #ff6ec4;
+}
 
-/* responsive styles when width is less than 1400px */
-@media screen and (max-width: 560px) {
-    header h1 {
-        size: 0.8em;
-    }
+input[type="submit"]:hover {
+    background: #7873f5;
+    box-shadow: 0 0 15px #7873f5;
+}
 
+/* Footer */
+footer {
+    margin-top: 50px;
+    text-align: center;
+    padding: 10px;
+    font-size: 0.9em;
+    background: rgba(0, 0, 0, 0.3);
+    border-top: 1px solid #ff6ec4;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Image styling */
+img {
+    max-width: 100%;
+    border-radius: 15px;
+    box-shadow: 0 0 15px #000;
+    transition: transform 0.3s ease;
+}
+
+img:hover {
+    transform: scale(1.03);
+}
+
+/* Responsive layout */
+@media screen and (max-width: 768px) {
     nav li {
         display: block;
-        margin-left: 0px;
-        font-size: 14px;
-        width: 100%;
+        margin: 10px 0;
     }
-    
-    nav button {
-        background: none;
-        color: slategray;
-        font-family: Arial;
-        cursor: pointer; 
-        border: 0;
-        font-size: 20px;
+
+    header {
+        flex-direction: column;
+        text-align: center;
     }
-    /* on mobile, display image as max 95% of available width*/
-    img {
-        max-width: 95%;
+
+    main {
+        margin-top: 120px;
     }
 }

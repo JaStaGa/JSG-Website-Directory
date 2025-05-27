@@ -1,0 +1,21 @@
+{% load static %}
+
+<html>
+    <head>
+        <title>Mini Facebook</title>
+        <link rel="stylesheet" href="{% static 'styles-mini-fb.css' %}">
+    </head>
+
+    <body>
+        <head>
+            <h1>Mini Facebook</h1>
+        </head>
+        <nav>
+            <ul>
+                <li><a href="{% url 'show_all_profiles' %}">Profiles</a></li>
+            </ul>
+        </nav>
+
+        {% block content %}{% endblock %}
+    </body>
+</html>

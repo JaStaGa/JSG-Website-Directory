@@ -1,0 +1,33 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<h1>
+    Showing All Profiles
+</h1>
+
+<!-- {{profiles}} -->
+
+<main class="grid-container">
+
+    {% for profile in profiles %}
+    <article>
+        <div>
+            <a href="{% url 'show_profile' profile.pk %}">
+            <h2> {{profile.first_name}} </h2>
+            <h3> {{profile.last_name}} </h3>
+            </a>
+            <p>
+                {{profile.city}}
+            </p>
+        </div>
+        
+        <img src={{profile.profile_image_url}} alt="">
+
+    </article>
+    <br>
+    <hr>
+
+    {% endfor %}
+</main>
+
+{% endblock %}

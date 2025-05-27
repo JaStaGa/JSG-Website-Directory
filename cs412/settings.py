@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'hw', # NEW
     'quotes',
     'restaurants',
+    'mini_fb',
 ]
 
 MIDDLEWARE = [

@@ -10,5 +10,4 @@ from django.http import HttpResponse
 
 urlpatterns = [
     path('all_profiles/', ShowAllProfilesView.as_view(), name="show_all_profiles"),
-    path('profile/<int:pk>/', ShowProfilePageView.as_view(), name="show_profile"),
-]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    path('profile/<int:pk>/', S

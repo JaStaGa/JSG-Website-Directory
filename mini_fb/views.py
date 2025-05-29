@@ -18,4 +18,4 @@ class ShowAllProfilesView(ListView):
 
 class ShowProfilePageView(DetailView):
     model = Profile
-    template_name="mini_fb/show_profile.html"
+    template_name="mini_fb/sh

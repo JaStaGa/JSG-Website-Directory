@@ -14,4 +14,4 @@ urlpatterns = [
     path('home/', views.home, name='home'),
 ]
 
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+urlpatterns += static(settings.STAT

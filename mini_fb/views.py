@@ -8,11 +8,13 @@ from .models import Profile
 
 import time
 
-# Create your views here.
 class ShowAllProfilesView(ListView):
+    '''Class to view all profiles'''
+
     model = Profile
-    template_name="mini_fb/show_all_profiles.html"
-    context_object_name="profiles"
+    template_name = "mini_fb/show_all_profiles.html"
+    context_object_name = "profiles"
+
 
 class ShowProfilePageView(DetailView):
     model = Profile

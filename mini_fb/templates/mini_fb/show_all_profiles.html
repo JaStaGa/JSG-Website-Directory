@@ -1,16 +1,12 @@
 <!-- mini_fb/show_all_profiles -->
 
 {% extends 'mini_fb/base.html' %}
-
 {% block content %}
 <h1>
     Showing All Profiles
 </h1>
-
 <!-- {{profiles}} -->
-
 <main class="grid-container">
-
     {% for profile in profiles %}
     <article>
         <div>
@@ -24,9 +20,9 @@
         </div>
         
         <img src={{profile.profile_image_url}} alt="">
-
     </article>
     <br>
     <hr>
-
-    
+    {% endfor %}
+</main>
+{% endblock %}

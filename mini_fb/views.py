@@ -17,11 +17,13 @@ class ShowAllProfilesView(ListView):
 
 
 class ShowProfilePageView(DetailView):
+    '''Class to view a single profile'''
     model = Profile
     template_name="mini_fb/show_profile.html"
 
 
 class CreateProfileView(CreateView):
+    '''Class to create a profile'''
     model = Profile
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'

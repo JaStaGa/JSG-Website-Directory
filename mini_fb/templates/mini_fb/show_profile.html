@@ -13,13 +13,4 @@
 <p> {{profile.city}} </p>
 <p> {{profile.email_address}} </p>
 
-<h2>Status Messages</h2>
-<ul>
-    {% for status in profile.get_status_messages %}
-        <li><strong>{{ status.timestamp }}</strong>: {{ status.message }}</li>
-    {% empty %}
-        <li>No status messages.</li>
-    {% endfor %}
-</ul>
-
-{% endblock %}
+<h2>Status Mes

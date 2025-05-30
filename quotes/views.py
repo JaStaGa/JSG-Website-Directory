@@ -30,3 +30,6 @@ def show_all(request):
 
 def about(request):
     return render(request, 'quotes/about.html')
+
+def home(request):
+    return render(request, 'directory/base.html')

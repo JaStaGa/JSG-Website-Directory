@@ -1,9 +1,9 @@
 import random
 from django.shortcuts import render
 from django.http import HttpRequest, HttpResponse
-from django.views.generic import ListView
-from django.views.generic import DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from .models import Profile
+from .forms import CreateProfileForm
 
 
 import time
@@ -19,3 +19,9 @@ class ShowAllProfilesView(ListView):
 class ShowProfilePageView(DetailView):
     model = Profile
     template_name="mini_fb/show_profile.html"
+
+
+class CreateProfileView(CreateView):
+    model = Profile
+    form_class = CreateProfileForm
+    template_name = 'mini_fb/create_profile_form.html'

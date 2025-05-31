@@ -12,6 +12,8 @@
 
 <img src={{profile.profile_image_url}} alt="" width=300>
 
+<a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
+
 <p> {{profile.city}} </p>
 <p> {{profile.email_address}} </p>
 

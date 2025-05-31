@@ -1,0 +1,12 @@
+<!-- mini_fb/create_status_form.html -->
+
+{% extends "mini_fb/base.html" %}
+{% block content %}
+  <h2>Post a Status Message</h2>
+  <form method="post" enctype="multipart/form-data" action="">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post</button>
+  </form>
+  <p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>
+{% endblock %}

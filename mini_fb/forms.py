@@ -1,5 +1,5 @@
 from django import forms
-from .models import Profile
+from .models import Profile, StatusMessage 
 
 class CreateProfileForm(forms.ModelForm):
     '''Class for profile creation form'''
@@ -15,3 +15,10 @@ class CreateProfileForm(forms.ModelForm):
         
         model = Profile
         fields = ['first_name', 'last_name', 'city', 'email_address', 'profile_image_url']
+
+class CreateStatusMessageForm(forms.ModelForm):
+    '''Class for message creation form'''
+
+    class Meta:
+        model = StatusMessage
+        fields = ['message']  

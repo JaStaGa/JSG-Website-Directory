@@ -26,7 +26,8 @@
 
         {% for status in profile.get_status_messages %}
         <status_message>
-            <strong>{{ status.timestamp }}</strong>: {{ status.message }}
+            <strong>{{ status.message }}</strong><br>
+            {{ status.timestamp }}<br>
         </status_message>
         {% empty %}
         <li>No status messages.</li>

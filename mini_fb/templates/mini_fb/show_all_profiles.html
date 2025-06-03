@@ -11,7 +11,11 @@
     <profile>
         <a href="{% url 'show_profile' profile.pk %}">
         <div class="crop">
+            {% if profile.image_file %}
             <img src={{profile.image_file.url}} alt="" style="width: 200px; height: 200px;">
+            {% else %}
+            <h3>No image</h3>
+            {% endif %}
         </div>
         {{profile.first_name}} {{profile.last_name}} 
         </a>

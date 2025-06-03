@@ -6,24 +6,40 @@
 
 {% block content %}
 
-<h1>
-    {{profile.first_name}} {{profile.last_name}}
-</h1>
+<div class="main">
+    <profile class="featured">
+        {% if profile.image_file %}
+        <img src={{profile.image_file.url}} alt="">
+        {% else %}
+        <h3>No image</h3>
+        {% endif %}
+        <div>
+            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
+            <h3>{{profile.city}}</h3>
+            <h3>{{profile.email_address}}</h3>
+            <a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
+        </div>
+    </profile>
 
-<img src={{profile.image_file.url}} alt="" width=300>
+    <div class="status-messages">
+        <h2>{{profile.first_name}}'s Status Messages</h2>
 
-<a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
-
-<p> {{profile.city}} </p>
-<p> {{profile.email_address}} </p>
-
-<h2>Status Messages</h2>
-<ul>
-    {% for status in profile.get_status_messages %}
-        <li><strong>{{ status.timestamp }}</strong>: {{ status.message }}</li>
-    {% empty %}
+        {% for status in profile.get_status_messages %}
+        <status_message>
+            <strong>{{ status.timestamp }}</strong>: {{ status.message }}
+        </status_message>
+        {% empty %}
         <li>No status messages.</li>
-    {% endfor %}
+        {% endfor %}
+
+
+    </div>
+</div>
+
+
+
+<ul>
+
 </ul>
 
 {% endblock %}

@@ -9,16 +9,18 @@
     </head>
 
     <body>
-        <head>
+        <header>
             <h1>Mini Facebook</h1>
-        </head>
-        <nav>
-            <ul>
-                <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
-                <a href="{% url 'create_profile' %}">Create New Profile</a>
+            <nav>
+                <ul>
+                    <li><a href="{% url 'home' %}">Home</a></li>
+                    <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
+                    <a href="{% url 'create_profile' %}">Create New Profile</a>
 
-            </ul>
-        </nav>
+                </ul>
+            </nav>
+        </header>
+
 
         {% block content %}
         {% endblock %}

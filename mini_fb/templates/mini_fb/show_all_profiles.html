@@ -8,21 +8,17 @@
 <!-- {{profiles}} -->
 <main class="grid-container">
     {% for profile in profiles %}
-    <article>
-        <div>
-            <a href="{% url 'show_profile' profile.pk %}">
-            <h2> {{profile.first_name}} </h2>
-            <h3> {{profile.last_name}} </h3>
-            </a>
-            <p>
-                {{profile.city}}
-            </p>
+    <profile>
+        <a href="{% url 'show_profile' profile.pk %}">
+        <div class="crop">
+            <img src={{profile.image_file.url}} alt="" style="width: 200px; height: 200px;">
         </div>
-        
-        <img src={{profile.profile_image_url}} alt="">
-    </article>
-    <br>
-    <hr>
+        {{profile.first_name}} {{profile.last_name}} 
+        </a>
+        <p>
+            {{profile.city}}
+        </p>
+    </profile>
     {% endfor %}
 </main>
 {% endblock %}

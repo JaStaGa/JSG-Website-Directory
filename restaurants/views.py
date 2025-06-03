@@ -57,3 +57,6 @@ def confirmation(request):
         }
 
         return render(request, 'restaurants/confirmation.html', context)
+
+def home(request):
+    return render(request, 'directory/base.html')

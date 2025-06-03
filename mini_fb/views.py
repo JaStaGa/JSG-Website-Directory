@@ -52,3 +52,7 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         ''' Redirect user url after creation '''
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
+
+def home(request):
+    return render(request, 'directory/base.html')

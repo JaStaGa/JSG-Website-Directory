@@ -10,7 +10,7 @@
     {{profile.first_name}} {{profile.last_name}}
 </h1>
 
-<img src={{profile.profile_image_url}} alt="" width=300>
+<img src={{profile.image_file.url}} alt="" width=300>
 
 <a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
 

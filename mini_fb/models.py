@@ -9,7 +9,7 @@ class Profile(models.Model):
     last_name = models.CharField(max_length=50)
     city = models.CharField(max_length=100)
     email_address = models.EmailField(max_length=254, unique=True)
-    profile_image_url = models.URLField(max_length=200, unique=True)
+    image_file = models.ImageField(blank=True)
 
     def __str__(self):
         '''Returns string (full name) for profile'''
@@ -36,3 +36,14 @@ class StatusMessage(models.Model):
         '''Returns string for status message (name, time, preview)'''
         return f'{self.profile.first_name} {self.profile.last_name} @ {self.timestamp}: {self.message[:30]}'
 
+
+class Image(models.Model):
+    '''Model for uploaded images'''
+
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    image_file = models.ImageField(blank=True)
+    timestamp = models.DateTimeField(auto_now_add=True)
+    caption = models.TextField()
+
+
+    

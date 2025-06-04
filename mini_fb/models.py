@@ -31,21 +31,35 @@ class StatusMessage(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     message = models.TextField()
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
-    image_file = models.ImageField(blank=True)
-
 
     def __str__(self):
         '''Returns string for status message (name, time, preview)'''
         return f'{self.profile.first_name} {self.profile.last_name} @ {self.timestamp}: {self.message[:30]}'
+    
+    def get_images(self):
+        '''Returns images related to this StatusMessage via StatusImage'''
+        return Image.objects.filter(statusimage__status_message=self)
 
 
 class Image(models.Model):
     '''Model for uploaded images'''
 
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     image_file = models.ImageField(blank=True)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     timestamp = models.DateTimeField(auto_now_add=True)
     caption = models.TextField()
+
+
+class StatusImage(models.Model):
+    '''Model for uploaded images'''
+
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    status_message = models.ForeignKey(StatusMessage, on_delete=models.CASCADE, null=True)
+
+    def __str__(self):
+        return f"Image {self.image.id} linked to StatusMessage {self.status_message.id}"
+    
+
 
 
     

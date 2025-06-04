@@ -1,9 +1,9 @@
 import random
-from django.shortcuts import render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile, StatusMessage
+from .models import Profile, StatusMessage, Image, StatusImage
 from .forms import CreateProfileForm, CreateStatusMessageForm
 
 
@@ -44,10 +44,18 @@ class CreateStatusMessageView(CreateView):
         return context
 
     def form_valid(self, form):
-        ''' Links status message to correct profile '''
+        '''Links status message to profile and handles optional image upload'''
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         form.instance.profile = profile
-        return super().form_valid(form)
+        response = super().form_valid(form)  # Save status message first
+        
+        # Handle uploaded image if present
+        image_file = self.request.FILES.get('image_file')
+        if image_file:
+            img = Image.objects.create(profile=profile, image_file=image_file, caption='')
+            StatusImage.objects.create(image=img, status_message=form.instance)
+        
+        return response
 
     def get_success_url(self):
         ''' Redirect user url after creation '''

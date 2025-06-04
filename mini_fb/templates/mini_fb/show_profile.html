@@ -7,27 +7,42 @@
 {% block content %}
 
 <div class="main">
+
     <profile class="featured">
+
         {% if profile.image_file %}
         <img src={{profile.image_file.url}} alt="">
+
         {% else %}
         <h3>No image</h3>
+
         {% endif %}
+
         <div>
             <h1>{{profile.first_name}} {{profile.last_name}}</h1>
             <h3>{{profile.city}}</h3>
             <h3>{{profile.email_address}}</h3>
             <a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
         </div>
+
     </profile>
 
     <div class="status-messages">
+
         <h2>{{profile.first_name}}'s Status Messages</h2>
 
         {% for status in profile.get_status_messages %}
+        
         <status_message>
             <strong>{{ status.message }}</strong><br>
             {{ status.timestamp }}<br>
+            
+            {% for img in status.get_images %}
+                <img src="{{ img.image_file.url }}" alt="{{ img.caption }}" style="max-width: 200px; max-height: 200px;"><br>
+                {% if img.caption %}
+                    <em>{{ img.caption }}</em><br>
+                {% endif %}
+            {% endfor %}
         </status_message>
         {% empty %}
         <li>No status messages.</li>

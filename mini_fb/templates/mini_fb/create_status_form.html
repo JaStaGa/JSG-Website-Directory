@@ -5,7 +5,9 @@
   <h2>Post a Status Message</h2>
   <form method="post" enctype="multipart/form-data" action="">
     {% csrf_token %}
-    {{ form.as_p }}
+    <table>
+      {{ form.as_table }}
+    </table>
     <button type="submit">Post</button>
   </form>
   <p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>

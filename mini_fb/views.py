@@ -62,18 +62,25 @@ class CreateStatusMessageView(CreateView):
         return context
 
     def form_valid(self, form):
-        '''Links status message to profile and handles optional image upload'''
+        '''Links status message to profile and handles multiple image uploads'''
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         form.instance.profile = profile
-        response = super().form_valid(form)  # Save status message first
         
-        # Handle uploaded image if present
-        image_file = self.request.FILES.get('image_file')
-        if image_file:
-            img = Image.objects.create(profile=profile, image_file=image_file, caption='')
-            StatusImage.objects.create(image=img, status_message=form.instance)
-        
-        return response
+        # Save the status message
+        sm = form.save()
+
+        # Get uploaded files
+        files = self.request.FILES.getlist('files')
+        print("FILES:", files)
+
+        for f in files:
+            print("Processing file:", f)
+            # Create the Image object
+            img = Image.objects.create(profile=profile, image_file=f, caption="")  # You can enhance with a real caption
+            # Create the StatusImage link
+            StatusImage.objects.create(image=img, status_message=sm)
+
+        return redirect(self.get_success_url())
 
     def get_success_url(self):
         ''' Redirect user url after creation '''

@@ -8,6 +8,10 @@
     <table>
       {{ form.as_table }}
     </table>
+
+    <label for="files"><b>Upload image(s):</b></label>
+    <input type="file" name="files" multiple />
+
     <button type="submit">Post</button>
   </form>
   <p><a href="{% url 'show_profile' profile.pk %}">Back to Profile</a></p>

@@ -18,7 +18,6 @@ class CreateProfileForm(forms.ModelForm):
 
 class CreateStatusMessageForm(forms.ModelForm):
     '''Class for message creation form'''
-    image_file = forms.ImageField(required=False)
 
     class Meta:
         model = StatusMessage

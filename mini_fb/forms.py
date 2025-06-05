@@ -8,7 +8,7 @@ class CreateProfileForm(forms.ModelForm):
     last_name = forms.CharField(label="Last Name", required=True)
     city = forms.CharField(label="City", required=True)
     email_address = forms.EmailField(label="Email Address", required=True)
-    image_file = forms.ImageField
+    image_file = forms.ImageField(required=False)
 
     class Meta:
         '''MetaData for CreateProfileForm'''

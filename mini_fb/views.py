@@ -24,10 +24,28 @@ class ShowProfilePageView(DetailView):
 
 
 class CreateProfileView(CreateView):
-    '''Class to create a profile'''
     model = Profile
     form_class = CreateProfileForm
     template_name = 'mini_fb/create_profile_form.html'
+
+    def form_valid(self, form):
+        # Save the profile 
+        response = super().form_valid(form)
+
+        # Debug log — check what’s in request.FILES
+        print("FILES:", self.request.FILES)
+
+        # Handle image upload 
+        image_file = self.request.FILES.get('image_file')
+        if image_file:
+            # Create Image object linked to new profile
+            Image.objects.create(profile=self.object, image_file=image_file, caption='')
+
+        return response
+    
+    def get_success_url(self):
+        # Redirect to profile detail page after creation
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 
 class CreateStatusMessageView(CreateView):

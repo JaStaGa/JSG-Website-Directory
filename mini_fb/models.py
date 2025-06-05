@@ -44,10 +44,10 @@ class StatusMessage(models.Model):
 class Image(models.Model):
     '''Model for uploaded images'''
 
-    image_file = models.ImageField(blank=True)
-    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    image_file = models.ImageField(upload_to='profile_images/')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='images')
     timestamp = models.DateTimeField(auto_now_add=True)
-    caption = models.TextField()
+    caption = models.CharField(max_length=255, blank=True)
 
 
 class StatusImage(models.Model):

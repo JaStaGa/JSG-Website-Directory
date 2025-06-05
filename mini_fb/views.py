@@ -2,9 +2,10 @@ import random
 from django.shortcuts import redirect, render, get_object_or_404
 from django.http import HttpRequest, HttpResponse
 from django.urls import reverse, reverse_lazy
+from django.views import View
 from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView, UpdateView
-from .models import Profile, StatusMessage, Image, StatusImage
+from .models import Profile, StatusMessage, Image, StatusImage, Friend
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 
 
@@ -120,3 +121,24 @@ class UpdateStatusMessageView(UpdateView):
     def get_success_url(self):
         profile = self.object.profile
         return reverse_lazy('show_profile', kwargs={'pk': profile.pk})
+
+class AddFriendView(View):
+
+    def dispatch(self, request, *args, **kwargs):
+        profile = get_object_or_404(Profile, pk=kwargs['pk'])
+        other_profile = get_object_or_404(Profile, pk=kwargs['other_pk'])
+
+        profile.add_friend(other_profile)
+
+        return redirect('show_profile', pk=profile.pk)
+    
+class ShowFriendSuggestionsView(DetailView):
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['friend_suggestions'] = profile.get_friend_suggestions()
+        return context

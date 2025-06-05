@@ -30,6 +30,26 @@ class Profile(models.Model):
         received = Friend.objects.filter(profile2=self)
         return [f.profile2 for f in sent] + [f.profile1 for f in received]
     
+    def add_friend(self, other):
+        '''Adds other as friend of self'''
+        # print("ATTEMPTING TO ADD FRIEND")
+        if self == other:
+            # print("CAN NOT FRIEND YOURSELF")
+            return
+        
+        # Check if a Friend object already exists in either direction
+        if Friend.objects.filter(profile1=self, profile2=other).exists() or Friend.objects.filter(profile1=other, profile2=self).exists():
+            # print("NO NEW FRIENDSHIP - ALREADY FRIENDS")
+            return  # already friends    
+        
+        Friend.objects.create(profile1=self, profile2=other)
+
+    def get_friend_suggestions(self):
+        """Return list of Profiles that are not already friends and not self."""
+        all_profiles = set(Profile.objects.exclude(pk=self.pk))
+        current_friends = set(self.get_friends())
+        return list(all_profiles - current_friends)
+    
 
 class StatusMessage(models.Model):
     '''Model for status messages of a profile'''

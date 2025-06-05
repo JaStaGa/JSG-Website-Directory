@@ -24,6 +24,12 @@ class Profile(models.Model):
         '''Returns url to view a profile'''
         return reverse('show_profile', kwargs={'pk': self.pk})
     
+    def get_friends(self):
+        '''Returns list of friend's profiles'''
+        sent = Friend.objects.filter(profile1=self)
+        received = Friend.objects.filter(profile2=self)
+        return [f.profile2 for f in sent] + [f.profile1 for f in received]
+    
 
 class StatusMessage(models.Model):
     '''Model for status messages of a profile'''
@@ -60,6 +66,13 @@ class StatusImage(models.Model):
         return f"Image {self.image.id} linked to StatusMessage {self.status_message.id}"
     
 
+class Friend(models.Model):
+    '''Model for friend connections'''
 
+    profile1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='friends_sent')
+    profile2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='friends_received')
+    timestamp = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return f"{self.profile1.first_name} {self.profile1.last_name} & {self.profile2.first_name} {self.profile2.last_name}"
     

@@ -56,6 +56,18 @@
 
 
     </div>
+
+    <div class="friends">
+        <h2>{{ profile.first_name }}'s Friends</h2>
+        <ul>
+            {% for friend in profile.get_friends %}
+            <li>{{ friend.first_name }} {{ friend.last_name }}</li>
+            {% empty %}
+            <li>No friends yet.</li>
+            {% endfor %}
+        </ul>
+    </div>
+
 </div>
 
 

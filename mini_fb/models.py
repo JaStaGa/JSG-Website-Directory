@@ -50,6 +50,12 @@ class Profile(models.Model):
         current_friends = set(self.get_friends())
         return list(all_profiles - current_friends)
     
+    def get_news_feed(self):
+        '''Returns list of all StatusMessages from this profile and friends'''
+        friends = self.get_friends()
+        all_profiles = friends + [self]  # Include the user's own posts
+        return StatusMessage.objects.filter(profile__in=all_profiles).order_by('-timestamp')
+    
 
 class StatusMessage(models.Model):
     '''Model for status messages of a profile'''

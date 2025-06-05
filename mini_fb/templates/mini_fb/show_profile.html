@@ -8,7 +8,13 @@
 
 <div class="main">
 
+    <a href="{% url 'show_news_feed' profile.pk %}">
+        <h2>View News Feed</h2>
+    </a>
+
+
     <profile class="featured">
+        
 
         {% if profile.image_file %}
         <img src={{profile.image_file.url}} alt="">

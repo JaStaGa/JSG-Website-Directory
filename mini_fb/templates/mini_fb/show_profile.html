@@ -28,52 +28,35 @@
 
     </profile>
 
-    <div class="status-messages">
+    
 
-        <h2>{{profile.first_name}}'s Status Messages</h2>
-
-        {% for status in profile.get_status_messages %}
-        
-        <status_message>
-            <strong>{{ status.message }}</strong><br>
-            {{ status.timestamp }}<br>
-            
-            {% for img in status.get_images %}
-                <img src="{{ img.image_file.url }}" alt="{{ img.caption }}" style="max-width: 200px; max-height: 200px;"><br>
-                {% if img.caption %}
-                    <em>{{ img.caption }}</em><br>
-                {% endif %}
-            {% endfor %}
-
-
-            <a href="{% url 'delete_status' status.pk %}">Delete</a>
-            <a href="{% url 'update_status' status.pk %}">Update</a>
-            
-        </status_message>
-        {% empty %}
-        <li>No status messages.</li>
-        {% endfor %}
-
-
-    </div>
-
-    <div class="friends">
+    <div class="grid_container">
         <h2>{{ profile.first_name }}'s Friends</h2>
-        <ul>
+        
+        <profile>
+            <!-- Loop thru profile's friends -->
             {% for friend in profile.get_friends %}
-            <li>{{ friend.first_name }} {{ friend.last_name }}</li>
+
+            <!-- Show image -->
+            <a href="{% url 'show_profile' friend.pk %}">
+            <div class="crop">
+                {% if friend.image_file %}
+                <img src={{friend.image_file.url}} alt="" style="width: 200px; height: 200px;">
+                {% else %}
+                <h3>No image</h3>
+                {% endif %}
+            </div>            
+            
+            <h4>{{ friend.first_name }} {{ friend.last_name }}</h4>
+            </a>
+
             {% empty %}
             <li>No friends yet.</li>
             {% endfor %}
-        </ul>
+        </profile>
     </div>
 
 </div>
 
-
-
-<ul>
-
-</ul>
 
 {% endblock %}

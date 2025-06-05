@@ -22,3 +22,11 @@ class CreateStatusMessageForm(forms.ModelForm):
     class Meta:
         model = StatusMessage
         fields = ['message']  
+
+
+class UpdateProfileForm(forms.ModelForm):
+    '''Form for updating a Profile (without changing first or last name)'''
+
+    class Meta:
+        model = Profile
+        fields = ['city', 'email_address', 'image_file']

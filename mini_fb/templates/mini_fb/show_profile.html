@@ -23,6 +23,7 @@
             <h3>{{profile.city}}</h3>
             <h3>{{profile.email_address}}</h3>
             <a href="{% url 'create_status' profile.pk %}">Post a New Status</a>
+            <a href="{% url 'update_profile' pk=profile.pk %}">Update Profile</button></a>        
         </div>
 
     </profile>
@@ -43,6 +44,11 @@
                     <em>{{ img.caption }}</em><br>
                 {% endif %}
             {% endfor %}
+
+
+            <a href="{% url 'delete_status' status.pk %}">Delete</a>
+            <a href="{% url 'update_status' status.pk %}">Update</a>
+            
         </status_message>
         {% empty %}
         <li>No status messages.</li>

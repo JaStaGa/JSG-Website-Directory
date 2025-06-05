@@ -1,335 +1,196 @@
-/* This CSS was derived from NetNinja's multi-column grid example. */
-
 body {
     margin: 100px;
-    background: #5151f2;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    
+    background: linear-gradient(to right, #0f0c29, #302b63, #24243e);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e0e0e0;
 }
 
-a:link,  a:visited {
+a:link, a:visited {
     color: #ffffff;
+    background-color: #00d4ff;
     text-decoration: none;
-    background-color: #150484;
     display: inline-block;
-    border: 4px;
-    padding: 4px;
-    margin : 1px;
-    border-radius: 8px;
+    border: none;
+    padding: 6px 12px;
+    margin: 2px;
+    border-radius: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+a:hover {
+    background-color: #08a4c9;
 }
 
 ul, li {
-    padding: 0px;
+    padding: 0;
     list-style-type: none;
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: #150484;
-}
-strong {
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: #150484;
-    background-color: #ffffff;
+h1, h2, h3, h4, h5, h6, strong {
+    color: #ffffff;
+    text-shadow: 0 0 6px #00f0ff;
 }
 
 p {
-    color: #150484;
+    color: #c2c2ff;
 }
 
 header {
-    background-color: #fff;
-    /* max-width: 900px; */
-    border:#fff 4px;
-    border-radius: 4px;
-    gap: 25px;
-    margin: 20px auto;
-    align-self: center;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 30px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 0 10px #00d4ff;
     position: sticky;
     top: 0;
     z-index: 999;
-    
-    
 }
 
-footer { 
-    
+footer {
     text-align: center;
-    border-top: 1px solid #fff;
+    border-top: 1px solid #00d4ff;
+    margin-top: 30px;
+    padding: 10px;
+    color: #aaa;
 }
 
 aside {
     padding: 30px;
-    border-left: 1px solid #fff;
+    border-left: 2px solid #00d4ff;
 }
 
 main {
-    margin-top: 100px;
     margin: 20px auto;
-    
 }
 
+.grid-container, .status-messages, .news-feed {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 10px #00d4ff88;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 30px;
+    display: grid;
+    gap: 25px;
+}
 
 .grid-container {
-    background: #fff;
-    gap: 25px;
-    margin: 20px auto;
-    display: grid;
     grid-template-columns: repeat(5, 1fr);
-    border:#fff 10px;
-    border-radius: 10px;
-    padding: 10px;
-}
-
-/* formatting for group of all status messages */
-.status-messages {
-    background: #fff;
-    gap: 25px;
-    border-top: 10px;
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 1fr;  
-    border:#fff 4px;
-    border-radius: 4px; 
-}
-
-.news-feed {
-    background: #fff;
-    gap: 25px;
-    border-top: 10px;
-    margin: 20px auto;
-    display: grid;
-    grid-template-columns: 1fr;   
-    border:#fff 4px;
-    border-radius: 4px;
 }
 
 nav {
-    border-top: 1px solid #150484;
-    align-items: top;
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin-top: 20px;
+    padding-top: 10px;
+    border-top: 1px solid #00d4ff;
 }
 
 nav li {
     display: inline;
+    margin-right: 10px;
 }
-
-
 
 profile.featured {
     grid-column: span 4;
-    display: grid; /* nested grid */
+    display: grid;
     gap: 60px;
     grid-template-columns: 2fr 1fr;
     align-items: center;
-    border-bottom: 1px #bbc7c7;
+    border-bottom: 1px solid #444;
     padding-bottom: 40px;
-    margin: 20px auto;
 }
 
 profile img, profile.featured img {
     width: 100%;
     max-width: 300px;
-    border: 4px solid #fff;
-    border-radius: 8px;
+    border: 4px solid #00d4ff;
+    border-radius: 12px;
 }
 
-
-/* formatting for individual status messages */
-status_message {
-    background-color: #d8d3f2;
-    color:#150484; 
-    width: 95%;
-    text-align: justify;
-    vertical-align: top;
-    padding: 10px;
+status_message, newsfeed_item {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    padding: 15px;
     margin: 10px;
-    border-radius: 10px;
-
-}
-status_message strong {
-    background-color: #d8d3f2;
-    color:#150484; 
+    border-radius: 12px;
+    box-shadow: 0 0 8px #00d4ff66;
 }
 
-status_message img {
-    max-width: 50%;
-    overflow: hidden;
-    border: 0px solid #fff;
-    background-color: #fff;
-    border-radius: 8px;
-    border: 10;
+status_message img, .newsfeed_large_image img {
     max-width: 200px;
-}
-
-/* formatting for newsfeed_items */
-newsfeed_item {
-    color:#150484; 
-    background-color: #d8d3f2;
-    border-bottom: #150484 solid 1px;
-    width: 80%;
-    text-align: justify;
-    vertical-align: top;
-    padding: 10px;
-    margin: 10px;
+    border: 3px solid #00d4ff;
     border-radius: 10px;
+    margin-top: 10px;
 }
 
 .newsfeed_profile_img img {
-    width: 60px; 
+    width: 60px;
     height: 60px;
-    overflow: hidden;
-    border: 4px solid #fff;
-    /* background-color: #fff; */
-    border-radius: 30px;
-    border: 10;
-    display: inline-block;
-    vertical-align: top;
-    box-sizing: border-box;
-    /* margin: 0px 0 0 25px; */
-    
+    border-radius: 50%;
+    border: 3px solid #00d4ff;
 }
 
-.newsfeed_large_image img {
-    max-width: 50%;
-    /* max-height:; */
-    border: 4px solid #fff;
-}
-
-/* This code will help crop an image to display a small size on the all profiles page */
 .crop {
     width: 150px;
     height: 150px;
     overflow: hidden;
-    border: 4px solid #fff;
-    background-color: #fff;
+    border: 3px solid #00d4ff;
     border-radius: 8px;
 }
 
 .crop img {
-    width: 200px; 
-    margin: 0px 0 0 -50px;
-    border: 0;
+    width: 200px;
+    margin-left: -50px;
 }
 
-/* formatting form inputs */
 input {
-    padding:5px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    padding: 8px;
+    border: 2px solid #00d4ff;
+    border-radius: 6px;
+    background-color: #1e1e2f;
+    color: #ffffff;
 }
 
 input[type=file] {
-    padding:5px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+    color: #ffffff;
 }
-
-input[type=text]:focus {
-    border-color:#333;
-}
-
-/* 
-input[type=url] {
-    padding:5px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-}
-
-
-input[type=password] {
-    padding:5px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-}
-
-input[type=email] {
-    padding:5px; 
-    border:2px solid #ccc; 
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-}
-
-input[type=text]:focus {
-    border-color:#333;
-} */
 
 input[type=submit] {
-
-    color: #ffffff;
-    text-decoration: none;
-    background-color: #150484;
-    display: inline-block;
-    border: 4px;
-    padding: 4px;
-    border-radius: 8px;
+    background-color: #00d4ff;
+    color: #0f0c29;
+    font-weight: bold;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+input[type=submit]:hover {
+    background-color: #08a4c9;
 }
 
-
-/* responsive styles: adapt to smaller screen sizes */
+/* Responsive grid behavior */
 @media screen and (max-width: 950px) {
-
     .grid-container {
-        background: #ddd;
-        display: grid;
         grid-template-columns: repeat(4, 1fr);
-        gap: 25px;
-        margin: 20px auto;
     }
-
 }
-
 @media screen and (max-width: 800px) {
-
     .grid-container {
-        background: #ddd;
-        display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 25px;
-        margin: 20px auto;
     }
-
 }
-
 @media screen and (max-width: 600px) {
-
     .grid-container {
-        background: #ddd;
-        display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 25px;
-        margin: 20px auto;
     }
-
 }
-
-
 @media screen and (max-width: 400px) {
-
     .grid-container {
-        background: #ddd;
-        display: grid;
-        grid-template-columns: repeat(1, 1fr);
-        gap: 25px;
-        margin: 20px auto;
+        grid-template-columns: 1fr;
     }
     profile, profile.featured {
-        
-        display: block; 
-        margin: 0px 20px;
+        display: block;
+        margin: 0 20px;
     }
-}
-
-@media screen and (max-width: 500px) {
-
-    profile, profile.featured {
-        
-        display: block; 
-        margin: 0px 20px;
-    }
-
 }

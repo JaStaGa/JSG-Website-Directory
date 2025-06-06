@@ -7,6 +7,10 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView, UpdateView
 from .models import Profile, StatusMessage, Image, StatusImage, Friend
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
+from django.contrib.auth.mixins import LoginRequiredMixin 
+from django.contrib.auth.forms import UserCreationForm 
+from django.contrib.auth.models import User
+from django.contrib.auth import login 
 import time
 
 class ShowAllProfilesView(ListView):
@@ -16,6 +20,17 @@ class ShowAllProfilesView(ListView):
     template_name = "mini_fb/show_all_profiles.html"
     context_object_name = "profiles"
 
+    def dispatch(self, request, *args, **kwargs):
+        '''Override the dispatch method to add debugging information.'''
+
+        if request.user.is_authenticated:
+            print(f'ShowAllProfilesView.dispatch(): request.user={request.user}')
+        else:
+            print(f'ShowAllProfilesView.dispatch(): not logged in.')
+
+        return super().dispatch(request, *args, **kwargs)
+
+
 
 class ShowProfilePageView(DetailView):
     '''Class to view a single profile'''
@@ -23,32 +38,35 @@ class ShowProfilePageView(DetailView):
     template_name="mini_fb/show_profile.html"
 
 
-class CreateProfileView(CreateView):
-    model = Profile
+# 6-1-4
+class CreateProfileView(LoginRequiredMixin, CreateView):
+    '''View to create a new Profile instance.'''
+
     form_class = CreateProfileForm
-    template_name = 'mini_fb/create_profile_form.html'
+    template_name = "mini_fb/create_profile_form.html"
 
-    def form_valid(self, form):
-        # Save the profile 
-        response = super().form_valid(form)
-
-        # Debug log — check what’s in request.FILES
-        print("FILES:", self.request.FILES)
-
-        # Handle image upload 
-        image_file = self.request.FILES.get('image_file')
-        if image_file:
-            # Create Image object linked to new profile
-            Image.objects.create(profile=self.object, image_file=image_file, caption='')
-
-        return response
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     
-    def get_success_url(self):
-        # Redirect to profile detail page after creation
-        return reverse('show_profile', kwargs={'pk': self.object.pk})
+    def form_valid(self, form):
+        '''
+        Handle the form submission to create a new Profile object.
+        '''
+        print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
+
+        # find the logged in user
+        user = self.request.user
+        print(f"CreateProfileView user={user} profile.user={user}")
+
+        # attach user to form instance (Profile object):
+        form.instance.user = user
+
+        return super().form_valid(form)
+    
 
 
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' Creation of new status message 4 profiles '''
     model = StatusMessage
     form_class = CreateStatusMessageForm
@@ -90,7 +108,7 @@ class CreateStatusMessageView(CreateView):
 def home(request):
     return render(request, 'directory/base.html')
 
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''For updating profile'''
     model = Profile
     form_class = UpdateProfileForm
@@ -100,7 +118,7 @@ class UpdateProfileView(UpdateView):
         return reverse_lazy('show_profile', kwargs={'pk': self.object.pk})
 
 
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
     context_object_name = 'status'
@@ -110,7 +128,7 @@ class DeleteStatusMessageView(DeleteView):
         return reverse_lazy('show_profile', kwargs={'pk': profile.pk})
     
 
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     model = StatusMessage
     fields = ['message']
     template_name = 'mini_fb/update_status_form.html'
@@ -120,7 +138,7 @@ class UpdateStatusMessageView(UpdateView):
         profile = self.object.profile
         return reverse_lazy('show_profile', kwargs={'pk': profile.pk})
 
-class AddFriendView(View):
+class AddFriendView(LoginRequiredMixin, View):
 
     def dispatch(self, request, *args, **kwargs):
         # Raise exception if object doesnt exist
@@ -152,3 +170,27 @@ class ShowNewsFeedView(DetailView):
         profile = self.get_object()
         context['news_feed'] = profile.get_news_feed()
         return context
+
+
+
+
+class RegistrationView(CreateView):
+    '''
+    show/process form for account registration
+    '''
+
+    template_name = 'mini_fb/register.html'
+    form_class = UserCreationForm
+    model = User
+
+
+class UserRegistrationView(CreateView):
+    '''A view to show/process the registration form to create a new User.'''
+
+    template_name = 'mini_fb/register.html'
+    form_class = UserCreationForm
+    model = User
+    
+    def get_success_url(self):
+        '''The URL to redirect to after creating a new User.'''
+        return reverse('login')

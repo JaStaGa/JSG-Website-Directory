@@ -1,5 +1,7 @@
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
+
 
 
 class Profile(models.Model):
@@ -10,6 +12,8 @@ class Profile(models.Model):
     city = models.CharField(max_length=100)
     email_address = models.EmailField(max_length=254, unique=True)
     image_file = models.ImageField(blank=True)
+    # 6-1-1
+    user = models.ForeignKey(User, on_delete=models.CASCADE) 
 
     def __str__(self):
         '''Returns string (full name) for profile'''

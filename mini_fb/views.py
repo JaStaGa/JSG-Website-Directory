@@ -7,8 +7,6 @@ from django.views.generic import ListView, DetailView, CreateView
 from django.views.generic.edit import UpdateView, DeleteView, UpdateView
 from .models import Profile, StatusMessage, Image, StatusImage, Friend
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
-
-
 import time
 
 class ShowAllProfilesView(ListView):
@@ -125,6 +123,7 @@ class UpdateStatusMessageView(UpdateView):
 class AddFriendView(View):
 
     def dispatch(self, request, *args, **kwargs):
+        # Raise exception if object doesnt exist
         profile = get_object_or_404(Profile, pk=kwargs['pk'])
         other_profile = get_object_or_404(Profile, pk=kwargs['other_pk'])
 

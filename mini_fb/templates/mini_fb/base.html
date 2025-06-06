@@ -15,9 +15,24 @@
                 <ul>
                     <li><a href="{% url 'home' %}">Home</a></li>
                     <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
-                    <a href="{% url 'create_profile' %}">Create New Profile</a>
+                    <li><a href="{% url 'create_profile' %}">Create New Profile</a></li>
+                    {% if request.user.is_authenticated %}
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li>
+                    {% endif %}
 
                 </ul>
+                <hr>
+                {% if request.user.is_authenticated %}
+                Logged in as: {{ request.user }}
+                <form action="{% url 'logout' %}" method="POST" style="display: inline;">
+                    {% csrf_token %}
+                    <input type="submit" value="Logout"></input> 
+                </form>
+                {% else %}
+                Not logged in.
+                {% endif %}
+
             </nav>
         </header>
 

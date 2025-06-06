@@ -2,11 +2,10 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
-from .views import CreateStatusMessageView, ShowAllProfilesView, ShowProfilePageView, CreateProfileView, UpdateProfileView, DeleteStatusMessageView, UpdateStatusMessageView, AddFriendView, ShowFriendSuggestionsView, ShowNewsFeedView
+from .views import *
 from django.http import HttpResponse
 from mini_fb import views
-
-
+from django.contrib.auth import views as auth_views
 
 
 urlpatterns = [
@@ -20,5 +19,7 @@ urlpatterns = [
     path('profile/<int:pk>/add_friend/<int:other_pk>/', AddFriendView.as_view(), name='add_friend'),
     path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
     path('profile/<int:pk>/news_feed', ShowNewsFeedView.as_view(), name='show_news_feed'),
+    path('login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(next_page='show_all_profiles'), name='logout'),
     path('home', views.home, name='home'),
 ]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

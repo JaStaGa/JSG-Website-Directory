@@ -1,13 +1,14 @@
 <!-- mini_fb/login.html -->
 
+<!-- 7-2-2 -->
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
 
 <h1> Login to Mini Facebook</h1>
-<form action="{% url 'login' %}" method="POST">
+<form method="post" action="{% url 'login' %}">
     {% csrf_token %}
-    {{form}}
+    {{form.as_table}}
     <input type="submit" value="Login">
 
     {% if request.GET.next %}

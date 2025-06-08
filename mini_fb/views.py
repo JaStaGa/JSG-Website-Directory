@@ -38,7 +38,7 @@ class ShowProfilePageView(DetailView):
     template_name="mini_fb/show_profile.html"
 
 
-# 6-1-4
+# 7-1-4
 class CreateProfileView(LoginRequiredMixin, CreateView):
     '''View to create a new Profile instance.'''
 
@@ -65,7 +65,7 @@ class CreateProfileView(LoginRequiredMixin, CreateView):
         return super().form_valid(form)
     
 
-
+# 7-1-4
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' Creation of new status message 4 profiles '''
     model = StatusMessage
@@ -75,13 +75,13 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     def get_context_data(self, **kwargs):
         ''' Adds profile to context, using pk '''
         context = super().get_context_data(**kwargs)
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         context['profile'] = profile
         return context
 
     def form_valid(self, form):
         '''Links status message to profile and handles multiple image uploads'''
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         form.instance.profile = profile
         
         # Save the status message
@@ -102,12 +102,12 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
     def get_success_url(self):
         ''' Redirect user url after creation '''
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
-    
+        profile = Profile.objects.get(user=self.request.user)
+        return reverse('show_profile', kwargs={'pk': profile.pk})       
 
 def home(request):
     return render(request, 'directory/base.html')
-
+# 7-1-4
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''For updating profile'''
     model = Profile
@@ -116,8 +116,11 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('show_profile', kwargs={'pk': self.object.pk})
+    
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.request.user)
 
-
+# 7-1-4
 class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     model = StatusMessage
     template_name = 'mini_fb/delete_status_form.html'
@@ -127,7 +130,7 @@ class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
         profile = self.object.profile
         return reverse_lazy('show_profile', kwargs={'pk': profile.pk})
     
-
+# 7-1-4
 class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     model = StatusMessage
     fields = ['message']
@@ -137,16 +140,16 @@ class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         profile = self.object.profile
         return reverse_lazy('show_profile', kwargs={'pk': profile.pk})
-
+    
+# 7-1-4
 class AddFriendView(LoginRequiredMixin, View):
 
     def dispatch(self, request, *args, **kwargs):
+        profile = Profile.objects.get(user=request.user)
         # Raise exception if object doesnt exist
-        profile = get_object_or_404(Profile, pk=kwargs['pk'])
         other_profile = get_object_or_404(Profile, pk=kwargs['other_pk'])
 
         profile.add_friend(other_profile)
-
         return redirect('show_profile', pk=profile.pk)
     
 class ShowFriendSuggestionsView(DetailView):
@@ -160,7 +163,10 @@ class ShowFriendSuggestionsView(DetailView):
         context['friend_suggestions'] = profile.get_friend_suggestions()
         return context
     
-class ShowNewsFeedView(DetailView):
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.request.user)
+    
+class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
     context_object_name = 'profile'
@@ -170,6 +176,10 @@ class ShowNewsFeedView(DetailView):
         profile = self.get_object()
         context['news_feed'] = profile.get_news_feed()
         return context
+    
+    def get_object(self, queryset=None):
+        return Profile.objects.get(user=self.request.user)
+
 
 
 

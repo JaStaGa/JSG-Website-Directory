@@ -12,8 +12,8 @@ class Profile(models.Model):
     city = models.CharField(max_length=100)
     email_address = models.EmailField(max_length=254, unique=True)
     image_file = models.ImageField(blank=True)
-    # 6-1-1
-    user = models.ForeignKey(User, on_delete=models.CASCADE) 
+    # 7-1-1 (ONE TO ONE WORKS BETTER)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 
     def __str__(self):
         '''Returns string (full name) for profile'''

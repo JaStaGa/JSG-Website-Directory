@@ -9,7 +9,7 @@
     <profile>
         {% for suggestion in friend_suggestions %}
         &nbsp;
-        <a href="{% url 'add_friend' profile.pk suggestion.pk %}"><h2>Add Friend:</h2>
+        <a href="{% url 'add_friend' suggestion.pk %}"><h2>Add Friend:</h2>
         <div class="crop">
             {% if suggestion.image_file %}
             <img src={{suggestion.image_file.url}} alt="" style="width: 200px; height: 200px;">

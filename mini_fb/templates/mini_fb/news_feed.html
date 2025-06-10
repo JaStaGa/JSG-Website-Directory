@@ -9,8 +9,11 @@
     <div style="border: 1px solid #ccc; padding: 10px; margin: 15px 0;">
         <div style="display: flex; align-items: center;">
             {% if message.profile.image_file %}
-                <img src="{{ message.profile.image_file.url }}" alt="Profile Image" style="width: 60px; height: 60px; object-fit: cover; border-radius: 50%; margin-right: 10px;">
-            {% endif %}
+            <a href="{% url 'show_profile' message.profile.pk %}">
+                <img src="{{ message.profile.image_file.url }}" alt="Profile Image"
+                style="width: 60px; height: 60px; object-fit: cover; border-radius: 0%; margin-right: 0px;">
+            </a>            
+                {% endif %}
             <strong>{{ message.profile.first_name }} {{ message.profile.last_name }}</strong>
         </div>
         <p><em>{{ message.timestamp }}</em></p>

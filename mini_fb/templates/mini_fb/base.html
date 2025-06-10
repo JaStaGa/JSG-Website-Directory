@@ -20,9 +20,10 @@
                         {% if user.profile %}
                             <li><a href="{% url 'show_profile' user.profile.pk %}">My Profile</a></li>
                         {% endif %}  
-                        <!-- Logout doesn't work here -->
+                        <!-- Logout doesn't work here, working implementation further below -->
                         <li><a href="{% url 'logout' %}">?Logout?</a></li>                  
                     {% else %}
+                        <!-- 7-2-4 -->
                         <li><a href="{% url 'login' %}">Login</a></li>
                         <li><a href="{% url 'create_profile' %}">Create New Profile</a></li>
                     {% endif %}
@@ -32,7 +33,7 @@
                 <!-- 7-1-3 -->
                 {% if request.user.is_authenticated %}
                 Logged in as: {{ request.user }}
-                <!-- Corrected logout -->
+                <!-- 7-2-4 (working logout) -->
                 <form action="{% url 'logout' %}" method="POST" style="display: inline;">
                     {% csrf_token %}
                     <input type="submit" value="Logout"></input> 

@@ -1,6 +1,6 @@
 <!-- mini_fb/login.html -->
 
-<!-- 7-2-2 -->
+<!-- 7-2-2-a -->
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
@@ -11,6 +11,7 @@
     {{form.as_table}}
     <input type="submit" value="Login">
 
+    <!-- 7-2-2-c -->
     {% if request.GET.next %}
     <input type="hidden" name="next" value="{{request.GET.next}}">
     {% else %}
@@ -19,5 +20,5 @@
 </form>
 
 <hr>
-Don't have an account? <a href="{% url 'register' %}">Register here</a>.
+Don't have an account? <a href="{% url 'create_profile' %}">Register here</a>.
 {% endblock %}

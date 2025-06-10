@@ -7,9 +7,18 @@
 
   <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
+    <!-- 7-3-2 -->
+    <h3>User Registration</h3>
     <table>
-      {{ form.as_table }}
+      {{ user_form.as_table }}
     </table>
+
+    <h3>Profile Information</h3>
+    <table>
+      {{form.as_table}}
+    </table>
+
     <button type="submit">Create Profile</button>
   </form>
 

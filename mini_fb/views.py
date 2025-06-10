@@ -37,34 +37,6 @@ class ShowProfilePageView(DetailView):
     model = Profile
     template_name="mini_fb/show_profile.html"
 
-
-# 7-1-4
-class CreateProfileView(LoginRequiredMixin, CreateView):
-    '''View to create a new Profile instance.'''
-
-    form_class = CreateProfileForm
-    template_name = "mini_fb/create_profile_form.html"
-
-    def get_login_url(self) -> str:
-        '''return the URL required for login'''
-        return reverse('login') 
-    
-    def form_valid(self, form):
-        '''
-        Handle the form submission to create a new Profile object.
-        '''
-        print(f'CreateProfileView: form.cleaned_data={form.cleaned_data}')
-
-        # find the logged in user
-        user = self.request.user
-        print(f"CreateProfileView user={user} profile.user={user}")
-
-        # attach user to form instance (Profile object):
-        form.instance.user = user
-
-        return super().form_valid(form)
-    
-
 # 7-1-4
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     ''' Creation of new status message 4 profiles '''
@@ -107,6 +79,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 
 def home(request):
     return render(request, 'directory/base.html')
+
 # 7-1-4
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''For updating profile'''
@@ -166,6 +139,7 @@ class ShowFriendSuggestionsView(DetailView):
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user)
     
+# 7-1-4
 class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     model = Profile
     template_name = 'mini_fb/news_feed.html'
@@ -180,27 +154,38 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     def get_object(self, queryset=None):
         return Profile.objects.get(user=self.request.user)
 
+# 7-1-4
+class CreateProfileView(CreateView):
+    '''View to create a new Profile instance.'''
 
+    form_class = CreateProfileForm
+    template_name = "mini_fb/create_profile_form.html"
 
-
-
-class RegistrationView(CreateView):
-    '''
-    show/process form for account registration
-    '''
-
-    template_name = 'mini_fb/register.html'
-    form_class = UserCreationForm
-    model = User
-
-
-class UserRegistrationView(CreateView):
-    '''A view to show/process the registration form to create a new User.'''
-
-    template_name = 'mini_fb/register.html'
-    form_class = UserCreationForm
-    model = User
+    # 7-2-2-b
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login') 
     
-    def get_success_url(self):
-        '''The URL to redirect to after creating a new User.'''
-        return reverse('login')
+    # 7-3-3
+    def form_valid(self, form):
+        ''' Handle the form submission to create a new Profile object '''
+        user_form = UserCreationForm(self.request.POST)
+        # Validate user form
+        if user_form.is_valid():
+            user = user_form.save()         # save user & get instance
+            login(self.request, user)       # log user in
+            form.instance.user = user       # link: profile <-> user
+            return super().form_valid(form)
+        # If invalid user form, rerender
+        else:
+            context = self.get_context_data(form=form)
+            context['user_form'] = user_form
+            return self.render_to_response(context)
+    
+    # 7-3-1
+    def get_context_data(self, **kwargs):
+        ''' Provides context variables to template '''
+        context = super().get_context_data(**kwargs)
+        context['user_form'] = UserCreationForm()
+        return context
+

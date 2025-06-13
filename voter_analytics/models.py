@@ -35,29 +35,7 @@ class Voter(models.Model):
 # 8-1-4
 def load_data():
     '''Loads data from csv into django'''
-    # filepath = os.path.join(settings.BASE_DIR, 'newton_voters.csv') #og
-    # with open(filepath, newline='', encoding='utf-8') as csvfile:
-    #     reader = csv.DictReader(csvfile)
-    #     for row in reader:
-    #         Voter.objects.create(
-    #             last_name=row['Last Name'],
-    #             first_name=row['First Name'],
-    #             street_number=row['Residential Address - Street Number'],
-    #             street_name=row['Residential Address - Street Name'],
-    #             apartment_number=row.get('Residential Address - Apartment Number') or None,
-    #             zip_code=row['Residential Address - Zip Code'],
-    #             date_of_birth=datetime.strptime(row['Date of Birth'], '%Y-%m-%d').date(),
-    #             date_of_registration=datetime.strptime(row['Date of Registration'], '%Y-%m-%d').date(),
-    #             party_affiliation=row['Party Affiliation'],
-    #             precinct_number=row['Precinct Number'],
-    #             v20state=row['v20state'] == '1',
-    #             v21town=row['v21town'] == '1',
-    #             v21primary=row['v21primary'] == '1',
-    #             v22general=row['v22general'] == '1',
-    #             v23town=row['v23town'] == '1',
-    #             voter_score=int(row['voter_score'])
-    #         )
-    # Voter.objects.all().delete()
+    Voter.objects.all().delete()
     
     filename = '/Users/jaylinstarlinganaway/Desktop/django/newton_voters.csv' # new
     f = open(filename) # open file
@@ -92,54 +70,6 @@ def load_data():
             print(f"Skipped: {fields}")
     
     print(f"Done. Created {len(Voter.objects.all())} Results")
-    # read entire file
-    # for line in f:
-    #     line = f.readline().strip()
-    #     fields = line.split(',')
-    #     try:
-            # print(fields)
-            # for j in range(len(fields)):
-            #     print(f'fields[{j}] = {fields[j]}')
-            # fields[0] = 10KSA1343001
-            # fields[1] = KIGGEN
-            # fields[2] = SHEILA
-            # fields[3] = 193
-            # fields[4] = OAK ST
-            # fields[5] = 103E
-            # fields[6] = 02464
-            # fields[7] = 1943-10-13
-            # fields[8] = 2016-02-10
-            # fields[9] = D 
-            # fields[10] = 1
-            # fields[11] = TRUE
-            # fields[12] = TRUE
-            # fields[13] = FALSE
-            # fields[14] = TRUE
-            # fields[15] = FALSE
-            # fields[16] = 3
-
-        #     voter = Voter(last_name=fields[0],
-        #                 first_name=fields[1],
-        #                 street_number=fields[2],
-        #                 street_name=fields[3],
-        #                 apartment_number=fields[4],
-        #                 zip_code=fields[5],
-        #                 date_of_birth=fields[6],
-        #                 date_of_registration=fields[7],
-        #                 party_affiliation=fields[8],
-        #                 precinct_number=fields[9],
-        #                 v20state=fields[10],
-        #                 v21town=fields[11],
-        #                 v21primary=fields[12],
-        #                 v22general=fields[13],
-        #                 v23town=fields[14],
-        #                 voter_score=fields[15],
-        #     )
-        #     voter.save() # commit voter to database
-        #     print(f'Created result {voter}.')
-
-        # except:
-        #     print(f"Skipped: {fields}")
-
+    
 
     

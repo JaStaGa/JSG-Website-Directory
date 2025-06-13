@@ -13,12 +13,12 @@ class VoterListView(ListView):
     model = Voter
     template_name = 'voter_analytics/voter_list.html'
     context_object_name = 'voters'
-    paginate_by = 100
-    # ordering = ['last_name', 'first_name']
+    paginate_by = 25
+    ordering = ['last_name', 'first_name']
 
-    def get_queryset(self):
-        voters = super().get_queryset()
-        return voters[:25]
+    # def get_queryset(self):
+    #     voters = super().get_queryset()
+    #     return voters[:25]
     #     queryset = Voter.objects.all()
     #     party = self.request.GET.get('party')
     #     min_dob = self.request.GET.get('min_dob')

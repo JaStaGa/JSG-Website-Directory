@@ -17,3 +17,6 @@ def restaurants(request):
 
 def mini_fb(request):
     return render(request, 'mini_fb/base.html')
+
+def voter_analytics(request):
+    return render(request, 'voter_analytics/voter_list.html')

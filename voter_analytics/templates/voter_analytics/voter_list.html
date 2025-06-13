@@ -2,38 +2,12 @@
 
 <!-- 8-2-2 -->
 
-{% load query_helpers %}
-{% load static %}
+{% extends 'voter_analytics/base.html' %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Voter List</title>
-  <link rel="stylesheet" href="{% static 'styles-voter.css' %}">
-</head>
-<body>
-
-<h1>Voters</h1>
+{% block content %}
 
 <div class="container">
-    <div class="pagination">
-    <span>
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-    </span>
-
-    {% if page_obj.has_previous %}
-        <a href="?page=1">First</a>
-        <a href="?page={{ page_obj.previous_page_number }}">Previous</a>
-    {% endif %}
-
-    {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">Next</a>
-        <a href="?page={{ page_obj.paginator.num_pages }}">Last</a>
-    {% endif %}
-    </div>
-
-    <!-- 8-2-1 -->
+    <h1>Voters</h1>
     <div class="row">
         <table>
             <tr>
@@ -46,17 +20,15 @@
 
             {% for voter in voters %}
             <tr>
-                <th>{{ voter.first_name }} {{ voter.last_name }}</th>
-                <th>{{ voter.street_number }} {{ voter.street_name}} {{ voter.apartment_number }} </th>
-                <th>{{ voter.date_of_birth }}</th>
-                <th>{{ voter.party_affiliation }}</th>
-                <th>{{ voter.voter_score}}</th>
+                <td>{{ voter.first_name }} {{ voter.last_name }}</td>
+                <td>{{ voter.street_number }} {{ voter.street_name}} {{ voter.apartment_number }} </td>
+                <td>{{ voter.date_of_birth }}</td>
+                <td>{{ voter.party_affiliation }}</td>
+                <td>{{ voter.voter_score}}</td>
             </tr>
             {% endfor %}
         </table>
     </div>
 </div>
 
-</body>
-</html>
-
+{% endblock %}

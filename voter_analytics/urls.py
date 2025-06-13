@@ -13,6 +13,7 @@ from . import views
 urlpatterns = [
     path('home', views.home, name='home'),
     # 8-2-1
-    path('', views.VoterListView.as_view(), name='voters'),
-    path('voter/<int:pk>', views.VoterDetailView.as_view(), name='voter'),
+    path(r'', views.VoterListView.as_view(), name='home'),
+    path(r'voters', views.VoterListView.as_view(), name='voters'),
+    path(r'voter/<int:pk>', views.VoterDetailView.as_view(), name='voter'),
 ]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

@@ -9,6 +9,7 @@ urlpatterns = [
     path('quotes/', views.quotes, name='quotes'),
     path('restaurants/', views.restaurants, name='restaurants'),
     path('mini_fb/', views.mini_fb, name='mini_fb'),
+    path('voter_analytics/', views.voter_analytics, name='voter_analytics'),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

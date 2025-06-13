@@ -4,12 +4,18 @@
 
 {% extends 'voter_analytics/base.html' %}
 
-<h1>Showing all Results</h1>
+
 
 {% block content %}
 
 <div class="container">
     
+    <div class="row">
+        {% include "voter_analytics/voter_detail.html" %}
+    </div>
+    
+    <h1>Showing all Results</h1>
+        
 
     <div class="row">
         {% if is_paginated %}

@@ -1,28 +1,61 @@
 <!-- voter_detail/voter_list.html -->
 
-{% load static %}
-<link rel="stylesheet" href="{% static 'styles-voter.css' %}">
+<h1>Filter Voters</h1>
 
-<h1>{{ voter.first_name }} {{ voter.last_name }}</h1>
-<p><strong>Address:</strong> {{ voter.street_number }} {{ voter.street_name }}{% if voter.apartment_number %}, Apt {{ voter.apartment_number }}{% endif %}, {{ voter.zip_code }}</p>
-<p><strong>Date of Birth:</strong> {{ voter.date_of_birth }}</p>
-<p><strong>Registration Date:</strong> {{ voter.date_of_registration }}</p>
-<p><strong>Party:</strong> {{ voter.party_affiliation|trim }}</p>
-<p><strong>Precinct:</strong> {{ voter.precinct_number }}</p>
-<p><strong>Voter Score:</strong> {{ voter.voter_score }}</p>
+<table>
+  <form action="{% url 'voters' %}">
 
-<ul>
-  <li>Voted in 2020 State: {{ voter.v20state }}</li>
-  <li>Voted in 2021 Town: {{ voter.v21town }}</li>
-  <li>Voted in 2021 Primary: {{ voter.v21primary }}</li>
-  <li>Voted in 2022 General: {{ voter.v22general }}</li>
-  <li>Voted in 2023 Town: {{ voter.v23town }}</li>
-</ul>
+    <tr>
+      <th>Party:</th>
+      <td>
+        <select name="party">
+          <option value="">All</option>
+          {% for p in parties %}
+            <option value="{{ p }}" {% if filters.party == p %}selected{% endif %}>{{ p|cut:" " }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
 
-<p>
-  <a href="https://www.google.com/maps/search/?api=1&query={{ voter.street_number }}+{{ voter.street_name }}+{{ voter.zip_code }}" target="_blank">
-    View on Google Maps
-  </a>
-</p>
+    <tr>
+      <th>Min DOB Year:</th>
+      <td>
+        <select name="min_dob">
+          <option value="">Any</option>
+          {% for year in years %}
+            <option value="{{ year }}" {% if filters.min_dob == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
 
-<p><a href="{% url 'voters' %}">Back to list</a></p>
+    <tr>
+      <th>Max DOB Year:</th>
+      <td>
+        <select name="max_dob">
+          <option value="">Any</option>
+          {% for year in years %}
+            <option value="{{ year }}" {% if filters.max_dob == year|stringformat:"s" %}selected{% endif %}>{{ year }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <th>Voter Score:</th>
+      <td>
+        <select name="score">
+          <option value="">Any</option>
+          {% for score in scores %}
+            <option value="{{ score }}" {% if filters.score == score|stringformat:"s" %}selected{% endif %}>{{ score }}</option>
+          {% endfor %}
+        </select>
+      </td>
+    </tr>
+
+    <tr>
+      <td><input type="submit"></td>
+      <td></td>
+    </tr>
+  </form>
+</table>

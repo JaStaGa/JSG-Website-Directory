@@ -13,11 +13,41 @@ class VoterListView(ListView):
     model = Voter
     template_name = 'voter_analytics/voter_list.html'
     context_object_name = 'voters'
-    paginate_by = 25
+    paginate_by = 100
     ordering = ['last_name', 'first_name']
 
-    # def get_queryset(self):
-    #     voters = super().get_queryset()
+    def get_queryset(self):
+        voters = super().get_queryset()
+
+        party = self.request.GET.get('party')
+        if party:
+            voters = voters.filter(party_affiliation=party)
+
+        min_dob = self.request.GET.get('min_dob')
+        if min_dob:
+            voters = voters.filter(date_of_birth__year__gte=int(min_dob))
+
+        max_dob = self.request.GET.get('max_dob')
+        if max_dob:
+            voters = voters.filter(date_of_birth__year__lte=int(max_dob))
+
+        score = self.request.GET.get('score')
+        if score:
+            voters = voters.filter(voter_score=int(score))
+
+        return voters
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['parties'] = sorted(set(Voter.objects.values_list('party_affiliation', flat=True)))
+        context['years'] = sorted(set(v.date_of_birth.year for v in Voter.objects.all()))
+        context['scores'] = sorted(set(Voter.objects.values_list('voter_score', flat=True)))
+        context['elections'] = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
+
+        context['filters'] = self.request.GET  # Pass current filters back to the template
+
+        return context
     #     return voters[:25]
     #     queryset = Voter.objects.all()
     #     party = self.request.GET.get('party')

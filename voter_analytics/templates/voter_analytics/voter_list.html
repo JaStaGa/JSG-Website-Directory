@@ -59,6 +59,8 @@
                 <td>{{ voter.date_of_birth }}</td>
                 <td>{{ voter.party_affiliation }}</td>
                 <td>{{ voter.voter_score}}</td>
+                <!-- Voter link -->
+                <td><a href="{% url 'voter' voter.pk %}">Details</a></td>
             </tr>
             {% endfor %}
         </table>

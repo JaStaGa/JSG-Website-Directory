@@ -5,7 +5,8 @@
 <h1>Filter Voters</h1>
 
 <table>
-  <form action="{% url 'voters' %}">
+  <!-- sends form to current page -->
+  <form method="get">
 
     <!-- Party Affiliation Dropdown -->
     <tr>
@@ -76,5 +77,9 @@
       <td><input type="submit"></td>
       <td></td>
     </tr>
+    
+
   </form>
+  
 </table>
+<a href="{{ request.path }}">Reset Filters</a>

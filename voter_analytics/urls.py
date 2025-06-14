@@ -12,8 +12,11 @@ from . import views
 
 urlpatterns = [
     path('home', views.home, name='home'),  # back to home/directory
-    # 8-2-1
-    path('', views.base, name='base'),    # app home (not working)
+    # 8-2
+    path('', views.base, name='voter_analytics_home'),    # app home 
     path('voters', views.VoterListView.as_view(), name='voters'),  # voter list
+    # 8-2
     path('voter/<int:pk>', views.VoterDetailView.as_view(), name='voter'), # specific voter
+    # 8-3
+    path('graphs', views.VoterGraphView.as_view(), name='graphs'),  # voter graphs
 ]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

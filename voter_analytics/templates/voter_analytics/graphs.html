@@ -1,0 +1,31 @@
+<!-- voter_analytics/graphs.html -->
+
+{% extends 'voter_analytics/base.html' %}
+{% block content %}
+
+<h2>Voter Data Graphs</h2>
+
+<!-- Filters from voter_filter -->
+<div class="container">
+    <div class="row">
+        {% include "voter_analytics/voter_filter.html" %}
+    </div>
+    
+    <h1>Showing all Results</h1>
+</div>
+
+<div class="container">
+    {{ birth_plot|safe }}
+</div>
+
+<div class="container">
+    {{ party_plot|safe }}
+</div>
+
+<div class="container">
+    {{ election_plot|safe }}
+</div>
+
+<p><a href="{% url 'voters' %}">← Back to Voter List</a></p>
+
+{% endblock %}

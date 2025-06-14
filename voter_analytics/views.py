@@ -176,7 +176,7 @@ class VoterGraphView(TemplateView):
         voted_counts = []
 
         for field in elections:
-            count = voters.filter(**{field: '1'}).count()
+            count = voters.filter(**{field: 'TRUE'}).count()
             voted_counts.append(count)
 
         election_fig = go.Figure([

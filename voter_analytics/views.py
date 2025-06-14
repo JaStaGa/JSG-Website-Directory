@@ -35,16 +35,19 @@ class VoterListView(ListView):
         if score:
             voters = voters.filter(voter_score=int(score))
 
+        for election in ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']:
+            if self.request.GET.get(election) == 'on':
+                voters = voters.filter(**{election: 'TRUE'})
+
         return voters
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-
+        # Get info for filtering
         context['parties'] = sorted(set(Voter.objects.values_list('party_affiliation', flat=True)))
         context['years'] = sorted(set(v.date_of_birth.year for v in Voter.objects.all()))
         context['scores'] = sorted(set(Voter.objects.values_list('voter_score', flat=True)))
         context['elections'] = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
-
         context['filters'] = self.request.GET  # Pass current filters back to the template
 
         return context

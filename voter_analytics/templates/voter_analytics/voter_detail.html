@@ -1,10 +1,13 @@
 <!-- voter_detail/voter_list.html -->
 
+{% load query_helpers %}
+
 <h1>Filter Voters</h1>
 
 <table>
   <form action="{% url 'voters' %}">
 
+    <!-- Party Affiliation Dropdown -->
     <tr>
       <th>Party:</th>
       <td>
@@ -17,6 +20,7 @@
       </td>
     </tr>
 
+    <!-- Minimum Date of Birth Dropdown -->
     <tr>
       <th>Min DOB Year:</th>
       <td>
@@ -29,6 +33,7 @@
       </td>
     </tr>
 
+    <!-- Miximum Date of Birth Dropdown -->
     <tr>
       <th>Max DOB Year:</th>
       <td>
@@ -41,6 +46,7 @@
       </td>
     </tr>
 
+    <!-- Voter Score Dropdown -->
     <tr>
       <th>Voter Score:</th>
       <td>
@@ -50,6 +56,19 @@
             <option value="{{ score }}" {% if filters.score == score|stringformat:"s" %}selected{% endif %}>{{ score }}</option>
           {% endfor %}
         </select>
+      </td>
+    </tr>
+
+    <!-- Whether they voted in specific elections checkboxes -->
+    <tr>
+      <th>Voted In:</th>
+      <td>
+        {% for election in elections %}
+          <label>
+            <input type="checkbox" name="{{ election }}" {% if filters|get_item:election %}checked{% endif %}>
+            {{ election }}
+          </label><br>
+        {% endfor %}
       </td>
     </tr>
 

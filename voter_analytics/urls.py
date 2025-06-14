@@ -11,9 +11,9 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('home', views.home, name='home'),
+    path('home', views.home, name='home'),  # back to home/directory
     # 8-2-1
-    path(r'', views.VoterListView.as_view(), name='base'),
-    path(r'voters', views.VoterListView.as_view(), name='voters'),
-    path(r'voter/<int:pk>', views.VoterDetailView.as_view(), name='voter'),
+    path('', views.base, name='base'),    # app home (not working)
+    path('voters', views.VoterListView.as_view(), name='voters'),  # voter list
+    path('voter/<int:pk>', views.VoterDetailView.as_view(), name='voter'), # specific voter
 ]   + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

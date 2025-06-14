@@ -8,15 +8,18 @@
 
 {% block content %}
 
+
+<!-- Filters from voter_filter -->
 <div class="container">
-    
     <div class="row">
-        {% include "voter_analytics/voter_detail.html" %}
+        {% include "voter_analytics/voter_filter.html" %}
     </div>
     
     <h1>Showing all Results</h1>
+</div>
         
-
+<!-- Pagination to scroll through 100 at a time -->
+<div class="container">
     <div class="row">
         {% if is_paginated %}
         <ul class="pagination">
@@ -36,7 +39,7 @@
         </ul>
         {% endif %}
     </div>
-
+<!-- List of all voters -->
     <div class="row">
         <table>
             <tr>
@@ -61,5 +64,4 @@
         </table>
     </div>
 </div>
-
 {% endblock %}

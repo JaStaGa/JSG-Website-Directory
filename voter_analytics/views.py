@@ -8,6 +8,9 @@ from django.db.models.query import QuerySet
 def home(request):
     return render(request, 'directory/base.html')
 
+def base(request):
+    return render(request, 'voter_analytics/base.html')
+
 # 8-2-1
 class VoterListView(ListView):
     model = Voter

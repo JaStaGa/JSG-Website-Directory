@@ -1,0 +1,17 @@
+<!-- project/build_list.html -->
+{% extends "project/base.html" %}
+{% block title %}Saved Builds{% endblock %}
+{% block content %}
+  <h1>All Builds</h1>
+  <ul>
+    {% for build in builds %}
+      <li>
+        <a href="{% url 'build_detail' build.pk %}">
+          {{ build.name }}
+        </a>
+      </li>
+    {% empty %}
+      <li>No builds yet.</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

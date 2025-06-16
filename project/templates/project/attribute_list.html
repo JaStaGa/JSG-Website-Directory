@@ -1,0 +1,11 @@
+<!-- project/attribute_list.html -->
+{% extends 'project/base.html' %}
+{% block title %}Attributes{% endblock %}
+{% block content %}
+  <h1>All Attributes</h1>
+  <ul>
+    {% for attr in attributes %}
+      <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

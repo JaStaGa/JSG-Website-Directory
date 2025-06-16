@@ -1,0 +1,12 @@
+<!-- project/build_add_badge.html -->
+{% extends "project/base.html" %}
+{% block title %}Add a Badge{% endblock %}
+{% block content %}
+  <h1>Step 2: Add a Badge</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.badge_level.label_tag }}<br>
+    {{ form.badge_level }}<br><br>
+    <button type="submit">Next →{% if form.fields.badge_level.choices|length > 2 %}Resolve Options{% else %}See Summary{% endif %}</button>
+  </form>
+{% endblock %}

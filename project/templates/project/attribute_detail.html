@@ -1,0 +1,8 @@
+<!-- project/attribute_detail.html -->
+{% extends 'project/base.html' %}
+{% block title %}{{ attribute.name }}{% endblock %}
+{% block content %}
+  <h1>{{ attribute.name }}</h1>
+  <p>{{ attribute.description }}</p>
+  <a href="{% url 'attribute_list' %}">← Back to Attributes</a>
+{% endblock %}

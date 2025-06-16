@@ -1,0 +1,10 @@
+<!-- project/build_intro.html -->
+{% extends "project/base.html" %}
+{% block title %}Start New Build{% endblock %}
+{% block content %}
+  <h1>Step 1: Name & Height</h1>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Next → Add Badges</button>
+  </form>
+{% endblock %}

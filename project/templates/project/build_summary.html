@@ -1,0 +1,18 @@
+<!-- project/build_summary.html -->
+
+{% extends "project/base.html" %}
+{% block title %}Build Summary{% endblock %}
+{% block content %}
+  <h1>Current Build: {{ build.name }}</h1>
+  <p><strong>Height:</strong> {{ build.height_feet }}'{{ build.height_inches }}</p>
+
+  <h2>Required Attributes</h2>
+  <ul>
+    {% for name, val in attributes %}
+      <li>{{ name }}: {{ val }}</li>
+    {% endfor %}
+  </ul>
+
+  <a href="{% url 'build_add_badge' %}">Add another badge</a>
+  <a href="{% url 'build_detail' build.pk %}">Finish & View Build</a>
+{% endblock %}

@@ -20,3 +20,6 @@ def mini_fb(request):
 
 def voter_analytics(request):
     return render(request, 'voter_analytics/base.html')
+
+def project(request):
+    return render(request, 'project/home.html')

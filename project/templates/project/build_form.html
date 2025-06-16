@@ -1,0 +1,28 @@
+<!-- project/build_form.html -->
+
+{% extends "project/base.html" %}
+{% block title %}New Build{% endblock %}
+
+{% block content %}
+  <h1>Create a New Build</h1>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="form-group">
+      {{ form.name.label_tag }}<br>
+      {{ form.name }}
+    </div>
+
+    <h2>Select Your Badges</h2>
+    {% for field in form %}
+      {% if field.name != 'name' %}
+        <div class="form-group">
+          {{ field.label_tag }}<br>
+          {{ field }}
+        </div>
+      {% endif %}
+    {% endfor %}
+
+    <button type="submit">Save Build</button>
+  </form>
+{% endblock %}

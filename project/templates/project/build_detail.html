@@ -1,0 +1,14 @@
+<!-- project/build_detail.html -->
+{% extends "project/base.html" %}
+{% block title %}{{ build.name }}{% endblock %}
+{% block content %}
+  <h1>{{ build.name }}</h1>
+  <p>Created at: {{ build.created_at }}</p>
+  <h2>Included Badge Levels</h2>
+  <ul>
+    {% for lvl in build.selected_levels.all %}
+      <li>{{ lvl.badge.name }} ({{ lvl.level }})</li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'build_list' %}">← Back to Builds</a>
+{% endblock %}

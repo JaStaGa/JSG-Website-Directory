@@ -87,6 +87,12 @@ nav a:hover {
   background-color: var(--accent-dark);
 }
 
+a:-webkit-any-link {
+    color: var(--text-main);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
 /* ───────────────────────────────────────────────────────────────────────── */
 /* Tables                                                                  */
 /* ───────────────────────────────────────────────────────────────────────── */

@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 
 class Attribute(models.Model):
     name        = models.CharField(max_length=100)
-    description = models.TextField(blank=True)
+    category    = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
@@ -11,6 +11,7 @@ class Attribute(models.Model):
 
 class Badge(models.Model):
     name        = models.CharField(max_length=100)
+    category    = models.CharField(max_length=100)
     description = models.TextField(blank=True)
 
     def __str__(self):

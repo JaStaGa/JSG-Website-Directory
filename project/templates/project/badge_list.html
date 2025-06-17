@@ -1,0 +1,62 @@
+<!-- project/badge_list.html -->
+
+{% extends 'project/base.html' %}
+{% block title %}Badges{% endblock %}
+{% block content %}
+    <h1>All Badges</h1>
+
+    <div class="container">
+        <h3>Finishing Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "Finishing" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h3>Shooting Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "Shooting" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h3>Playmaking Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "Playmaking" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h3>Defense Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "Defense" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h3>Rebounding Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "Rebounding" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="container">
+        <h3>General Badges:</h3>
+        {% for badg in badges %}
+            {% if  badg.category  == "General" %}
+                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+{% endblock %}

@@ -32,6 +32,48 @@ class BadgeDetailView(DetailView):
     template_name = 'project/badge_detail.html'
     context_object_name = 'badge'
 
+    def get_context_data(self, **kwargs):
+        ctx   = super().get_context_data(**kwargs)
+        badge = self.object
+
+        levels = {}
+        for code, label in BadgeLevel.LEVEL_CHOICES:
+            reqs = badge.levels.filter(level=code)
+            if not reqs.exists():
+                continue
+
+            # extract height range from the first row (they should all match)
+            first = reqs.first()
+            min_h, max_h = first.min_height, first.max_height
+            # format as feet and inches
+            min_h_str = f"{min_h//12}'{min_h%12}\""
+            max_h_str = f"{max_h//12}'{max_h%12}\""
+            height_range = f"{min_h_str} – {max_h_str}"
+
+            # AND-requirements
+            and_reqs = reqs.filter(alternative_group__isnull=True)
+
+            # OR-groups
+            or_reqs = []
+            groups = (
+                reqs.exclude(alternative_group__isnull=True)
+                    .values_list('alternative_group', flat=True)
+                    .distinct()
+            )
+            for grp in groups:
+                or_reqs.append(reqs.filter(alternative_group=grp))
+
+            levels[code] = {
+                'label':        label,
+                'height_range': height_range,
+                'ands':         and_reqs,
+                'ors':          or_reqs,
+            }
+
+        ctx['levels'] = levels
+        return ctx
+
+
 
 class BadgeLevelListView(ListView):
     model = BadgeLevel

@@ -1,0 +1,16 @@
+<!-- project/badgelevel_list.html -->
+{% extends 'project/base.html' %}
+{% block title %}Badges{% endblock %}
+{% block content %}
+    <h1>All Badge Levels</h1>
+
+    <div class="container">
+        <h3>Shooting:</h3>
+        {% for lvl in levels %}
+            <p>{{ lvl.badge }} {{ lvl.level }}</p>
+            <li>Requires {{ lvl.attribute }} >= {{ lvl.min_value }}</li>
+            <li>{{ lvl.alternative_group }}</li>
+        {% endfor %}
+    </div>
+
+{% endblock %}

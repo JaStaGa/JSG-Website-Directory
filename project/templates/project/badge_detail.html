@@ -1,0 +1,42 @@
+<!-- project/badge_detail.html -->
+
+{% extends "project/base.html" %}
+{% block title %}{{ badge.name }} Details{% endblock %}
+{% block content %}
+  <h1>{{ badge.name }}</h1>
+  <p>{{ badge.category }} Badge</p>
+  <p>{{ badge.description }}</p>
+  <a href="{% url 'badge_list' %}">← Back to Badges</a>
+
+  <hr>
+  <h2>Levels &amp; Requirements</h2>
+
+  {% for code, info in levels.items %}
+    <div class="grid-container">
+      <div class="crop">
+
+        <h3>{{ info.label }}</h3>
+        <p><strong>Height:</strong> {{ info.height_range }}</p>
+
+        <ul>
+          <!-- AND requirements -->
+          {% for req in info.ands %}
+            <li>{{ req.attribute.name }} ≥ {{ req.min_value }}</li>
+          {% endfor %}
+
+          <!-- OR requirements -->
+          {% for group in info.ors %}
+            <li>One of:
+              <ul>
+                {% for req in group %}
+                  <li>{{ req.attribute.name }} ≥ {{ req.min_value }}</li>
+                {% endfor %}
+              </ul>
+            </li>
+          {% endfor %}
+        </ul>
+
+      </div>
+    </div>
+  {% endfor %}
+{% endblock %}

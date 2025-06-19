@@ -3,16 +3,45 @@
 {% extends "project/base.html" %}
 {% block title %}Build Summary{% endblock %}
 {% block content %}
-  <h1>Current Build: {{ build.name }}</h1>
+  <h1>Build: {{ build.name }}</h1>
   <p><strong>Height:</strong> {{ build.height_feet }}'{{ build.height_inches }}</p>
 
-  <h2>Required Attributes</h2>
-  <ul>
-    {% for name, val in attributes %}
-      <li>{{ name }}: {{ val }}</li>
-    {% endfor %}
-  </ul>
+  <h2>Badges You Chose</h2>
+  {% if chosen_badges %}
+    <ul>
+      {% for name, lvl in chosen_badges %}
+        <li>{{ name }} ({{ lvl }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p><em>No badges selected yet.</em></p>
+  {% endif %}
 
-  <a href="{% url 'build_add_badge' %}">Add another badge</a>
-  <a href="{% url 'build_detail' build.pk %}">Finish & View Build</a>
+  <h2>Newly Unlocked Badges</h2>
+  {% if extra_badges %}
+    <ul>
+      {% for name, lvl in extra_badges %}
+        <li>{{ name }} ({{ lvl }})</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p><em>None unlocked by your attribute upgrades yet.</em></p>
+  {% endif %}
+
+  <h2>Attributes Raised Above 25</h2>
+  {% if raised_attrs %}
+    <ul>
+      {% for name, val in raised_attrs %}
+        <li>{{ name }}: {{ val }}</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p><em>No attribute has moved above the base of 25.</em></p>
+  {% endif %}
+
+  <p>
+    <a href="{% url 'build_add_badge' %}">Add another badge</a> |
+    <a href="{% url 'build_detail' build.pk %}">Finish & View Build</a>
+  </p>
 {% endblock %}
+

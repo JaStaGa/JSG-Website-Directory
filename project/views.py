@@ -199,33 +199,95 @@ class BuildResolveORView(FormView):
 class BuildSummaryView(TemplateView):
     template_name = 'project/build_summary.html'
 
-    def get_context_data(self, **ctx):
+    def get_context_data(self, **kwargs):
+        ctx   = super().get_context_data(**kwargs)
         build = get_object_or_404(Build, pk=self.request.session['build_pk'])
-        # aggregate attributes
-        attrs = {}
-        for lvl in build.selected_levels.all():
-            key = lvl.attribute.name
-            attrs[key] = max(attrs.get(key, 0), lvl.min_value)
+
+        # final attrs after all deps
+        final_attrs = build.expanded_attributes()
+
+        # only those you actually raised
+        raised = [(n, v) for n, v in final_attrs.items() if v > 25]
+
+        # badges you explicitly chose
+        chosen_lvls = build.selected_levels.select_related('badge')
+        chosen = [(lvl.badge.name, lvl.level) for lvl in chosen_lvls]
+
+        # find all badge-levels you now qualify for (might pick up multiple levels per badge)
+        raw_extra = set()
+        for lvl in BadgeLevel.objects.filter(
+                 min_height__lte=build.height,
+                 max_height__gte=build.height
+             ).select_related('badge','attribute'):
+            key = (lvl.badge.name, lvl.level)
+            if key in chosen:
+                continue
+
+            if lvl.alternative_group is None:
+                ok = final_attrs[lvl.attribute.name] >= lvl.min_value
+            else:
+                # any one of the OR‐rows for that lvl passes?
+                ok = any(
+                    final_attrs[r.attribute.name] >= r.min_value
+                    for r in BadgeLevel.objects.filter(
+                        badge=lvl.badge, level=lvl.level,
+                        alternative_group=lvl.alternative_group
+                    )
+                )
+            if ok:
+                raw_extra.add(key)
+
+        # reduce to one entry per badge: pick the highest level unlocked
+        level_order = {'Bronze': 1, 'Silver': 2, 'Gold': 3, 'HoF': 4, 'Legend': 5}
+        best = {}
+        for name, lvl in raw_extra:
+            # if we haven't seen this badge, or this lvl is higher rank, keep it
+            if name not in best or level_order[lvl] > level_order[best[name]]:
+                best[name] = lvl
+
+        extra = sorted(best.items())  # list of (badge_name, top_level)
+
         ctx.update({
-            'build': build,
-            'attributes': attrs.items(),
+            'build':            build,
+            'raised_attrs':     raised,
+            'chosen_badges':    chosen,
+            'extra_badges':     extra,
         })
         return ctx
+
     
 class BuildCreateView(FormView):
     template_name = 'project/build_form.html'
     form_class    = BuildForm
     success_url   = reverse_lazy('build_list')
 
+    def get_context_data(self, **ctx):
+        # First call super() so ctx is populated
+        ctx = super().get_context_data(**ctx)
+
+        # Grab the Build you’re editing
+        build = get_object_or_404(Build, pk=self.request.session['build_pk'])
+
+        # Re-create your attrs dict exactly as in BuildSummaryView
+        attrs = {}
+        for lvl in build.selected_levels.all():
+            name = lvl.attribute.name
+            # take the highest required value if multiple badge-levels touch the same attribute
+            attrs[name] = max(attrs.get(name, 0), lvl.min_value)
+
+        # Now you can safely assign
+        ctx['build']             = build
+        ctx['attributes']        = attrs.items()
+        ctx['estimated_overall'] = build.compute_overall()
+        return ctx
+
     def form_valid(self, form):
-        # 1. Create the Build instance
+        # … your existing form processing …
         build = Build.objects.create(
             name = form.cleaned_data['name'],
             user = self.request.user if self.request.user.is_authenticated else None
         )
-
-        # 2. Use the helper to get selected BadgeLevel objects
         build.selected_levels.set(form.selected_levels())
-
         return super().form_valid(form)
+
 

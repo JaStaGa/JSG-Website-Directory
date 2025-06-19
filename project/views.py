@@ -203,55 +203,80 @@ class BuildSummaryView(TemplateView):
         ctx   = super().get_context_data(**kwargs)
         build = get_object_or_404(Build, pk=self.request.session['build_pk'])
 
-        # final attrs after all deps
         final_attrs = build.expanded_attributes()
 
-        # only those you actually raised
-        raised = [(n, v) for n, v in final_attrs.items() if v > 25]
+        # 1) which badges the user explicitly chose (any level)
+        chosen_badge_names = {
+            lvl.badge.name
+            for lvl in build.selected_levels.select_related('badge')
+        }
 
-        # badges you explicitly chose
-        chosen_lvls = build.selected_levels.select_related('badge')
-        chosen = [(lvl.badge.name, lvl.level) for lvl in chosen_lvls]
+        # 2) collect all levels you now qualify for
+        qualified = set()  # will hold (badge_name, level_code)
+        qs = BadgeLevel.objects.filter(
+            min_height__lte=build.height,
+            max_height__gte=build.height
+        ).select_related('badge', 'attribute')
 
-        # find all badge-levels you now qualify for (might pick up multiple levels per badge)
-        raw_extra = set()
-        for lvl in BadgeLevel.objects.filter(
-                 min_height__lte=build.height,
-                 max_height__gte=build.height
-             ).select_related('badge','attribute'):
-            key = (lvl.badge.name, lvl.level)
-            if key in chosen:
+        # group by badge+level
+        from itertools import groupby
+        # sort so groupby works
+        qs = qs.order_by('badge__name', 'level', 'alternative_group')
+        for (badge_name, level_code), group in groupby(
+            qs, key=lambda bl: (bl.badge.name, bl.level)
+        ):
+            # skip badges the user already chose
+            if badge_name in chosen_badge_names:
                 continue
 
-            if lvl.alternative_group is None:
-                ok = final_attrs[lvl.attribute.name] >= lvl.min_value
-            else:
-                # any one of the OR‐rows for that lvl passes?
-                ok = any(
-                    final_attrs[r.attribute.name] >= r.min_value
-                    for r in BadgeLevel.objects.filter(
-                        badge=lvl.badge, level=lvl.level,
-                        alternative_group=lvl.alternative_group
-                    )
-                )
-            if ok:
-                raw_extra.add(key)
+            rows = list(group)
+            # AND requirements: those with no alt_group
+            and_reqs = [r for r in rows if r.alternative_group is None]
+            if not all(final_attrs[r.attribute.name] >= r.min_value
+                       for r in and_reqs):
+                continue
 
-        # reduce to one entry per badge: pick the highest level unlocked
-        level_order = {'Bronze': 1, 'Silver': 2, 'Gold': 3, 'HoF': 4, 'Legend': 5}
+            # OR requirements: one pass in each alt_group
+            ok_or = True
+            or_groups = {r.alternative_group for r in rows
+                         if r.alternative_group is not None}
+            for grp in or_groups:
+                grp_rows = [r for r in rows if r.alternative_group == grp]
+                if not any(final_attrs[r.attribute.name] >= r.min_value
+                           for r in grp_rows):
+                    ok_or = False
+                    break
+            if not ok_or:
+                continue
+
+            # if we got here, you qualify for this badge+level
+            qualified.add((badge_name, level_code))
+
+        # 3) reduce to highest‐level per badge
+        level_order = {'Bronze':1,'Silver':2,'Gold':3,'HoF':4,'Legend':5}
         best = {}
-        for name, lvl in raw_extra:
-            # if we haven't seen this badge, or this lvl is higher rank, keep it
-            if name not in best or level_order[lvl] > level_order[best[name]]:
-                best[name] = lvl
+        for badge_name, lvl in qualified:
+            if (badge_name not in best or
+                level_order[lvl] > level_order[best[badge_name]]):
+                best[badge_name] = lvl
 
-        extra = sorted(best.items())  # list of (badge_name, top_level)
+        # 4) sort for display
+        extra = sorted(best.items())
+
+        # 5) chosen badges (show exactly what they picked)
+        chosen = sorted(
+            (lvl.badge.name, lvl.level)
+            for lvl in build.selected_levels.select_related('badge')
+        )
+
+        # 6) attributes raised above 25
+        raised = [(n, v) for n, v in final_attrs.items() if v > 25]
 
         ctx.update({
-            'build':            build,
-            'raised_attrs':     raised,
-            'chosen_badges':    chosen,
-            'extra_badges':     extra,
+            'build':          build,
+            'chosen_badges':  chosen,
+            'extra_badges':   extra,
+            'raised_attrs':   raised,
         })
         return ctx
 

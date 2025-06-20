@@ -18,7 +18,7 @@ urlpatterns = [
 
     path('builds/new/',        BuildIntroView.as_view(),       name='build_intro'),
     path('builds/new/badge/',  BuildAddBadgeView.as_view(),    name='build_add_badge'),
-    path('builds/new/resolve/',BuildResolveORView.as_view(),   name='build_choose_attr'),
+    path('builds/new/resolve-or/',    BuildResolveORView.as_view(),  name='build_resolve_or'),
     path('builds/new/summary/',BuildSummaryView.as_view(),     name='build_summary'),
 
 ]

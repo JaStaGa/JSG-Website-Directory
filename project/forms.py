@@ -10,18 +10,46 @@ class BuildIntroForm(forms.Form):
     )
 
 
-class SingleBadgeForm(forms.Form):
-    badge_level = forms.ChoiceField(label="Choose a Badge & Level")
+# class SingleBadgeForm(forms.Form):
+#     badge_level = forms.ChoiceField(label="Choose a Badge & Level")
 
+#     def __init__(self, *args, **kwargs):
+#         super().__init__(*args, **kwargs)
+#         pairs = (
+#             (f"{b.id}|{lvl}", f"{b.name} — {label}")
+#             for b in Badge.objects.all()
+#             for lvl, label in BadgeLevel.LEVEL_CHOICES
+#             if BadgeLevel.objects.filter(badge=b, level=lvl).exists()
+#         )
+#         self.fields['badge_level'].choices = [('', '— none —')] + sorted(pairs, key=lambda x: x[1])
+
+class BadgeSelectionForm(forms.Form):
+    """
+    Renders one ChoiceField per Badge, letting the user pick
+    None, Bronze, Silver, Gold, HoF or Legend—only for the levels
+    that actually exist on that badge.
+    """
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        pairs = (
-            (f"{b.id}|{lvl}", f"{b.name} — {label}")
-            for b in Badge.objects.all()
-            for lvl, label in BadgeLevel.LEVEL_CHOICES
-            if BadgeLevel.objects.filter(badge=b, level=lvl).exists()
-        )
-        self.fields['badge_level'].choices = [('', '— none —')] + sorted(pairs, key=lambda x: x[1])
+        # grab all badges, ordered by category then name
+        for badge in Badge.objects.order_by('category', 'name'):
+            # find which level codes exist for this badge
+            existing = set(
+                BadgeLevel.objects
+                   .filter(badge=badge)
+                   .values_list('level', flat=True)
+            )
+            # build a choices list: “— none —” + each level in intrinsic order
+            choices = [('', '— none —')]
+            for code, label in BadgeLevel.LEVEL_CHOICES:
+                if code in existing:
+                    choices.append((code, label))
+            # add a field named badge_<pk>
+            self.fields[f'badge_{badge.pk}'] = forms.ChoiceField(
+                choices=choices,
+                required=False,
+                label=badge.name
+            )
 
 
 class ResolveORForm(forms.Form):

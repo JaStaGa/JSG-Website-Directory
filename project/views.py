@@ -118,54 +118,60 @@ class BuildIntroView(FormView):
     
 class BuildAddBadgeView(FormView):
     template_name = 'project/build_add_badge.html'
-    form_class    = SingleBadgeForm
+    form_class    = BadgeSelectionForm
 
     def dispatch(self, request, *args, **kwargs):
-        # ensure we have a build in session
         if 'build_pk' not in request.session:
             return redirect('build_intro')
         return super().dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         build = get_object_or_404(Build, pk=self.request.session['build_pk'])
-        val   = form.cleaned_data['badge_level']
-        if not val:
-            return super().form_valid(form)  # nothing chosen
-        badge_id, lvl = val.split('|')
-        badge = Badge.objects.get(pk=badge_id)
 
-        # gather the rows: AND requirements
-        and_qs = BadgeLevel.objects.filter(badge=badge, level=lvl, alternative_group__isnull=True)
+        # store any OR‐groups we need to resolve
+        pending = {}
 
-        # OR requirements grouped by group number
-        or_groups = (
-            (grp, list(BadgeLevel.objects.filter(
-                badge=badge, level=lvl, alternative_group=grp
-            )))
-            for grp in BadgeLevel.objects
-                        .filter(badge=badge, level=lvl)
-                        .exclude(alternative_group__isnull=True)
-                        .values_list('alternative_group', flat=True)
-                        .distinct()
-        )
+        # iterate each badge field
+        for badge in Badge.objects.order_by('category','name'):
+            lvl_code = form.cleaned_data.get(f'badge_{badge.pk}')
+            if not lvl_code:
+                continue
 
-        # if we have OR‐groups, save them in session to ask next
-        self.request.session['pending_or'] = {
-          str(grp): [lvl.pk for lvl in rows]
-          for grp, rows in or_groups
-        }
-        # store the AND ones immediately
-        build.selected_levels.add(*and_qs)
+            # AND requirements
+            and_qs = BadgeLevel.objects.filter(
+                badge=badge, level=lvl_code, alternative_group__isnull=True
+            )
+            build.selected_levels.add(*and_qs)
+
+            # collect OR‐groups
+            rows = BadgeLevel.objects.filter(badge=badge, level=lvl_code).exclude(alternative_group__isnull=True)
+            for grp in rows.values_list('alternative_group', flat=True).distinct():
+                pending.setdefault(str(grp), []).extend(
+                    rows.filter(alternative_group=grp).values_list('pk', flat=True)
+                )
+
         build.save()
 
-        # if any OR groups remain, branch to attribute choice
-        if self.request.session['pending_or']:
-            return redirect('build_choose_attr')
+        if pending:
+            self.request.session['pending_or'] = pending
+            return redirect('build_resolve_or')
 
-        return super().form_valid(form)
+        return redirect('build_summary')
 
-    def get_success_url(self):
-        return reverse('build_summary')
+    def get_context_data(self, **kwargs):
+        ctx  = super().get_context_data(**kwargs)
+        form = ctx['form']
+
+        # group the form fields by badge category
+        grouped = {}
+        for badge in Badge.objects.order_by('category','name'):
+            cat   = badge.category
+            field = form[f'badge_{badge.pk}']
+            grouped.setdefault(cat, []).append(field)
+
+        ctx['grouped_badges'] = grouped
+        return ctx
+
     
 class BuildResolveORView(FormView):
     template_name = 'project/build_resolve_or.html'
@@ -263,11 +269,11 @@ class BuildSummaryView(TemplateView):
         # 4) sort for display
         extra = sorted(best.items())
 
-        # 5) chosen badges (show exactly what they picked)
-        chosen = sorted(
+        # 5) chosen badges (show exactly one entry per badge)
+        chosen = sorted({
             (lvl.badge.name, lvl.level)
             for lvl in build.selected_levels.select_related('badge')
-        )
+        })
 
         # 6) attributes raised above 25
         raised = [(n, v) for n, v in final_attrs.items() if v > 25]

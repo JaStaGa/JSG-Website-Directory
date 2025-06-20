@@ -1,22 +1,31 @@
-source-attribute,source-at-max,dependent-attribute,dependent-value
-Strength,99,Interior Defense,94
-Strength,99,Post Control,74
-Strength,99,Defensive Rebound,74
-Strength,99,Close Shot,69
-Strength,99,Block,64
-Strength,99,Offensive Rebound,49
-Strength,99,Steal,49
-Strength,99,Perimeter Defense,44
-Strength,99,Vertical,29
-Strength,99,Free Throw,29
-Strength,99,Mid-Range Shot,29
-Defensive Rebound,99,Close Shot,54
-Defensive Rebound,99,Driving Dunk,39
-Defensive Rebound,99,Standing Dunk,49
-Defensive Rebound,99,Post Control,29
-Defensive Rebound,99,Interior Defense,74
-Defensive Rebound,99,Steal,29
-Defensive Rebound,99,Block,59
-Defensive Rebound,99,Offensive Rebound,74
-Defensive Rebound,99,Strength,54
-Defensive Rebound,99,Vertical,54
+source-attribute,source-at-max,dependent-attribute,dependent-value,height-inches
+Strength,99,Interior Defense,94,87
+Strength,99,Post Control,74,87
+Strength,99,Defensive Rebound,74,87
+Strength,99,Close Shot,69,87
+Strength,99,Block,64,87
+Strength,99,Offensive Rebound,49,87
+Strength,99,Steal,49,87
+Strength,99,Perimeter Defense,44,87
+Strength,99,Vertical,29,87
+Strength,99,Free Throw,29,87
+Strength,99,Mid-Range Shot,29,87
+Defensive Rebound,99,Close Shot,54,87
+Defensive Rebound,99,Driving Dunk,39,87
+Defensive Rebound,99,Standing Dunk,49,87
+Defensive Rebound,99,Post Control,29,87
+Defensive Rebound,99,Interior Defense,74,87
+Defensive Rebound,99,Steal,29,87
+Defensive Rebound,99,Block,59,87
+Defensive Rebound,99,Offensive Rebound,74,87
+Defensive Rebound,99,Strength,54,87
+Defensive Rebound,99,Vertical,54,87
+Close Shot,99,Driving Dunk,39,87
+Close Shot,99,Standing Dunk,49,87
+Close Shot,99,Post Control,74,87
+Close Shot,99,Mid-Range Shot,59,87
+Close Shot,99,Free Throw,59,87
+Close Shot,99,Interior Defense,39,87
+Close Shot,99,Offensive Rebound,39,87
+Close Shot,99,Strength,44,87
+Close Shot,99,Vertical,54,87

@@ -1,12 +1,42 @@
 <!-- project/build_add_badge.html -->
+
 {% extends "project/base.html" %}
-{% block title %}Add a Badge{% endblock %}
+{% block title %}Select Badges{% endblock %}
 {% block content %}
-  <h1>Step 2: Add a Badge</h1>
-  <form method="post">
+  <h1>Select Badges</h1>
+
+  <form method="post" id="badge-form">
     {% csrf_token %}
-    {{ form.badge_level.label_tag }}<br>
-    {{ form.badge_level }}<br><br>
-    <button type="submit">Next →{% if form.fields.badge_level.choices|length > 2 %}Resolve Options{% else %}See Summary{% endif %}</button>
+
+    <!-- Sticky top bar -->
+    <nav class="badge-jump-menu">
+      <div class="jump-links">
+        <strong>Jump to:</strong>
+        <ul>
+          {% for category in grouped_badges.keys %}
+            <li>
+              <a href="#category-{{ category|slugify }}">{{ category }}</a>
+            </li>
+          {% endfor %}
+        </ul>
+      </div>
+      <button type="submit" class="next-button">Next</button>
+    </nav>
+
+    <!-- Badge sections -->
+    {% for category, fields in grouped_badges.items %}
+      <section
+        id="category-{{ category|slugify }}"
+        class="badge-category"
+      >
+      <br><br><br>
+        <h2>{{ category }} Badges</h2>
+        {% for field in fields %}
+          <div class="form-row">
+            {{ field.label_tag }} {{ field }}
+          </div>
+        {% endfor %}
+      </section>
+    {% endfor %}
   </form>
 {% endblock %}

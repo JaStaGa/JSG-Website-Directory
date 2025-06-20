@@ -1,14 +1,24 @@
 <!-- project/build_resolve_or.html -->
+
 {% extends "project/base.html" %}
-{% block title %}Choose Attribute Option{% endblock %}
+{% block title %}Choose Requirement{% endblock %}
 {% block content %}
-  <h1>Step 3: Choose Which Attribute</h1>
-  <form method="post">
+  <h1>Choose One Option</h1>
+  <form method="post" class="resolve-form">
     {% csrf_token %}
     {% for field in form %}
-      {{ field.label_tag }}<br>
-      {{ field }}<br><br>
+      <div class="resolve-field">
+        <p class="resolve-label">{{ field.label }}</p>
+        <div class="resolve-options">
+          {% for choice in field %}
+            <label class="resolve-option">
+              {{ choice.tag }}
+              <span class="option-text">{{ choice.choice_label }}</span>
+            </label>
+          {% endfor %}
+        </div>
+      </div>
     {% endfor %}
-    <button type="submit">Next → See Summary</button>
+    <button type="submit" class="btn">Continue</button>
   </form>
 {% endblock %}

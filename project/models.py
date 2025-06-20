@@ -81,14 +81,17 @@ class Build(models.Model):
             attrs[nm] = max(attrs[nm], mv)
 
         # 3) apply each dependency rule by “obs_dep – (99 – your_value)”
-        for dep in AttributeDependency.objects.all():
-            s = attrs[dep.source.name]
+        # only use deps for this exact height
+        for dep in AttributeDependency.objects.filter(height=self.height):
+            s     = attrs[dep.source.name]
             delta = dep.obs_source_value - s
             forced = dep.obs_dependent - delta
-            if forced < 25:
-                forced = 25
+            # clamp to at least 25
+            forced = max(forced, 25)
+            # only raise if higher than current
             if forced > attrs[dep.dependent.name]:
                 attrs[dep.dependent.name] = forced
+
 
         return attrs
     
@@ -164,47 +167,54 @@ class AttributeWeight(models.Model):
         return f"{self.height} – {self.attribute.name}"
     
 class AttributeDependency(models.Model):
-    source            = models.ForeignKey(
-                             Attribute,
-                             on_delete=models.CASCADE,
-                             related_name='deps_as_source'
-                         )
-    dependent         = models.ForeignKey(
-                             Attribute,
-                             on_delete=models.CASCADE,
-                             related_name='deps_as_dependent'
-                         )
-    obs_source_value  = models.IntegerField(help_text="Source value (always 99)")
-    obs_dependent     = models.IntegerField(help_text="Observed dependent value at source=99")
+    height           = models.PositiveIntegerField(help_text="Player height in inches (e.g. 87 for 7'3\")")
+    source            = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='deps_as_source')
+    dependent         = models.ForeignKey(Attribute, on_delete=models.CASCADE, related_name='deps_as_dependent')
+    obs_source_value  = models.IntegerField(help_text="Observed source value at this height")
+    obs_dependent     = models.IntegerField(help_text="Observed dependent value at this height")
 
     def __str__(self):
         return f"{self.source.name}@{self.obs_source_value} → {self.dependent.name}@{self.obs_dependent}"
     
 def load_attribute_dependencies():
     """
-    Read attribute-dependencies.csv and populate AttributeDependency.
+    Read attribute-dependencies.csv (with columns:
+      source-attribute, source-at-max,
+      dependent-attribute, dependent-value,
+      height-inches)
+    and populate AttributeDependency.
     """
     AttributeDependency.objects.all().delete()
     path = os.path.join(settings.BASE_DIR, 'attribute-dependencies.csv')
     with open(path, 'r') as f:
         next(f)  # skip header
         for line in f:
-            src, src_max, dep, dep_val = [c.strip() for c in line.split(',')]
+            parts = [c.strip() for c in line.split(',')]
+            # we need exactly 5 columns
+            if len(parts) != 5:
+                print(f"Skipping malformed: {line.strip()}")
+                continue
+
+            src, src_max, dep, dep_val, h = parts
             try:
+                height_in      = int(h)
                 source_attr    = Attribute.objects.get(name=src)
                 dependent_attr = Attribute.objects.get(name=dep)
-            except Attribute.DoesNotExist:
-                print(f"Skipping unknown attribute: {src} or {dep}")
+                src_max_i      = int(src_max)
+                dep_val_i      = int(dep_val)
+            except (ValueError, Attribute.DoesNotExist):
+                print(f"Skipping malformed or unknown: {line.strip()}")
                 continue
 
             AttributeDependency.objects.create(
+                height           = height_in,
                 source           = source_attr,
                 dependent        = dependent_attr,
-                obs_source_value = int(src_max),
-                obs_dependent    = int(dep_val)
+                obs_source_value = src_max_i,
+                obs_dependent    = dep_val_i
             )
-    print("Loaded", AttributeDependency.objects.count(), "dependencies")
 
+    print("Loaded", AttributeDependency.objects.count(), "dependencies")
 
 
 def load_attribute_weights():

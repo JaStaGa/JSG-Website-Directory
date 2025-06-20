@@ -1,3 +1,4 @@
+from itertools import groupby
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, FormView, TemplateView
 from django.urls import reverse_lazy, reverse
@@ -23,9 +24,66 @@ class AttributeDetailView(DetailView):
 
 
 class BadgeListView(ListView):
-    model = Badge
-    template_name = 'project/badge_list.html'
+    model               = Badge
+    template_name       = 'project/badge_list.html'
     context_object_name = 'badges'
+
+    def get_queryset(self):
+        qs = super().get_queryset()
+
+        # --- Category filter ---
+        cat = self.request.GET.get('category', '').strip()
+        if cat:
+            qs = qs.filter(category=cat)
+
+        # --- Height filter ---
+        ht = self.request.GET.get('height', '').strip()
+        if ht:
+            try:
+                ht_int = int(ht)
+                qs = qs.filter(
+                    levels__min_height__lte=ht_int,
+                    levels__max_height__gte=ht_int
+                )
+            except ValueError:
+                pass
+
+        # --- Attribute filter ---
+        raw_attrs = self.request.GET.getlist('attribute')
+        attrs = [a for a in raw_attrs if a.strip()]
+        if attrs:
+            qs = qs.filter(levels__attribute__name__in=attrs)
+
+        return qs.distinct()
+
+    def get_context_data(self, **ctx):
+        data = super().get_context_data(**ctx)
+
+        # for the dropdowns
+        data['all_categories'] = (
+            Badge.objects
+                 .values_list('category', flat=True)
+                 .distinct()
+                 .order_by('category')
+        )
+        data['all_heights'] = [(i, f"{i//12}'{i%12:02d}") for i in range(69, 88)]
+        data['all_attributes'] = (
+            Attribute.objects
+                     .values_list('name', flat=True)
+                     .distinct()
+                     .order_by('name')
+        )
+
+        # re-derive exactly what the user typed
+        selected_height = self.request.GET.get('height', '').strip()
+        raw_attrs       = self.request.GET.getlist('attribute')
+        selected_attrs  = [a for a in raw_attrs if a.strip()]
+
+        data['selected_height']     = selected_height
+        data['selected_attributes'] = selected_attrs
+
+        return data
+
 
 class BadgeDetailView(DetailView):
     model = Badge
@@ -92,9 +150,77 @@ class BuildListView(ListView):
     context_object_name = 'builds'
 
 class BuildDetailView(DetailView):
-    model = Build
-    template_name = 'project/build_detail.html'
+    model               = Build
+    template_name       = 'project/build_detail.html'
     context_object_name = 'build'
+
+    def get_context_data(self, **kwargs):
+        ctx   = super().get_context_data(**kwargs)
+        build = self.object
+
+        # 1) Compute final attributes after dependencies
+        final_attrs = build.expanded_attributes()
+
+        # 2) Which badges the user explicitly chose
+        chosen = sorted({
+            (lvl.badge.name, lvl.level)
+            for lvl in build.selected_levels.select_related('badge')
+        })
+
+        # 3) Find *all* badge‐levels they now satisfy by attribute:
+        qs = BadgeLevel.objects.filter(
+            min_height__lte=build.height,
+            max_height__gte=build.height
+        ).select_related('badge','attribute') \
+         .order_by('badge__name','level','alternative_group')
+
+        qualified = set()
+        for (badge_name, level_code), rows in groupby(
+                qs, key=lambda bl: (bl.badge.name, bl.level)
+        ):
+            if badge_name in {b for b,_ in chosen}:
+                continue
+
+            group_rows = list(rows)
+            # AND‐requirements
+            and_reqs = [r for r in group_rows if r.alternative_group is None]
+            if not all(final_attrs[r.attribute.name] >= r.min_value for r in and_reqs):
+                continue
+
+            # OR‐requirements
+            ok = True
+            or_groups = {r.alternative_group for r in group_rows if r.alternative_group}
+            for grp in or_groups:
+                grp_rows = [r for r in group_rows if r.alternative_group == grp]
+                if not any(final_attrs[r.attribute.name] >= r.min_value
+                           for r in grp_rows):
+                    ok = False
+                    break
+            if not ok:
+                continue
+
+            qualified.add((badge_name, level_code))
+
+        # 4) Reduce to highest‐level per badge:
+        order = {'Bronze':1,'Silver':2,'Gold':3,'HoF':4,'Legend':5}
+        best = {}
+        for name,lvl in qualified:
+            if name not in best or order[lvl] > order[best[name]]:
+                best[name] = lvl
+        extra = sorted(best.items())
+
+        # 5) Attributes raised above 25
+        raised = sorted(
+            [(n,v) for n,v in final_attrs.items() if v>25],
+            key=lambda x: x[0]
+        )
+
+        ctx.update({
+            'chosen_badges': chosen,
+            'extra_badges':  extra,
+            'raised_attrs':  raised,
+        })
+        return ctx
 
 
 # 2. New-build form

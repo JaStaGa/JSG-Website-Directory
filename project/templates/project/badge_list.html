@@ -3,60 +3,120 @@
 {% extends 'project/base.html' %}
 {% block title %}Badges{% endblock %}
 {% block content %}
-    <h1>All Badges</h1>
 
-    <div class="container">
-        <h3>Finishing Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "Finishing" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
+<form method="get" class="badge-filter-form">
+  <!-- Category -->
+  <label>
+    Category:
+    <select name="category">
+      <option value="">All</option>
+      {% for cat in all_categories %}
+        <option
+          value="{{ cat }}"
+          {% if request.GET.category == cat %}selected{% endif %}
+        >{{ cat }}</option>
+      {% endfor %}
+    </select>
+  </label>
 
-    <div class="container">
-        <h3>Shooting Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "Shooting" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
+  <!-- Height -->
+  <label>
+    Height:
+    <select name="height">
+      <option value="">Any</option>
+      {% for ht_val, ht_label in all_heights %}
+        <option
+          value="{{ ht_val }}"
+          {% if selected_height == ht_val|stringformat:"s" %}selected{% endif %}
+        >{{ ht_label }}</option>
+      {% endfor %}
+    </select>
+  </label>
 
-    <div class="container">
-        <h3>Playmaking Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "Playmaking" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
+  <!-- Attribute -->
+  <label>
+    Attribute:
+    <select name="attribute">
+      <option value="">Any</option>
+      {% for attr in all_attributes %}
+        <option
+          value="{{ attr }}"
+          {% if attr in selected_attributes %}selected{% endif %}
+        >{{ attr }}</option>
+      {% endfor %}
+    </select>
+  </label>
 
-    <div class="container">
-        <h3>Defense Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "Defense" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
+  <button type="submit">Filter</button>
+</form>
 
-    <div class="container">
-        <h3>Rebounding Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "Rebounding" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
 
-    <div class="container">
-        <h3>General Badges:</h3>
-        {% for badg in badges %}
-            {% if  badg.category  == "General" %}
-                <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }} </a></li>
-            {% endif %}
-        {% endfor %}
-    </div>
+<h1>All Badges</h1>
+
+<div class="container">
+  <h3>Finishing Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "Finishing" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h3>Shooting Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "Shooting" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h3>Playmaking Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "Playmaking" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h3>Defense Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "Defense" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h3>Rebounding Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "Rebounding" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+
+<div class="container">
+  <h3>General Badges:</h3>
+  <ul>
+    {% for badg in badges %}
+      {% if badg.category == "General" %}
+        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
 
 {% endblock %}

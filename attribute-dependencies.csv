@@ -1,15 +1,15 @@
 source-attribute,source-at-max,dependent-attribute,dependent-value,height-inches
-Strength,99,Interior Defense,94,87
-Strength,99,Post Control,74,87
-Strength,99,Defensive Rebound,74,87
-Strength,99,Close Shot,69,87
-Strength,99,Block,64,87
-Strength,99,Offensive Rebound,49,87
-Strength,99,Steal,49,87
-Strength,99,Perimeter Defense,44,87
-Strength,99,Vertical,29,87
-Strength,99,Free Throw,29,87
-Strength,99,Mid-Range Shot,29,87
+Strength,98,Interior Defense,93,87
+Strength,98,Post Control,73,87
+Strength,98,Defensive Rebound,73,87
+Strength,98,Close Shot,68,87
+Strength,98,Block,63,87
+Strength,98,Offensive Rebound,48,87
+Strength,98,Steal,48,87
+Strength,98,Perimeter Defense,43,87
+Strength,98,Vertical,28,87
+Strength,98,Free Throw,28,87
+Strength,98,Mid-Range Shot,28,87
 Defensive Rebound,99,Close Shot,54,87
 Defensive Rebound,99,Driving Dunk,39,87
 Defensive Rebound,99,Standing Dunk,49,87
@@ -29,3 +29,111 @@ Close Shot,99,Interior Defense,39,87
 Close Shot,99,Offensive Rebound,39,87
 Close Shot,99,Strength,44,87
 Close Shot,99,Vertical,54,87
+Driving Layup,72,Close Shot,67,87
+Driving Layup,72,Post Control,42,87
+Driving Layup,72,Mid-Range Shot,27,87
+Driving Layup,72,Free Throw,27,87
+Driving Layup,72,Ball Handle,32,87
+Driving Layup,72,Interior Defense,32,87
+Driving Layup,72,Strength,37,87
+Driving Dunk,70,Close Shot,50,87
+Driving Dunk,70,Driving Layup,50,87
+Driving Dunk,70,Standing Dunk,60,87
+Driving Dunk,70,Ball Handle,30,87
+Driving Dunk,70,Interior Defense,35,87
+Driving Dunk,70,Strength,40,87
+Driving Dunk,70,Vertical,50,87
+Standing Dunk,99,Close Shot,84,87
+Standing Dunk,99,Driving Layup,39,87
+Standing Dunk,99,Driving Dunk,59,87
+Standing Dunk,99,Post Control,59,87
+Standing Dunk,99,Mid-Range Shot,44,87
+Standing Dunk,99,Free Throw,44,87
+Standing Dunk,99,Strength,29,87
+Standing Dunk,99,Vertical,59,87
+Post Control,99,Close Shot,94,87
+Post Control,99,Driving Layup,34,87
+Post Control,99,Driving Dunk,34,87
+Post Control,99,Standing Dunk,44,87
+Post Control,99,Mid-Range Shot,54,87
+Post Control,99,Free Throw,54,87
+Post Control,99,Ball Handle,49,87
+Post Control,99,Interior Defense,64,87
+Post Control,99,Block,34,87
+Post Control,99,Offensive Rebound,59,87
+Post Control,99,Defensive Rebound,44,87
+Post Control,99,Strength,69,87
+Post Control,99,Vertical,49,87
+Mid-Range Shot,83,Close Shot,78,87
+Mid-Range Shot,83,Standing Dunk,28,87
+Mid-Range Shot,83,Post Control,53,87
+Mid-Range Shot,83,Three-Point Shot,58,87
+Mid-Range Shot,83,Vertical,33,87
+Three-Point Shot,78,Close Shot,63,87
+Three-Point Shot,78,Post Control,38,87
+Three-Point Shot,78,Mid-Range Shot,68,87
+Three-Point Shot,78,Free Throw,53,87
+Free Throw,89,Close Shot,59,87
+Free Throw,89,Post Control,34,87
+Free Throw,89,Mid-Range Shot,64,87
+Free Throw,89,Three-Point Shot,44,87
+Pass Accuracy,99,Close Shot,39,87
+Pass Accuracy,99,Driving Layup,34,87
+Pass Accuracy,99,Post Control,44,87
+Pass Accuracy,99,Ball Handle,49,87
+Ball Handle,57,Close Shot,47,87
+Ball Handle,57,Driving Layup,42,87
+Ball Handle,57,Post Control,52,87
+Ball Handle,57,Pass Accuracy,32,87
+Speed With Ball,38,Post Control,28,87
+Speed With Ball,38,Ball Handle,33,87
+Speed With Ball,38,Speed,33,87
+Interior Defense,99,Close Shot,49,87
+Interior Defense,99,Standing Dunk,29,87
+Interior Defense,99,Post Control,54,87
+Interior Defense,99,Perimeter Defense,49,87
+Interior Defense,99,Steal,54,87
+Interior Defense,99,Block,69,87
+Interior Defense,99,Offensive Rebound,54,87
+Interior Defense,99,Defensive Rebound,79,87
+Interior Defense,99,Strength,79,87
+Interior Defense,99,Vertical,34,87
+Perimeter Defense,58,Interior Defense,38,87
+Perimeter Defense,58,Steal,28,87
+Perimeter Defense,58,Block,38,87
+Perimeter Defense,58,Defensive Rebound,48,87
+Perimeter Defense,58,Agility,33,87
+Steal,57,Interior Defense,52,87
+Steal,57,Defensive Rebound,32,87
+Steal,57,Strength,32,87
+Block,99,Close Shot,49,87
+Block,99,Driving Dunk,44,87
+Block,99,Standing Dunk,54,87
+Block,99,Post Control,39,87
+Block,99,Interior Defense,84,87
+Block,99,Perimeter Defense,34,87
+Block,99,Steal,44,87
+Block,99,Offensive Rebound,49,87
+Block,99,Defensive Rebound,74,87
+Block,99,Strength,64,87
+Block,99,Vertical,59,87
+Offensive Rebound,99,Close Shot,79,87
+Offensive Rebound,99,Driving Dunk,39,87
+Offensive Rebound,99,Standing Dunk,49,87
+Offensive Rebound,99,Post Control,54,87
+Offensive Rebound,99,Mid-Range Shot,39,87
+Offensive Rebound,99,Free Throw,39,87
+Offensive Rebound,99,Interior Defense,59,87
+Offensive Rebound,99,Block,44,87
+Offensive Rebound,99,Defensive Rebound,84,87
+Offensive Rebound,99,Strength,39,87
+Offensive Rebound,99,Vertical,54,87
+Speed,49,Agility,29,87
+Agility,39,Speed,29,87
+Agility,39,Defensive Rebound,34,87
+Vertical,68,Close Shot,58,87
+Vertical,68,Driving Layup,33,87
+Vertical,68,Driving Dunk,53,87
+Vertical,68,Standing Dunk,63,87
+Vertical,68,Post Control,33,87
+Vertical,68,Defensive Rebound,31,87

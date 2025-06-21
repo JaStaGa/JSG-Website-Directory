@@ -1,0 +1,12 @@
+<!-- project/build_confirm_delete.html -->
+
+{% extends 'project/base.html' %}
+{% block title %}Delete {{ build.name }}{% endblock %}
+{% block content %}
+  <h1>Delete Build: {{ build.name }}?</h1>
+  <p>This cannot be undone.</p>
+  <form method="post">{% csrf_token %}
+    <button type="submit">Yes, delete it</button>
+  </form>
+  <p><a href="{% url 'build_detail' build.pk %}">No, go back</a></p>
+{% endblock %}

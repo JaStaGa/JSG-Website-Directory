@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import AttributeListView, AttributeDetailView, BadgeListView, BadgeDetailView, BadgeLevelListView, BadgeLevelDetailView, BuildListView, BuildDetailView, BuildIntroView, BuildAddBadgeView, BuildResolveORView, BuildSummaryView, home
+from .views import AttributeListView, AttributeDetailView, BadgeListView, BadgeDetailView, BadgeLevelListView, BadgeLevelDetailView, BuildDeleteView, BuildListView, BuildDetailView, BuildIntroView, BuildAddBadgeView, BuildResolveORView, BuildSummaryView, BuildUpdateView, home
 
 urlpatterns = [
     path('', home, name='project_home'),
@@ -21,4 +21,6 @@ urlpatterns = [
     path('builds/new/resolve-or/',    BuildResolveORView.as_view(),  name='build_resolve_or'),
     path('builds/new/summary/',BuildSummaryView.as_view(),     name='build_summary'),
 
+    path('builds/<int:pk>/edit/', BuildUpdateView.as_view(),   name='build_edit'),
+    path('builds/<int:pk>/delete/', BuildDeleteView.as_view(), name='build_delete'),
 ]

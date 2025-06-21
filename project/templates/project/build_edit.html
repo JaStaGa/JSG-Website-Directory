@@ -1,0 +1,23 @@
+<!-- project/build_edit.html -->
+
+{% extends 'project/base.html' %}
+{% block title %}Edit {{ build.name }}{% endblock %}
+{% block content %}
+  <h1>Edit Build: {{ build.name }}</h1>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.name.label_tag }} {{ form.name }}
+    <hr>
+    <h3>Badges</h3>
+    {% for field in form %}
+      {% if field.name != 'name' %}
+        <div class="field">
+          {{ field.label_tag }} {{ field }}
+        </div>
+      {% endif %}
+    {% endfor %}
+    <button type="submit">Save</button>
+    <a href="{% url 'build_detail' build.pk %}">Cancel</a>
+  </form>
+{% endblock %}
+

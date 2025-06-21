@@ -1,5 +1,5 @@
 from django import forms
-from .models import Badge, BadgeLevel
+from .models import Badge, BadgeLevel, Build
 
 
 class BuildIntroForm(forms.Form):
@@ -101,3 +101,59 @@ class BuildForm(forms.Form):
                 qs = BadgeLevel.objects.filter(badge=badge, level=lvl_code)
                 levels.extend(list(qs))
         return levels
+
+class BuildEditForm(forms.Form):
+    name = forms.CharField(max_length=100, label="Build name")
+
+    def __init__(self, *args, instance: Build, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.build = instance
+
+        # prefill the name
+        self.fields['name'].initial = instance.name
+
+        # for each badge, add a dropdown of its levels
+        for badge in Badge.objects.all():
+            # find which level‐codes exist for this badge
+            available = (
+                BadgeLevel.objects
+                          .filter(badge=badge)
+                          .values_list('level', flat=True)
+                          .distinct()
+            )
+            # build choices list
+            choices = [('', '— none —')]
+            for code, label in BadgeLevel.LEVEL_CHOICES:
+                if code in available:
+                    choices.append((code, label))
+
+            field_name = f'badge_{badge.id}'
+            self.fields[field_name] = forms.ChoiceField(
+                label=badge.name,
+                choices=choices,
+                required=False,
+            )
+
+            # if this build already had a level for that badge, pre‐select it
+            sel = (
+                instance.selected_levels
+                        .filter(badge=badge)
+                        .order_by('-level')  # pick highest if multiple
+                        .first()
+            )
+            if sel:
+                self.fields[field_name].initial = sel.level
+
+    def save(self):
+        # update the build’s name
+        self.build.name = self.cleaned_data['name']
+        self.build.save()
+
+        # rebuild its selected_levels m2m
+        picks = []
+        for badge in Badge.objects.all():
+            lvl_code = self.cleaned_data.get(f'badge_{badge.id}')
+            if lvl_code:
+                picks += list(BadgeLevel.objects.filter(badge=badge, level=lvl_code))
+        self.build.selected_levels.set(picks)
+        return self.build

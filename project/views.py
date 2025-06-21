@@ -1,7 +1,9 @@
 from itertools import groupby
 from django.shortcuts import get_object_or_404, redirect, render
-from django.views.generic import ListView, DetailView, FormView, TemplateView
+from django.views.generic import ListView, DetailView, FormView, TemplateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
+from .forms import BuildEditForm
+
 
 from .models import *
 from .forms import *
@@ -448,3 +450,34 @@ class BuildCreateView(FormView):
         return super().form_valid(form)
 
 
+class BuildUpdateView(FormView):
+    template_name = 'project/build_edit.html'
+    form_class    = BuildEditForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.build = get_object_or_404(Build, pk=kwargs['pk'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form_kwargs(self):
+        kw = super().get_form_kwargs()
+        kw['instance'] = self.build
+        if self.request.method in ('POST', 'PUT'):
+            kw['data'] = self.request.POST
+        return kw
+
+    def get_context_data(self, **ctx):
+        ctx = super().get_context_data(**ctx)
+        # make build available in the template
+        ctx['build'] = self.build
+        return ctx
+
+    def form_valid(self, form):
+        form.save()
+        return redirect('build_detail', self.build.pk)
+
+
+class BuildDeleteView(DeleteView):
+    model = Build
+    template_name = 'project/build_confirm_delete.html'
+    context_object_name = 'build'
+    success_url = reverse_lazy('build_list')

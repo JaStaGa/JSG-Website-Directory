@@ -7,9 +7,11 @@
   <ul>
     {% for build in builds %}
       <li>
-        <a href="{% url 'build_detail' build.pk %}">
-          {{ build.name }}
-        </a>
+        <a href="{% url 'build_detail' build.pk %}">{{ build.name }}</a>
+        <br>
+        <a href="{% url 'build_edit' build.pk %}">Edit</a>
+        <a href="{% url 'build_delete' build.pk %}">Delete</a>
+        <br><br>
       </li>
     {% empty %}
       <li>No builds yet.</li>

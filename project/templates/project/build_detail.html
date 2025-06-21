@@ -7,6 +7,12 @@
   <p>Created at: {{ build.created_at }}</p>
   <p><strong>Height:</strong> {{ build.height_feet }}'{{ build.height_inches }}</p>
 
+  <p>
+    <a href="{% url 'build_edit' build.pk %}">Edit this build</a> |
+    <a href="{% url 'build_delete' build.pk %}">Delete this build</a> |
+    <a href="{% url 'build_list' %}">Back to all builds</a>
+  </p>
+
   <h2>Badges You Chose</h2>
   {% if chosen_badges %}
     <ul>

@@ -5,6 +5,7 @@
 {% block content %}
   <h1>Edit Build: {{ build.name }}</h1>
   <form method="post">
+  <button type="submit">Save</button><br>
     {% csrf_token %}
     {{ form.name.label_tag }} {{ form.name }}
     <hr>

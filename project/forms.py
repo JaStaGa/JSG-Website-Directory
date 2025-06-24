@@ -1,5 +1,5 @@
 from django import forms
-from .models import Badge, BadgeLevel, Build
+from .models import AttributeCap, Badge, BadgeLevel, Build
 
 
 class BuildIntroForm(forms.Form):
@@ -27,28 +27,67 @@ class BadgeSelectionForm(forms.Form):
     """
     Renders one ChoiceField per Badge, letting the user pick
     None, Bronze, Silver, Gold, HoF or Legend—only for the levels
-    that actually exist on that badge.
+    that actually exist on that badge *and* that fit under your
+    selected height’s attribute caps.
     """
     def __init__(self, *args, **kwargs):
+        build_pk = kwargs.pop('build_pk', None)
         super().__init__(*args, **kwargs)
-        # grab all badges, ordered by category then name
-        for badge in Badge.objects.order_by('category', 'name'):
-            # find which level codes exist for this badge
-            existing = set(
-                BadgeLevel.objects
-                   .filter(badge=badge)
-                   .values_list('level', flat=True)
-            )
-            # build a choices list: “— none —” + each level in intrinsic order
-            choices = [('', '— none —')]
-            for code, label in BadgeLevel.LEVEL_CHOICES:
-                if code in existing:
-                    choices.append((code, label))
-            # add a field named badge_<pk>
-            self.fields[f'badge_{badge.pk}'] = forms.ChoiceField(
-                choices=choices,
+
+        # grab your caps for this height
+        caps = {}
+        if build_pk:
+            build = Build.objects.get(pk=build_pk)
+            for ac in AttributeCap.objects.filter(height=build.height):
+                caps[ac.attribute_id] = ac.cap
+
+        # now one field *per* badge
+        for badge in Badge.objects.order_by('category','name'):
+            field_name    = f'badge_{badge.pk}'
+            level_choices = [('', '— none —')]
+            for lvl_code, lvl_label in BadgeLevel.LEVEL_CHOICES:
+                # only the rows valid at this height
+                reqs = BadgeLevel.objects.filter(
+                    badge=badge,
+                    level=lvl_code,
+                    min_height__lte=build.height,
+                    max_height__gte=build.height,
+                )
+                if not reqs.exists():
+                    continue
+
+                # split AND vs OR
+                invalid = False
+
+                # AND rows
+                for r in reqs.filter(alternative_group__isnull=True):
+                    cap = caps.get(r.attribute_id, 99)
+                    if r.min_value > cap:
+                        invalid = True
+                        break
+                if invalid:
+                    continue
+
+                # OR groups
+                or_groups = reqs.exclude(alternative_group__isnull=True) \
+                                .values_list('alternative_group', flat=True) \
+                                .distinct()
+                for grp in or_groups:
+                    group_rows = reqs.filter(alternative_group=grp)
+                    if all(r.min_value > caps.get(r.attribute_id, 99)
+                        for r in group_rows):
+                        invalid = True
+                        break
+                if invalid:
+                    continue
+
+                level_choices.append((lvl_code, lvl_label))
+
+
+            self.fields[field_name] = forms.ChoiceField(
+                label=badge.name,
+                choices=level_choices,
                 required=False,
-                label=badge.name
             )
 
 

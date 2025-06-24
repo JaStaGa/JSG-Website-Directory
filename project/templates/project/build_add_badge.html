@@ -26,18 +26,22 @@
 
     <!-- Badge sections -->
     {% for category, fields in grouped_badges.items %}
-      <section
-        id="category-{{ category|slugify }}"
-        class="badge-category"
-      >
-      <br><br><br>
+      <section id="category-{{ category|slugify }}" class="badge-category">
         <h2>{{ category }} Badges</h2>
         {% for field in fields %}
           <div class="form-row">
-            {{ field.label_tag }} {{ field }}
+            {{ field.label_tag }}<br>
+            {{ field }}
+            {% if field.errors %}
+              <div class="field-errors">{{ field.errors|join:", " }}</div>
+            {% endif %}
           </div>
         {% endfor %}
       </section>
     {% endfor %}
+
+    <div class="bottom-nav">
+      <button type="submit" class="next-button">Next →</button>
+    </div>
   </form>
 {% endblock %}

@@ -150,6 +150,8 @@ class Build(models.Model):
 
     def __str__(self):
         return self.name
+    
+# MODELS FOR CSV INFORMATION
 
 class AttributeWeight(models.Model):
     category     = models.CharField(max_length=50)
@@ -176,6 +178,20 @@ class AttributeDependency(models.Model):
     def __str__(self):
         return f"{self.source.name}@{self.obs_source_value} → {self.dependent.name}@{self.obs_dependent}"
     
+class AttributeCap(models.Model):
+    height              = models.PositiveIntegerField(help_text="Player height in inches (e.g. 87 for 7'3\")")
+    attribute           = models.ForeignKey(Attribute, on_delete=models.CASCADE)
+    cap                 = models.PositiveIntegerField()
+
+    class Meta:
+        unique_together = ('height', 'attribute')
+
+    def __str__(self):
+        ft,inch = divmod(self.height)   # inch -> ft
+        return f"{ft}'{inch:02d} cap for {self.attribute.name} → {self.cap}"
+
+# FUNCTIONS TO LOAD CSV INFO INTO THEIR MODELS
+
 def load_attribute_dependencies():
     """
     Read attribute-dependencies.csv (with columns:
@@ -281,4 +297,32 @@ def load_attribute_weights():
 
     print(f"Done. {AttributeWeight.objects.count()} weight records.")
 
-# def edit_existing_builds():
+def load_attribute_caps():
+    """
+    Clears and reloads the AttributeCap table from
+    attribute-caps.csv in your project root.
+    """
+    AttributeCap.objects.all().delete()
+    path = os.path.join(settings.BASE_DIR, 'attribute-caps.csv')
+    with open(path) as f:
+        header = f.readline().strip().split(',')
+        # header[0] == 'height', header[1:] attribute names
+        attrs = header[1:]
+        for line in f:
+            parts = [p.strip() for p in line.split(',')]
+            h = int(parts[0])
+            for attr_name, cap_val in zip(attrs, parts[1:]):
+                if not cap_val:
+                    continue
+                try:
+                    a = Attribute.objects.get(name=attr_name)
+                except Attribute.DoesNotExist:
+                    print(f"Unknown attribute in caps CSV: {attr_name}")
+                    continue
+                AttributeCap.objects.create(
+                    height    = h,
+                    attribute = a,
+                    cap       = int(cap_val)
+                )
+    print("Loaded", AttributeCap.objects.count(), "caps")
+

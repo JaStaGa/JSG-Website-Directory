@@ -248,6 +248,11 @@ class BuildAddBadgeView(FormView):
     template_name = 'project/build_add_badge.html'
     form_class    = BadgeSelectionForm
 
+    def get_form_kwargs(self):
+        kw = super().get_form_kwargs()
+        kw['build_pk'] = self.request.session.get('build_pk')
+        return kw
+
     def dispatch(self, request, *args, **kwargs):
         if 'build_pk' not in request.session:
             return redirect('build_intro')

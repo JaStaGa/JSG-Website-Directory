@@ -113,6 +113,24 @@ th {
   color: var(--text-main);
 }
 
+.table-fixed {
+  table-layout: fixed;
+  width: 100%;
+}
+
+.table-fixed th,
+.table-fixed td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* then set each column’s width */
+.table-fixed col:nth-child(1) { width: 20%; }
+.table-fixed col:nth-child(2) { width: 15%; }
+.table-fixed col:nth-child(3) { width: 15%; }
+/* adjust percentages until you like the look */
+
 /* ───────────────────────────────────────────────────────────────────────── */
 /* Cards / Panels                                                           */
 /* ───────────────────────────────────────────────────────────────────────── */

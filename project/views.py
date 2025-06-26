@@ -161,16 +161,16 @@ class BuildDetailView(DetailView):
         ctx   = super().get_context_data(**kwargs)
         build = self.object
 
-        # 1) Compute final attributes after dependencies
+        # Compute final attributes after dependencies
         final_attrs = build.expanded_attributes()
 
-        # 2) Which badges the user explicitly chose
+        # Which badges the user explicitly chose
         chosen = sorted({
             (lvl.badge.name, lvl.level)
             for lvl in build.selected_levels.select_related('badge')
         })
 
-        # 3) Find *all* badge‐levels they now satisfy by attribute:
+        # Find *all* badge‐levels they now satisfy by attribute:
         qs = BadgeLevel.objects.filter(
             min_height__lte=build.height,
             max_height__gte=build.height
@@ -204,7 +204,7 @@ class BuildDetailView(DetailView):
 
             qualified.add((badge_name, level_code))
 
-        # 4) Reduce to highest‐level per badge:
+        # Reduce to highest‐level per badge:
         order = {'Bronze':1,'Silver':2,'Gold':3,'HoF':4,'Legend':5}
         best = {}
         for name,lvl in qualified:
@@ -212,16 +212,34 @@ class BuildDetailView(DetailView):
                 best[name] = lvl
         extra = sorted(best.items())
 
-        # 5) Attributes raised above 25
-        raised = sorted(
-            [(n,v) for n,v in final_attrs.items() if v>25],
-            key=lambda x: x[0]
-        )
+        # # Attributes raised above 25
+        # raised = sorted(
+        #     [(n,v) for n,v in final_attrs.items() if v>25],
+        #     key=lambda x: x[0]
+        # )
+
+        # show *all* attributes in your chosen NBA2K order ---
+        desired_order = [
+          "Close Shot","Driving Layup","Driving Dunk","Standing Dunk","Post Control",
+          "Mid-Range Shot","Three-Point Shot","Free Throw",
+          "Pass Accuracy","Ball Handle","Speed With Ball",
+          "Interior Defense","Perimeter Defense","Steal","Block",
+          "Offensive Rebound","Defensive Rebound","Speed","Agility","Strength","Vertical"
+        ]
+        all_attrs = [(name, final_attrs[name]) for name in desired_order]
+
+        # now also push JSON arrays for *all* attributes
+        names      = [n for n, _ in all_attrs]
+        values     = [v for _, v in all_attrs]
+        categories = [ Attribute.objects.get(name=n).category for n in names ]
 
         ctx.update({
-            'chosen_badges': chosen,
-            'extra_badges':  extra,
-            'raised_attrs':  raised,
+            'chosen_badges':    chosen,
+            'extra_badges':     extra,
+            'raised_attrs':     [(n,v) for n,v in all_attrs if v>25],
+            'attr_names_json':  mark_safe(json.dumps(names)),
+            'attr_values_json': mark_safe(json.dumps(values)),
+            'attr_cats_json':   mark_safe(json.dumps(categories)),
         })
         return ctx
 
@@ -343,16 +361,16 @@ class BuildSummaryView(TemplateView):
         ctx   = super().get_context_data(**kwargs)
         build = get_object_or_404(Build, pk=self.request.session['build_pk'])
 
-        # 1) compute your final expanded attributes
+        # compute your final expanded attributes
         final_attrs = build.expanded_attributes()
 
-        # 2) which badges the user explicitly chose
+        # which badges the user explicitly chose
         chosen_badge_names = {
             lvl.badge.name
             for lvl in build.selected_levels.select_related('badge')
         }
 
-        # 3) figure out all the extra badges you now qualify for
+        # figure out all the extra badges you now qualify for
         qualified = set()
         qs = BadgeLevel.objects.filter(
             min_height__lte=build.height,
@@ -384,7 +402,7 @@ class BuildSummaryView(TemplateView):
 
             qualified.add((badge_name, level_code))
 
-        # 4) pick highest‐level per badge
+        # pick highest‐level per badge
         level_order = {'Bronze':1,'Silver':2,'Gold':3,'HoF':4,'Legend':5}
         best = {}
         for badge_name, lvl in qualified:
@@ -393,26 +411,40 @@ class BuildSummaryView(TemplateView):
                 best[badge_name] = lvl
         extra = sorted(best.items())
 
-        # 5) chosen badges (one entry each)
+        # chosen badges (one entry each)
         chosen = sorted({
             (lvl.badge.name, lvl.level)
             for lvl in build.selected_levels.select_related('badge')
         })
 
-        # 6) attributes raised above 25
-        raised = [(n, v) for n, v in final_attrs.items() if v > 25]
+        # ─── NBA2K ATTRIBUTE ORDER ────────────────────────────────
+        attr_order = [
+          'Close Shot', 'Driving Layup', 'Driving Dunk', 'Standing Dunk',
+          'Post Control', 'Mid-Range Shot', 'Three-Point Shot', 'Free Throw',
+          'Pass Accuracy', 'Ball Handle', 'Speed With Ball',
+          'Interior Defense', 'Perimeter Defense', 'Steal', 'Block',
+          'Offensive Rebound', 'Defensive Rebound',
+          'Speed', 'Agility', 'Strength', 'Vertical',
+        ]
 
-        # turn that into two parallel lists
-        names  = [n for n, _ in raised]
-        values = [v for _, v in raised]
-        categories = [ Attribute.objects.get(name=n).category for n in names ]
+        # names in the exact order
+        names = attr_order
+
+        # look up each final value (25 if untouched)
+        values = [ final_attrs.get(n, 25) for n in attr_order ]
+
+        # category for each (for per-bar coloring)
+        categories = [
+          Attribute.objects.get(name=n).category
+          for n in attr_order
+        ]
 
         # dump to JSON and mark safe so Django won’t escape it
         ctx.update({
             'build':            build,
             'chosen_badges':    chosen,
             'extra_badges':     extra,
-            'raised_attrs':     raised,
+            # 'raised_attrs':     raised,
             'attr_names_json':  mark_safe(json.dumps(names)),
             'attr_values_json': mark_safe(json.dumps(values)),
             'attr_cats_json':   mark_safe(json.dumps(categories)),

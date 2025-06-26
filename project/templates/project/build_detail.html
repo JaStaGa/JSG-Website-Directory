@@ -37,14 +37,50 @@
 
   <h2>Attributes Above 25</h2>
   {% if raised_attrs %}
-    <ul>
-      {% for name, val in raised_attrs %}
-        <li>{{ name }}: {{ val }}</li>
-      {% endfor %}
-    </ul>
+    <!-- load Plotly -->
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+
+    <div id="detail-attr-chart"
+         style="width:100%;max-width:800px;height:400px;margin-bottom:2rem;">
+    </div>
+
+    <script>
+      // parse our JSON-encoded lists
+      const names   = JSON.parse('{{ attr_names_json|escapejs }}');
+      const values  = JSON.parse('{{ attr_values_json|escapejs }}');
+      const cats    = JSON.parse('{{ attr_cats_json|escapejs }}');
+
+      // optional: map categories to colors
+      const categoryColors = {
+        'Finishing':    '#1f77b4',
+        'Shooting':     '#2ca02c',
+        'Playmaking':   '#ff7f0e',
+        'Defense':      '#d62728',
+        'Rebounding':   '#9467bd',
+        'Physicals':    '#bcbd22'
+      };
+      const barColors = cats.map(c => categoryColors[c] || '#888');
+
+      Plotly.newPlot('detail-attr-chart', [{
+        x: names,
+        y: values,
+        type: 'bar',
+        marker: { color: barColors, line:{ width:1, color:'#333' } },
+        width: 0.5    // make bars thinner for more breathing room
+      }], {
+        paper_bgcolor: '#15151b',
+        plot_bgcolor:  '#15151b',
+        font:          { color: 'white' },
+        yaxis:         { range: [0, 99], title: 'Attribute Value' },
+        xaxis:         { tickangle: -45 },
+        margin:        { b: 120 },
+        bargap:        0.8
+      }, { displayModeBar: false });
+    </script>
   {% else %}
     <p><em>All attributes remain at base 25.</em></p>
   {% endif %}
+
 
   <p><a href="{% url 'build_list' %}">← Back to Builds</a></p>
 {% endblock %}

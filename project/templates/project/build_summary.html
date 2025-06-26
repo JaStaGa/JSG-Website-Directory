@@ -29,7 +29,7 @@
   {% endif %}
 
   <h2>Attributes Raised Above 25</h2>
-  {% if raised_attrs %}
+  <!-- {% if raised_attrs %}
     <ul>
       {% for name, val in raised_attrs %}
         <li>{{ name }}: {{ val }}</li>
@@ -37,11 +37,11 @@
     </ul>
   {% else %}
     <p><em>No attribute has moved above the base of 25.</em></p>
-  {% endif %}
+  {% endif %} -->
 
   <!-- Plotly -->
   <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  <div id="attr-chart" style="width:100%;max-width:600px;height:400px;margin-bottom:2rem;"></div>
+  <div id="attr-chart" style="width:100%;max-width:800px;height:400px;margin-bottom:2rem;"></div>
   <script>
     // 1) grab our JSON arrays from Django
     const names   = JSON.parse('{{ attr_names_json|escapejs }}');
@@ -64,15 +64,17 @@
       x: names,
       y: values,
       type: 'bar',
+      width: 0.6, 
       marker: { color: barColors, line:{ width:1, color:'#333' } }
     }], {
       paper_bgcolor: '#15151b',
       plot_bgcolor:  '#15151b',
-      font:          { color: 'white' },
-      title:         { text:'Attributes Raised Above 25', font:{ color:'orange' } },
-      yaxis:         { range:[25,99], title:'Attribute Value' },
-      xaxis:         { tickangle:-45 },
-      margin:        { b:100 }
+      font:   { color: 'white' },
+      // title:  { text:'Attributes Raised Above 25', font:{ color:'orange' } },
+      yaxis:  { range:[0,99], title:'Attribute Value' },
+      xaxis:  { tickangle:-45 },
+      margin: { b:100 },
+      bargap: 0.6, 
     }, { displayModeBar:false });
   </script>
 

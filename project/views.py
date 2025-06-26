@@ -1,10 +1,11 @@
 from itertools import groupby
+import json
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.generic import ListView, DetailView, FormView, TemplateView, UpdateView, DeleteView
 from django.urls import reverse_lazy, reverse
 from .forms import BuildEditForm
-
-
+from itertools import groupby
+from django.utils.html import mark_safe
 from .models import *
 from .forms import *
 
@@ -342,44 +343,37 @@ class BuildSummaryView(TemplateView):
         ctx   = super().get_context_data(**kwargs)
         build = get_object_or_404(Build, pk=self.request.session['build_pk'])
 
+        # 1) compute your final expanded attributes
         final_attrs = build.expanded_attributes()
 
-        # 1) which badges the user explicitly chose (any level)
+        # 2) which badges the user explicitly chose
         chosen_badge_names = {
             lvl.badge.name
             for lvl in build.selected_levels.select_related('badge')
         }
 
-        # 2) collect all levels you now qualify for
-        qualified = set()  # will hold (badge_name, level_code)
+        # 3) figure out all the extra badges you now qualify for
+        qualified = set()
         qs = BadgeLevel.objects.filter(
             min_height__lte=build.height,
             max_height__gte=build.height
         ).select_related('badge', 'attribute')
-
-        # group by badge+level
-        from itertools import groupby
-        # sort so groupby works
         qs = qs.order_by('badge__name', 'level', 'alternative_group')
         for (badge_name, level_code), group in groupby(
             qs, key=lambda bl: (bl.badge.name, bl.level)
         ):
-            # skip badges the user already chose
             if badge_name in chosen_badge_names:
                 continue
 
             rows = list(group)
-            # AND requirements: those with no alt_group
-            and_reqs = [r for r in rows if r.alternative_group is None]
+            # AND requirements
             if not all(final_attrs[r.attribute.name] >= r.min_value
-                       for r in and_reqs):
+                       for r in rows if r.alternative_group is None):
                 continue
 
-            # OR requirements: one pass in each alt_group
+            # OR requirements
             ok_or = True
-            or_groups = {r.alternative_group for r in rows
-                         if r.alternative_group is not None}
-            for grp in or_groups:
+            for grp in {r.alternative_group for r in rows if r.alternative_group}:
                 grp_rows = [r for r in rows if r.alternative_group == grp]
                 if not any(final_attrs[r.attribute.name] >= r.min_value
                            for r in grp_rows):
@@ -388,21 +382,18 @@ class BuildSummaryView(TemplateView):
             if not ok_or:
                 continue
 
-            # if we got here, you qualify for this badge+level
             qualified.add((badge_name, level_code))
 
-        # 3) reduce to highest‐level per badge
+        # 4) pick highest‐level per badge
         level_order = {'Bronze':1,'Silver':2,'Gold':3,'HoF':4,'Legend':5}
         best = {}
         for badge_name, lvl in qualified:
             if (badge_name not in best or
                 level_order[lvl] > level_order[best[badge_name]]):
                 best[badge_name] = lvl
-
-        # 4) sort for display
         extra = sorted(best.items())
 
-        # 5) chosen badges (show exactly one entry per badge)
+        # 5) chosen badges (one entry each)
         chosen = sorted({
             (lvl.badge.name, lvl.level)
             for lvl in build.selected_levels.select_related('badge')
@@ -411,11 +402,20 @@ class BuildSummaryView(TemplateView):
         # 6) attributes raised above 25
         raised = [(n, v) for n, v in final_attrs.items() if v > 25]
 
+        # turn that into two parallel lists
+        names  = [n for n, _ in raised]
+        values = [v for _, v in raised]
+        categories = [ Attribute.objects.get(name=n).category for n in names ]
+
+        # dump to JSON and mark safe so Django won’t escape it
         ctx.update({
-            'build':          build,
-            'chosen_badges':  chosen,
-            'extra_badges':   extra,
-            'raised_attrs':   raised,
+            'build':            build,
+            'chosen_badges':    chosen,
+            'extra_badges':     extra,
+            'raised_attrs':     raised,
+            'attr_names_json':  mark_safe(json.dumps(names)),
+            'attr_values_json': mark_safe(json.dumps(values)),
+            'attr_cats_json':   mark_safe(json.dumps(categories)),
         })
         return ctx
 

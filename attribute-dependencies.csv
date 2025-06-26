@@ -137,3 +137,134 @@ Vertical,68,Driving Dunk,53,87
 Vertical,68,Standing Dunk,63,87
 Vertical,68,Post Control,33,87
 Vertical,68,Defensive Rebound,31,87
+Close Shot,99,Mid-Range Shot,59,69
+Close Shot,99,Three-Point Shot,44,69
+Close Shot,99,Free Throw,59,69
+Close Shot,99,Offensive Rebound,39,69
+Close Shot,99,Vertical,54,69
+Driving Layup,99,Close Shot,79,69
+Driving Layup,99,Post Control,29,69
+Driving Layup,99,Mid-Range Shot,39,69
+Driving Layup,99,Free Throw,39,69
+Driving Layup,99,Pass Accuracy,69,69
+Driving Layup,99,Ball Handle,94,69
+Driving Layup,99,Speed With Ball,84,69
+Driving Layup,99,Perimeter Defense,49,69
+Driving Layup,99,Speed,79,69
+Driving Layup,99,Agility,69,69
+Driving Layup,99,Strength,34,69
+Driving Layup,99,Vertical,49,69
+Driving Dunk,75,Close Shot,60,69
+Driving Dunk,75,Driving Layup,55,69
+Driving Dunk,75,Pass Accuracy,45,69
+Driving Dunk,75,Ball Handle,70,69
+Driving Dunk,75,Speed With Ball,60,69
+Driving Dunk,75,Speed,55,69
+Driving Dunk,75,Agility,45,69
+Driving Dunk,75,Vertical,55,69
+Post Control,60,Close Shot,55,69
+Post Control,60,Driving Layup,40,69
+Post Control,60,Pass Accuracy,30,69
+Post Control,60,Ball Handle,55,69
+Post Control,60,Speed With Ball,45,69
+Post Control,60,Speed,40,69
+Post Control,60,Agility,30,69
+Post Control,60,Strength,30,69
+Mid-Range Shot,99,Close Shot,84,69
+Mid-Range Shot,99,Three-Point Shot,84,69
+Mid-Range Shot,99,Free Throw,74,69
+Mid-Range Shot,99,Vertical,39,69
+Three-Point Shot,99,Close Shot,74,69
+Three-Point Shot,99,Mid-Range Shot,89,69
+Three-Point Shot,99,Free Throw,74,69
+Three-Point Shot,99,Vertical,29,69
+Free Throw,99,Close Shot,59,69
+Free Throw,99,Mid-Range Shot,74,69
+Free Throw,99,Three-Point Shot,84,69
+Pass Accuracy,99,Close Shot,59,69
+Pass Accuracy,99,Driving Layup,79,69
+Pass Accuracy,99,Post Control,29,69
+Pass Accuracy,99,Ball Handle,94,69
+Pass Accuracy,99,Speed With Ball,84,69
+Pass Accuracy,99,Perimeter Defense,49,69
+Pass Accuracy,99,Speed,79,69
+Pass Accuracy,99,Agility,69,69
+Pass Accuracy,99,Vertical,49,69
+Ball Handle,99,Close Shot,64,69
+Ball Handle,99,Driving Layup,84,69
+Ball Handle,99,Post Control,34,69
+Ball Handle,99,Pass Accuracy,74,69
+Ball Handle,99,Speed With Ball,89,69
+Ball Handle,99,Perimeter Defense,54,69
+Ball Handle,99,Steal,29,69
+Ball Handle,99,Speed,84,69
+Ball Handle,99,Agility,74,69
+Ball Handle,99,Vertical,54,69
+Speed With Ball,99,Close Shot,59,69
+Speed With Ball,99,Driving Layup,79,69
+Speed With Ball,99,Post Control,29,69
+Speed With Ball,99,Pass Accuracy,69,69
+Speed With Ball,99,Ball Handle,94,69
+Speed With Ball,99,Perimeter Defense,64,69
+Speed With Ball,99,Steal,39,69
+Speed With Ball,99,Defensive Rebound,34,69
+Speed With Ball,99,Speed,94,69
+Speed With Ball,99,Agility,84,69
+Speed With Ball,99,Vertical,64,69
+Perimeter Defense,92,Close Shot,27,69
+Perimeter Defense,92,Driving Layup,47,69
+Perimeter Defense,92,Pass Accuracy,37,69
+Perimeter Defense,92,Ball Handle,62,69
+Perimeter Defense,92,Speed With Ball,67,69
+Perimeter Defense,92,Interior Defense,37,69
+Perimeter Defense,92,Steal,62,69
+Perimeter Defense,92,Block,37,69
+Perimeter Defense,92,Defensive Rebound,47,69
+Perimeter Defense,92,Speed,72,69
+Perimeter Defense,92,Agility,82,69
+Perimeter Defense,92,Strength,47,69
+Perimeter Defense,92,Vertical,42,69
+Steal,99,Driving Layup,29,69
+Steal,99,Ball Handle,44,69
+Steal,99,Speed With Ball,49,69
+Steal,99,Interior Defense,39,69
+Steal,99,Perimeter Defense,74,69
+Steal,99,Defensive Rebound,29,69
+Steal,99,Speed,54,69
+Steal,99,Agility,64,69
+Steal,99,Strength,29,69
+Block,51,Steal,31,69
+Block,51,Defensive Rebound,26,69
+Offensive Rebound,48,Close Shot,43,69
+Offensive Rebound,48,Defensive Rebound,33,69
+Defensive Rebound,59,Interior Defense,34,69
+Speed,98,Close Shot,53,69
+Speed,98,Driving Layup,73,69
+Speed,98,Pass Accuracy,63,69
+Speed,98,Ball Handle,88,69
+Speed,98,Speed With Ball,93,69
+Speed,98,Perimeter Defense,68,69
+Speed,98,Steal,38,69
+Speed,98,Defensive Rebound,33,69
+Speed,98,Agility,83,69
+Speed,98,Vertical,68,69
+Agility,99,Close Shot,44,69
+Agility,99,Driving Layup,64,69
+Agility,99,Pass Accuracy,54,69
+Agility,99,Ball Handle,79,69
+Agility,99,Speed With Ball,84,69
+Agility,99,Perimeter Defense,59,69
+Agility,99,Steal,54,69
+Agility,99,Defensive Rebound,49,69
+Agility,99,Speed,89,69
+Agility,99,Vertical,59,69
+Vertical,99,Close Shot,74,69
+Vertical,99,Driving Dunk,34,69
+Vertical,99,Mid-Range Shot,34,69
+Vertical,99,Free Throw,34,69
+Vertical,99,Ball Handle,29,69
+Vertical,99,Interior Defense,27,69
+Vertical,99,Steal,28,69
+Vertical,99,Block,48,69
+Vertical,99,Offensive Rebound,43,69
+Vertical,99,Defensive Rebound,52,69

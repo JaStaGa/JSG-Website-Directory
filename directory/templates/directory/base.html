@@ -1,27 +1,94 @@
-{% load static %}
-<html>
-    <head>
-        <title>Jaylin's CS412 Directory</title>
-        <link rel="stylesheet" href="{% static 'styles-mini-fb.css' %}">
-    </head>
-    <body>
-        <h1>Jaylin's CS412 Directory</h1>
-        <hr>
-        <a href="{% url 'project' %}">NBA2k25 MyPlayer Builder</a>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
-        <hr>
-        <a href="{% url 'voter_analytics' %}">Voter Analytics</a>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
-        <hr>
-        <a href="{% url 'quotes' %}">Random Quote Generator</a></li>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
-        <hr>
-        <a href="{% url 'restaurants' %}">Fictional Restaurant</a></li>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
-        <hr>
-        <a href="{% url 'mini_fb' %}">Mini Facebook</a></li>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}JSG CS412 Directory{% endblock %}</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles-mini-fb.css' %}">
+</head>
+<body>
+  <header>
+    <h1>Jaylin's CS412 Project Directory</h1>
+    <p>A showcase of the full-stack Django apps I built in CS412: from a MyPlayer Builder to a Mini-Facebook clone.</p>
+    <hr>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="{% url 'project' %}">NBA2K25 MyPlayer Builder</a></li>
+      <li><a href="{% url 'voter_analytics' %}">Voter Analytics</a></li>
+      <li><a href="{% url 'quotes' %}">Random Quote Generator</a></li>
+      <li><a href="{% url 'restaurants' %}">Fictional Restaurant App</a></li>
+      <li><a href="{% url 'mini_fb' %}">Mini-Facebook</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    {% block content %}
+
+    <section class="project-item">
+      <h2>NBA2K25 MyPlayer Builder</h2>
+      <p>
+        A Django web app that lets users select desired NBA2K25 badges and
+        computes the required attributes and height to unlock them. Built with
+        Django models, forms, and class-based views; data stored in SQLite/Postgres;
+        styled with Bootstrap and custom CSS.
+      </p>
+    </section>
+
+    <hr>
+
+    <section class="project-item">
+      <h2>Voter Analytics</h2>
+      <p>
+        A dynamic data-driven application analyzing US election results.
+        Integrates Django ORM with Pandas for data processing, and renders
+        interactive charts via Plotly. Supports filtering by state and year.
+      </p>
+    </section>
+
+    <hr>
+
+    <section class="project-item">
+      <h2>Random Quote Generator</h2>
+      <p>
+        A simple API-powered app that displays random inspirational quotes.
+        Backend in Django REST Framework, frontend using vanilla JS and AJAX.
+        Quotes stored in a PostgreSQL database and served via JSON endpoints.
+      </p>
+    </section>
+
+    <hr>
+
+    <section class="project-item">
+      <h2>Fictional Restaurant App</h2>
+      <p>
+        A CRUD application for managing a fictional restaurant’s menu.
+        Demonstrates Django forms, models, and auth: users can add/edit
+        menu items, leave reviews, and upload images. Styled with Tailwind CSS.
+      </p>
+    </section>
+
+    <hr>
+
+    <section class="project-item">
+      <h2>Mini-Facebook</h2>
+      <p>
+        A Facebook-style clone supporting user registration, profiles,
+        status posts, image uploads, and friend connections. Built with
+        Django’s auth system, FileField for media, and ListView/DetailView.
+      </p>
+    </section>
+
+    <hr>
+
+    {% endblock %}
+  </main>
+
+  <footer>
+    <hr>
+    <p>&copy; {% now "Y" %} Jaylin Starlin Ganaway</p>
+  </footer>
+</body>
 </html>

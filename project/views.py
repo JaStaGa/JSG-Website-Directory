@@ -11,7 +11,7 @@ from .forms import *
 
 def home(request):
     # temporary stub—just returns plain text
-    render(request, 'project/home.html')
+    return render(request, 'directory/base.html')
 
 # 1. Listings & details
 

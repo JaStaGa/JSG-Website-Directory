@@ -2,9 +2,9 @@ from django.urls import path
 from .views import AttributeListView, AttributeDetailView, BadgeListView, BadgeDetailView, BadgeLevelListView, BadgeLevelDetailView, BuildDeleteView, BuildListView, BuildDetailView, BuildIntroView, BuildAddBadgeView, BuildResolveORView, BuildSummaryView, BuildUpdateView, home
 
 urlpatterns = [
-    path('', home, name='project_home'),
+    path('home', home, name='home'),
 
-    path('attributes/',    AttributeListView .as_view(), name='attribute_list'),
+    path('attributes/',    AttributeListView.as_view(), name='attribute_list'),
     path('attributes/<int:pk>/', AttributeDetailView.as_view(), name='attribute_detail'),
 
     path('badges/',        BadgeListView.as_view(), name='badge_list'),

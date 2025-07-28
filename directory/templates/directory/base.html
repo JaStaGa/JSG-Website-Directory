@@ -6,15 +6,21 @@
     </head>
     <body>
         <h1>Jaylin's CS412 Directory</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'quotes' %}">HW1: Quotes</a></li>
-                <li><a href="{% url 'restaurants' %}">HW2: Restaurants</a></li>
-                <li><a href="{% url 'mini_fb' %}">HW3-7: Mini Facebook</a></li>
-                <li><a href="{% url 'voter_analytics' %}">HW8: Voter Analytics</a></li>
-                <li><a href="{% url 'project' %}">Final Project</a></li>
-            </ul>
-        </nav>
+        <hr>
+        <a href="{% url 'project' %}">NBA2k25 MyPlayer Builder</a>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
+        <hr>
+        <a href="{% url 'voter_analytics' %}">Voter Analytics</a>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
+        <hr>
+        <a href="{% url 'quotes' %}">Random Quote Generator</a></li>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
+        <hr>
+        <a href="{% url 'restaurants' %}">Fictional Restaurant</a></li>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
+        <hr>
+        <a href="{% url 'mini_fb' %}">Mini Facebook</a></li>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Recusandae assumenda ea quis quos, ex eos nulla voluptatum nostrum, beatae tempora sunt, incidunt ullam! Ipsa ad nesciunt quasi quo quisquam illum.</p>
         <hr>
         {% block content %}{% endblock %}
     </body>

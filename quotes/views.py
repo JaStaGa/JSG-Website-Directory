@@ -11,7 +11,7 @@ quotes_list = [
     "Real G's move in silence like lasagna",
     "Weezy f. Baby and the f is for phenomenal",
     "We gonna be alright if we put Drake on every hook",
-    "Most of yall don’t get the picture unless the flash is on",
+    "Most of yall don't get the picture unless the flash is on",
 ]
 
 images_list = [

@@ -1,0 +1,28 @@
+{
+  "name": "cs412",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "init:css": "tailwindcss init -p",
+    "build:css": "postcss static/quotes/css/src/styles.css -o static/quotes/css/tailwind.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaylinsg/CS412.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaylinsg/CS412/issues"
+  },
+  "homepage": "https://github.com/jaylinsg/CS412#readme",
+  "description": "",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "postcss-cli": "^11.0.1",
+    "tailwindcss": "^4.1.11"
+  }
+}

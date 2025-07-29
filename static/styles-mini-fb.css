@@ -6,25 +6,26 @@ body {
 }
 
 .container {
-  width: 90%;
-  max-width: 1000px;
-  padding: 30px;
-  margin: 20px auto;
-  box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  text-align: center;
-  transition: max-width 0.3s ease;
+    width: 90%;
+    max-width: 1000px;
+    padding: 30px;
+    margin: 20px auto;
+    box-shadow: 0 30px 30px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    text-align: center;
+    transition: max-width 0.3s ease;
 }
 
 table {
-  width: 90%; 
-  max-width: 1000px;
-  margin-left: 25px;
-  border-collapse: collapse;
-  text-decoration:none;
+    width: 90%;
+    max-width: 1000px;
+    margin-left: 25px;
+    border-collapse: collapse;
+    text-decoration: none;
 }
 
-a:link, a:visited {
+a:link,
+a:visited {
     color: #ffffff;
     background-color: #00d4ff;
     text-decoration: none;
@@ -35,16 +36,24 @@ a:link, a:visited {
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
+
 a:hover {
     background-color: #08a4c9;
 }
 
-ul, li {
+ul,
+li {
     padding: 0;
     list-style-type: none;
 }
 
-h1, h2, h3, h4, h5, h6, strong {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+strong {
     color: #ffffff;
     text-shadow: 0 0 6px #00f0ff;
 }
@@ -82,7 +91,9 @@ main {
     margin: 20px auto;
 }
 
-.grid-container, .status-messages, .news-feed {
+.grid-container,
+.status-messages,
+.news-feed {
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(4px);
     box-shadow: 0 0 10px #00d4ff88;
@@ -118,14 +129,16 @@ profile.featured {
     padding-bottom: 40px;
 }
 
-profile img, profile.featured img {
+profile img,
+profile.featured img {
     width: 100%;
     max-width: 300px;
     border: 4px solid #00d4ff;
     border-radius: 12px;
 }
 
-status_message, newsfeed_item {
+status_message,
+newsfeed_item {
     background-color: rgba(255, 255, 255, 0.08);
     color: #ffffff;
     padding: 15px;
@@ -134,7 +147,8 @@ status_message, newsfeed_item {
     box-shadow: 0 0 8px #00d4ff66;
 }
 
-status_message img, .newsfeed_large_image img {
+status_message img,
+.newsfeed_large_image img {
     max-width: 200px;
     border: 3px solid #00d4ff;
     border-radius: 10px;
@@ -184,8 +198,25 @@ input[type=submit] {
     font-weight: bold;
     transition: background-color 0.3s ease;
 }
+
 input[type=submit]:hover {
     background-color: #08a4c9;
+}
+
+.project-launch {
+    background: #00d4ff;
+    color: #000;
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 10px;
+    transition: background 0.3s ease;
+}
+
+.project-launch:hover {
+    background: #08a4c9;
 }
 
 /* Responsive grid behavior */
@@ -194,21 +225,26 @@ input[type=submit]:hover {
         grid-template-columns: repeat(4, 1fr);
     }
 }
+
 @media screen and (max-width: 800px) {
     .grid-container {
         grid-template-columns: repeat(3, 1fr);
     }
 }
+
 @media screen and (max-width: 600px) {
     .grid-container {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+
 @media screen and (max-width: 400px) {
     .grid-container {
         grid-template-columns: 1fr;
     }
-    profile, profile.featured {
+
+    profile,
+    profile.featured {
         display: block;
         margin: 0 20px;
     }

@@ -16,11 +16,11 @@
 
   <nav>
     <ul>
-      <li><a href="{% url 'project' %}">NBA2K25 MyPlayer Builder</a></li>
-      <li><a href="{% url 'voter_analytics' %}">Voter Analytics</a></li>
-      <li><a href="{% url 'quotes' %}">Random Quote Generator</a></li>
-      <li><a href="{% url 'restaurants' %}">Fictional Restaurant App</a></li>
-      <li><a href="{% url 'mini_fb' %}">Mini-Facebook</a></li>
+      <li><a href="{% url 'project' %}">NBA2K25 Builder <small>&#8594; App</small></a></li>
+      <li><a href="{% url 'voter_analytics' %}">Voter Analytics <small>&#8594; App</small></a></li>
+      <li><a href="{% url 'quotes' %}">Quotes <small>&#8594; App</small></a></li>
+      <li><a href="{% url 'restaurants' %}">Restaurant <small>&#8594; App</small></a></li>
+      <li><a href="{% url 'mini_fb' %}">Mini-Facebook <small>&#8594; App</small></a></li>
     </ul>
   </nav>
 
@@ -35,6 +35,7 @@
         Django models, forms, and class-based views; data stored in SQLite/Postgres;
         styled with Bootstrap and custom CSS.
       </p>
+      <a href="{% url 'project' %}" class="project-launch">Launch App</a>
     </section>
 
     <hr>
@@ -46,6 +47,7 @@
         Integrates Django ORM with Pandas for data processing, and renders
         interactive charts via Plotly. Supports filtering by state and year.
       </p>
+      <a href="{% url 'voter_analytics' %}" class="project-launch">Launch App</a>
     </section>
 
     <hr>
@@ -57,6 +59,7 @@
         Backend in Django REST Framework, frontend using vanilla JS and AJAX.
         Quotes stored in a PostgreSQL database and served via JSON endpoints.
       </p>
+      <a href="{% url 'quotes' %}" class="project-launch">Launch App</a>
     </section>
 
     <hr>
@@ -68,6 +71,7 @@
         Demonstrates Django forms, models, and auth: users can add/edit
         menu items, leave reviews, and upload images. Styled with Tailwind CSS.
       </p>
+      <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
     </section>
 
     <hr>
@@ -79,6 +83,7 @@
         status posts, image uploads, and friend connections. Built with
         Django’s auth system, FileField for media, and ListView/DetailView.
       </p>
+      <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
     </section>
 
     <hr>

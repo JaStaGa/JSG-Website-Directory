@@ -12,7 +12,7 @@
     <a href="{% url 'build_delete' build.pk %}">Delete this build</a> |
     <a href="{% url 'build_list' %}">Back to all builds</a>
   </p>
-
+<br>
   <h2>Badges You Chose</h2>
   {% if chosen_badges %}
     <ul>
@@ -23,7 +23,7 @@
   {% else %}
     <p><em>No badges selected.</em></p>
   {% endif %}
-
+<br>
   <h2>Unlocked Badges</h2>
   {% if extra_badges %}
     <ul>
@@ -34,7 +34,7 @@
   {% else %}
     <p><em>No additional badges unlocked by your attributes.</em></p>
   {% endif %}
-
+<br>
   <h2>Attributes Above 25</h2>
   {% if raised_attrs %}
     <!-- load Plotly -->
@@ -68,8 +68,8 @@
         marker: { color: barColors, line:{ width:1, color:'#333' } },
         width: 0.5    // make bars thinner for more breathing room
       }], {
-        paper_bgcolor: '#15151b',
-        plot_bgcolor:  '#15151b',
+        paper_bgcolor: '#0d1b2a',
+        plot_bgcolor:  '#0d1b2a',
         font:          { color: 'white' },
         yaxis:         { range: [0, 99], title: 'Attribute Value' },
         xaxis:         { tickangle: -45 },

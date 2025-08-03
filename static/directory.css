@@ -1,0 +1,145 @@
+/* directory.css */
+
+/* 1) Fonts & Vars */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap');
+
+:root {
+    --bg-dark: #1a1a2e;
+    --bg-mid: #16213e;
+    --bg-light: #0f3460;
+    --accent: #e94560;
+    --text: #f0f0f0;
+    --muted: #bbbbbb;
+}
+
+/* 2) Base resets */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+    background: var(--bg-dark);
+    color: var(--text);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* 3) Header */
+header {
+    background: var(--bg-mid);
+    text-align: center;
+    padding: 2rem 1rem;
+}
+
+header h1 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: .5rem;
+}
+
+header p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.4;
+}
+
+/* 4) Nav */
+nav {
+    background: var(--bg-light);
+}
+
+nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: .75rem 0;
+}
+
+nav li {
+    margin: 0 .75rem;
+}
+
+nav a {
+    color: var(--text);
+    font-weight: 500;
+    position: relative;
+    padding-bottom: 2px;
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width .25s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
+}
+
+/* 5) Main & Grid */
+main {
+    padding: 2rem 1rem;
+}
+
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* 6) Project Cards */
+.project-card {
+    background: var(--bg-light);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.project-card h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.5rem;
+    margin-bottom: .75rem;
+}
+
+.project-card p {
+    flex-grow: 1;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 1.25rem;
+}
+
+.project-launch {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: .6rem 1.2rem;
+    border-radius: 4px;
+    font-weight: 700;
+    transition: background .3s;
+}
+
+.project-launch:hover {
+    background: darken(var(--accent), 10%);
+}
+
+/* 7) Footer */
+footer {
+    background: var(--bg-mid);
+    text-align: center;
+    padding: 1rem;
+    color: var(--muted);
+    font-size: .9rem;
+}

@@ -1,8 +1,15 @@
 from django.urls import path
 from .views import AttributeListView, AttributeDetailView, BadgeListView, BadgeDetailView, BadgeLevelListView, BadgeLevelDetailView, BuildDeleteView, BuildListView, BuildDetailView, BuildIntroView, BuildAddBadgeView, BuildResolveORView, BuildSummaryView, BuildUpdateView, home
+from django.views.generic import TemplateView
 
 urlpatterns = [
     path('home', home, name='home'),
+
+    path(
+        '', 
+        TemplateView.as_view(template_name='project/home.html'), 
+        name='project_home'
+    ),
 
     path('attributes/',    AttributeListView.as_view(), name='attribute_list'),
     path('attributes/<int:pk>/', AttributeDetailView.as_view(), name='attribute_detail'),

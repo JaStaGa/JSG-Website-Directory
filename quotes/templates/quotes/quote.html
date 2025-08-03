@@ -1,7 +1,8 @@
 {% extends "quotes/base.html" %}
 
 {% block content %}
-    <img src="{{ image }}" width="200"><br>
-    <p><strong>Quote:</strong> {{ quote }}</p>
+<div class="quote-card">
+    <img src="{{ image }}" alt="Lil Wayne portrait">
+    <p class="quote-text">“{{ quote }}”</p>
+</div>
 {% endblock %}
- 

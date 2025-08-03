@@ -1,68 +1,70 @@
 <!-- project/attribute_list.html -->
- 
+
 {% extends 'project/base.html' %}
 {% block title %}Attributes{% endblock %}
 {% block content %}
-  <h1>All Attributes</h1>
+<h1>Attributes</h1>
 
-  <div class="container">
-    <h3>Finishing Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Finishing" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+<div class="attr-grid">
+    <div class="attr-card">
+        <h3>Finishing Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Finishing" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
 
-  <div class="container">
-    <h3>Shooting Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Shooting" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div class="attr-card">
+        <h3>Shooting Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Shooting" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
 
-  <div class="container">
-    <h3>Playmaking Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Playmaking" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div class="attr-card">
+        <h3>Playmaking Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Playmaking" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
 
-  <div class="container">
-    <h3>Defense Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Defense" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div class="attr-card">
+        <h3>Defense Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Defense" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
 
-  <div class="container">
-    <h3>Rebounding Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Rebounding" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div class="attr-card">
+        <h3>Rebounding Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Rebounding" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
 
-  <div class="container">
-    <h3>Physical Attributes:</h3>
-      {% for attr in attributes %}
-          {% if  attr.category  == "Physical" %}
-              <li>{{ attr.name }}</li>
-              <!-- <li><a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a></li> -->
-          {% endif %}
-      {% endfor %}
-  </div>
+    <div class="attr-card">
+        <h3>Physical Attributes:</h3>
+        {% for attr in attributes %}
+        {% if attr.category == "Physical" %}
+        <a href="{% url 'attribute_detail' attr.pk %}">{{ attr.name }} </a>
+        <br>
+        {% endif %}
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

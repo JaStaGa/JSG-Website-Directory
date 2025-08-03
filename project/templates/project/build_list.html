@@ -4,17 +4,18 @@
 {% block title %}Saved Builds{% endblock %}
 {% block content %}
   <h1>All Builds</h1>
-  <ul>
+  <ul class="builds-list">
     {% for build in builds %}
       <li>
-        <a href="{% url 'build_detail' build.pk %}">{{ build.name }}</a>
-        <br>
-        <a href="{% url 'build_edit' build.pk %}">Edit</a>
-        <a href="{% url 'build_delete' build.pk %}">Delete</a>
-        <br><br>
+        <span><a href="{% url 'build_detail' build.pk %}">{{ build.name }}</a></span>
+        <span>
+          <a href="{% url 'build_edit' build.pk %}">Edit</a> |
+          <a href="{% url 'build_delete' build.pk %}">Delete</a>
+        </span>
       </li>
     {% empty %}
       <li>No builds yet.</li>
     {% endfor %}
   </ul>
+
 {% endblock %}

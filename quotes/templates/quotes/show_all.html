@@ -1,14 +1,12 @@
 {% extends "quotes/base.html" %}
 
 {% block content %}
-    <h2>All Quotes</h2>
-    <ul>
-        {% for q in quotes %}
-            <li>{{ q }}</li>
-        {% endfor %}
-    </ul>
-    <h2>All Images</h2>
-    {% for img in images %}
-        <img src="{{ img }}" width="200"><br>
+  <div class="show-all-grid">
+    {% for q in quotes %}
+      <div class="quote-card">
+        <img src="{{ images|slice:forloop.counter0|first }}" alt="Lil Wayne">
+        <p class="quote-text">“{{ q }}”</p>
+      </div>
     {% endfor %}
+  </div>
 {% endblock %}

@@ -1,20 +1,25 @@
 {% load static %}
 <html>
-    <head>
-        <title>Quotes App</title>
-        <link rel="stylesheet" href="{% static 'styles-mini-fb.css' %}">
-    </head>
-    <body>
-        <h1>BARS BY LIL WAYNE</h1>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'quotes' %}">Generate a Random Quote</a></li>
-                <li><a href="{% url 'show_all' %}">Show All</a></li>
-                <li><a href="{% url 'about' %}">About</a></li>
-            </ul>
-        </nav>
-        <hr>
-        {% block content %}{% endblock %}
-    </body>
+
+<head>
+    <title>Quotes App</title>
+    <!-- <link rel="stylesheet" href="{% static 'styles-mini-fb.css' %}"> -->
+    <link rel="stylesheet" href="{% static 'quotes.css' %}">
+
+</head>
+
+<body>
+    <h1>BARS BY LIL WAYNE</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'home' %}">Home</a></li>
+            <li><a href="{% url 'quotes' %}">Generate a Random Quote</a></li>
+            <li><a href="{% url 'show_all' %}">Show All</a></li>
+            <li><a href="{% url 'about' %}">About</a></li>
+        </ul>
+    </nav>
+    <hr>
+    {% block content %}{% endblock %}
+</body>
+
 </html>

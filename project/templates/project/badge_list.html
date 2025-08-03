@@ -50,73 +50,19 @@
   <button type="submit">Filter</button>
 </form>
 
-
 <h1>All Badges</h1>
 
-<div class="container">
-  <h3>Finishing Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "Finishing" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="container">
-  <h3>Shooting Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "Shooting" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="container">
-  <h3>Playmaking Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "Playmaking" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="container">
-  <h3>Defense Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "Defense" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="container">
-  <h3>Rebounding Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "Rebounding" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
-
-<div class="container">
-  <h3>General Badges:</h3>
-  <ul>
-    {% for badg in badges %}
-      {% if badg.category == "General" %}
-        <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
-      {% endif %}
-    {% endfor %}
-  </ul>
-</div>
+{% for category in all_categories %}
+  <div class="badge-section">
+    <h3>{{ category }} Badges</h3>
+    <ul>
+      {% for badg in badges %}
+        {% if badg.category == category %}
+          <li><a href="{% url 'badge_detail' badg.pk %}">{{ badg.name }}</a></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+{% endfor %}
 
 {% endblock %}

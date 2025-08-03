@@ -1,351 +1,270 @@
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Theme variables – pick your palette once here for easy updates          */
-/* ───────────────────────────────────────────────────────────────────────── */
+/* styles-project.css */
+
+/* 1) Google Fonts */
+/* @import url('https://fonts.googleapis.com/css2?family=Anta&display=swap'); */
+
+/* 2) Color Palette & Vars */
 :root {
-  --bg-gradient-start: #101018;   /* deep gray-blue */
-  --bg-gradient-end:   #1a1a24;   /* nearly black */
-  --accent:            #fb8c00;   /* basketball orange */
-  --accent-dark:       #e67e22;   /* darker orange */
-  --text-main:         #f0f0f0;   /* near-white */
-  --text-subtle:       #c2c2d6;   /* soft light */
-  --card-bg:           rgba(255, 255, 255, 0.05);
-  --card-shadow:       rgba(0, 0, 0, 0.5);
-  --radius:            0.75rem;
-  --transition-fast:   0.2s ease-in-out;
-  --max-width:         60rem;     /* 960px */
-  --spacing:           1rem;
+  --bg-dark: #0d1b2a;
+  --bg-mid: #1b263b;
+  --bg-light: #415a77;
+  --accent: #e94560;
+  --highlight: #39ff14;
+  --text-primary: #e0e1dd;
+  --text-muted: #a7a9be;
+  --radius: 8px;
+  --transition: 0.3s ease;
+  --container-max: 1200px;
+  --container-side: 1rem;
+  --gutter-vertical: 2rem;
 }
 
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Base & Layout                                                           */
-/* ───────────────────────────────────────────────────────────────────────── */
-*,
-*::before,
-*::after {
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 var(--container-side);
+}
+
+.section {
+  margin: var(--gutter-vertical) 0;
+}
+
+h1,
+h2,
+h3 {
+  margin-bottom: 1rem;
+}
+
+p {
+  margin-bottom: 1.25rem;
+}
+
+/* 3) Global Reset */
+* {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
 }
 
 body {
-  margin: 0;
-  padding: var(--spacing);
-  background: linear-gradient(
-    to right,
-    var(--bg-gradient-start),
-    var(--bg-gradient-end)
-  );
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  color: var(--text-main);
+  font-family: 'Anta', sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-primary);
   line-height: 1.6;
+  align-items: center;
+  text-align: center;
+  margin: 0 auto;
 }
 
-.container {
-  max-width: var(--max-width);
-  margin: var(--spacing) auto;
-  padding: calc(var(--spacing) * 2);
-  background-color: var(--card-bg);
-  box-shadow: 0 0.5rem 1rem var(--card-shadow);
-  border-radius: var(--radius);
-  transition: background-color var(--transition-fast);
-}
-
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Typography                                                              */
-/* ───────────────────────────────────────────────────────────────────────── */
-h1, h2, h3, h4, h5, h6, strong {
-  color: var(--accent);
-  text-shadow: 0 0 8px var(--accent);
-  margin-top: calc(var(--spacing) * 1.5);
-  margin-bottom: var(--spacing);
-}
-
-p {
-  color: var(--text-subtle);
-  margin-bottom: var(--spacing);
-}
-
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Navigation & Links                                                       */
-/* ───────────────────────────────────────────────────────────────────────── */
+/* 4) Sticky Top Nav */
 nav {
+  background: var(--bg-mid);
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
-  flex-wrap: wrap;
-  gap: var(--spacing);
-  margin-bottom: calc(var(--spacing) * 2);
+  gap: 1rem;
 }
 
 nav a {
-  color: var(--text-main);
-  background-color: var(--accent);
-  padding: 0.5rem 1rem;
-  border-radius: var(--radius);
-  text-decoration: none;
-  font-weight: bold;
-  transition: background-color var(--transition-fast);
+  color: var(--text-primary);
+  font-weight: 500;
+  transition: color var(--transition);
 }
 
 nav a:hover {
-  background-color: var(--accent-dark);
+  color: var(--accent);
 }
 
-a:-webkit-any-link {
-    color: var(--text-main);
-    cursor: pointer;
-    text-decoration: underline;
+/* 5) Buttons & Inputs */
+button,
+.next-button,
+.project-launch {
+  background: var(--accent);
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-weight: 600;
+  transition: background var(--transition);
 }
 
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Tables                                                                  */
-/* ───────────────────────────────────────────────────────────────────────── */
-table {
+button:hover,
+.next-button:hover,
+.project-launch:hover {
+  background: #c63150
+}
+
+input[type="text"],
+select {
+  background: var(--bg-mid);
+  color: var(--text-primary);
+  border: 1px solid var(--text-muted);
+  border-radius: var(--radius);
+  padding: 0.5rem;
+}
+
+/* 6) Attribute Grid */
+.attr-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  padding: 1rem 2rem;
+}
+
+.attr-card {
+  background: var(--bg-mid);
+  border-radius: var(--radius);
+  padding: 1rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+.attr-card h3 {
+  font-family: 'Anta', sans-serif;
+  margin-bottom: 0.5rem;
+  color: var(--highlight);
+}
+
+/* 7) Badge Sections */
+.badge-section {
+  margin: 2rem 2rem 1rem;
+}
+
+.badge-section h3 {
+  font-family: 'Anta', sans-serif;
+  color: var(--highlight);
+  margin-bottom: 1rem;
+}
+
+.badge-section ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+  justify-content: center;
+}
+
+.badge-section ul a {
+  display: block;
+  background: var(--bg-mid);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  color: var(--text-primary);
+  transition: background var(--transition), color var(--transition);
+}
+
+.badge-section ul a:hover {
+  background: var(--highlight);
+  color: var(--bg-dark);
+}
+
+/* 8) Badge Detail */
+.badge-detail {
+  background: var(--bg-mid);
+  margin: 2rem auto;
+  padding: 2rem;
+  max-width: 600px;
+  border-radius: var(--radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+  text-align: center;
+}
+
+.badge-detail h1 {
+  font-family: 'Anta', sans-serif;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* 9) Builds List */
+.builds-list {
+  list-style: none;
+  padding: 2rem;
+}
+
+.builds-list li {
+  background: var(--bg-mid);
+  margin-bottom: 1rem;
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.builds-list li a {
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.builds-list li a:hover {
+  color: var(--accent);
+}
+
+/* 10) Responsive Table */
+.table-responsive {
   width: 100%;
-  border-collapse: collapse;
-  margin: calc(var(--spacing) * 2) 0;
-}
-
-th, td {
-  padding: var(--spacing);
-  text-align: left;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-
-th {
-  background-color: rgba(255,255,255,0.1);
-  color: var(--text-main);
+  overflow-x: auto;
+  margin: 1rem 0;
 }
 
 .table-fixed {
-  table-layout: fixed;
   width: 100%;
+  border-collapse: collapse;
 }
 
 .table-fixed th,
 .table-fixed td {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--text-muted);
+  text-align: left;
 }
 
-/* then set each column’s width */
-.table-fixed col:nth-child(1) { width: 20%; }
-.table-fixed col:nth-child(2) { width: 15%; }
-.table-fixed col:nth-child(3) { width: 15%; }
-/* adjust percentages until you like the look */
+.table-fixed th {
+  background: var(--bg-mid);
+  font-weight: 600;
+}
 
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Cards / Panels                                                           */
-/* ───────────────────────────────────────────────────────────────────────── */
-.grid-container,
-.status-messages,
-.news-feed,
-aside,
-header,
-footer {
-  background-color: var(--card-bg);
-  backdrop-filter: blur(4px);
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.3);
+/* 11) Chart Containers */
+#detail-attr-chart,
+#attr-chart {
+  background: var(--bg-mid);
   border-radius: var(--radius);
-  padding: calc(var(--spacing) * 1.5);
-  margin-bottom: calc(var(--spacing) * 2);
+  padding: 1rem;
+  margin: 1.5rem auto;
+  max-width: 800px;
 }
 
-header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-}
-
-footer {
-  text-align: center;
-  font-size: 0.9rem;
-  color: var(--text-subtle);
-}
-
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Forms & Inputs                                                           */
-/* ───────────────────────────────────────────────────────────────────────── */
-input,
-select,
-textarea {
-  width: 100%;
-  padding: var(--spacing);
-  margin-bottom: var(--spacing);
-  background-color: #1e1e2f;
-  border: 2px solid var(--accent);
-  border-radius: var(--radius);
-  color: var(--text-main);
-  font-size: 1rem;
-  transition: border-color var(--transition-fast);
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  border-color: var(--accent-dark);
-  outline: none;
-}
-
-button,
-input[type="submit"] {
-  background-color: var(--accent);
-  color: var(--text-main);
-  padding: 0.75rem 1.5rem;
-  border: none;
-  border-radius: var(--radius);
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color var(--transition-fast);
-}
-
-button:hover,
-input[type="submit"]:hover {
-  background-color: var(--accent-dark);
-}
-
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Responsive Grid                                                          */
-/* ───────────────────────────────────────────────────────────────────────── */
-.grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
-  gap: calc(var(--spacing) * 1.5);
-}
-
-/* ───────────────────────────────────────────────────────────────────────── */
-/* Media Queries                                                            */
-/* ───────────────────────────────────────────────────────────────────────── */
-@media (max-width: 600px) {
-  .container {
-    padding: var(--spacing);
-  }
-  nav {
-    justify-content: center;
-  }
-}
-
+/* 12) Sticky Jump Menu */
 .badge-jump-menu {
   position: sticky;
   top: 0;
-  z-index: 1000;
+  background: var(--bg-mid);
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  background: linear-gradient(
-    to right,
-    var(--bg-gradient-start),
-    var(--bg-gradient-end)
-  );
-  padding: 0.75rem 1rem;
-  border-bottom: 2px solid #00d4ff;
+  align-items: center;
+  padding: 0.75rem 1.5rem;
+  z-index: 900;
 }
 
 .badge-jump-menu .jump-links ul {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
   list-style: none;
-  margin: 0;
-  padding: 0;
-}
-
-.badge-jump-menu .jump-links a {
-  text-decoration: underline;
-}
-
-.badge-jump-menu .next-button {
-  background-color: #00d4ff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  padding: 0.5rem 1rem;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.badge-jump-menu .next-button:hover {
-  background-color: #08a4c9;
-}
-
-/* Container for each OR-group */
-.resolve-field {
-  margin-bottom: 1.5rem;
-}
-
-/* The question text */
-.resolve-label {
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-}
-
-/* make each group of choices a responsive grid */
-.resolve-options {
-  display: grid;
-  /* as many 180px-wide columns as will fit */
-  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-  gap: 1rem;
-  margin-bottom: 1.5rem;
-}
-
-/* each label becomes a 2-col grid: bubble + text */
-.resolve-option {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  align-items: start;     /* bubble aligns with top of text */
-  gap: 0.5rem;
-  padding: 0.5rem;
-  background: rgba(255,255,255,0.05);
-  border-radius: 6px;
-  cursor: pointer;
-}
-
-/* optional: give hover feedback */
-.resolve-option:hover {
-  background: rgba(255,255,255,0.1);
-}
-
-/* tighten up bubble spacing */
-.resolve-option input[type="radio"] {
-  /* ensures bubble sits flush in its grid cell */
-  align-self: start;
-}
-
-/* allow multi-line text to wrap normally */
-.option-text {
-  line-height: 1.3;
-}
-
-.badge-filter-form {
   display: flex;
   gap: 1rem;
-  flex-wrap: wrap;
-  margin-bottom: 1.5rem;
-  align-items: center;
 }
 
-.badge-filter-form label {
-  font-weight: bold;
+.badge-jump-menu a {
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
-.badge-filter-form select,
-.badge-filter-form input[type="search"] {
-  padding: 0.3rem 0.5rem;
-  border: 2px solid #00d4ff;
-  border-radius: 5px;
-  background: #1e1e2f;
-  color: #e0e0e0;
+.badge-jump-menu a:hover {
+  color: var(--accent);
 }
 
-.badge-filter-form button {
-  background-color: #00d4ff;
-  color: #fff;
-  border: none;
-  padding: 0.4rem 0.8rem;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-}
-
-.badge-filter-form button:hover {
-  background-color: #08a4c9;
+/* Smooth scroll for anchors */
+html {
+  scroll-behavior: smooth;
 }

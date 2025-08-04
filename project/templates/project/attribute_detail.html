@@ -1,9 +1,20 @@
 <!-- project/attribute_detail.html -->
- 
+
 {% extends 'project/base.html' %}
 {% block title %}{{ attribute.name }}{% endblock %}
 {% block content %}
+<div class="section">
   <h1>{{ attribute.name }}</h1>
-  <p>{{ attribute.category }}</p>
+  <h2 class="muted">Category: {{ attribute.category }}</h2>
+
+  {# only show description if it exists #}
+  {% if attribute.description %}
+  <div class="attribute-description">
+    <h3>Description</h3>
+    <p>{{ attribute.description }}</p>
+  </div>
+  {% endif %}
+
   <a href="{% url 'attribute_list' %}">← Back to Attributes</a>
+</div>
 {% endblock %}

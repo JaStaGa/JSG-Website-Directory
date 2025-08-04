@@ -32,6 +32,7 @@
 h1,
 h2,
 h3 {
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 
@@ -125,7 +126,7 @@ select {
 .attr-card h3 {
   font-family: 'Anta', sans-serif;
   margin-bottom: 0.5rem;
-  color: var(--highlight);
+  color: var(--accent);
 }
 
 /* 7) Badge Sections */
@@ -135,7 +136,7 @@ select {
 
 .badge-section h3 {
   font-family: 'Anta', sans-serif;
-  color: var(--highlight);
+  color: var(--accent);
   margin-bottom: 1rem;
 }
 
@@ -157,7 +158,7 @@ select {
 }
 
 .badge-section ul a:hover {
-  background: var(--highlight);
+  background: var(--accent);
   color: var(--bg-dark);
 }
 
@@ -267,4 +268,48 @@ select {
 /* Smooth scroll for anchors */
 html {
   scroll-behavior: smooth;
+}
+
+
+/* Styling for attribute detail */
+.muted {
+  color: var(--text-muted);
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+.attribute-description {
+  background: var(--bg-mid);
+  padding: 1.5rem;
+  border-radius: var(--radius);
+  max-width: 800px;
+  margin: 1.5rem auto;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
+}
+.attribute-description h2 {
+  margin-top: 0;
+  font-family: 'Montserrat', sans-serif;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+.attribute-description p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+/* highlight the active nav link */
+nav a[aria-current="page"] {
+  color: var(--accent);
+  font-weight: 700;
+  position: relative;
+}
+
+/* optional underline effect */
+nav a[aria-current="page"]::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  margin-top: 4px;
 }

@@ -74,14 +74,14 @@ nav a:hover {
 }
 
 .quote-text {
-    font-size: 1.6rem;
+    font-size: 1.2rem;
     font-style: italic;
     line-height: 1.3;
 }
 
 /* 6) “Show All” grid */
 .show-all-grid {
-    display: grid;
+    display: ruby-base;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 2rem;
     padding: 0 1rem 2rem;

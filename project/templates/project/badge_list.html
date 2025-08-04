@@ -4,6 +4,10 @@
 {% block title %}Badges{% endblock %}
 {% block content %}
 
+<h1>All Badges</h1>
+
+<br>
+
 <form method="get" class="badge-filter-form">
   <!-- Category -->
   <label>
@@ -46,11 +50,12 @@
       {% endfor %}
     </select>
   </label>
-
+  <br><br>
   <button type="submit">Filter</button>
 </form>
 
-<h1>All Badges</h1>
+<br>
+<hr>
 
 {% for category in all_categories %}
   <div class="badge-section">

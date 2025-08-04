@@ -13,15 +13,42 @@
 </head>
 
 <body>
+
+  {# 1) Capture each URL into a template variable #}
+  {% url 'home' as dir_url %}
+  {% url 'project_home' as proj_url %}
+  {% url 'attribute_list' as attr_url %}
+  {% url 'badge_list' as badge_url %}
+  {% url 'build_list' as build_url %}
+  {% url 'build_intro' as newbuild_url %}
+
   <nav>
-    <a href="{% url 'home' %}">All Apps</a> |
-    <a href="{% url 'project_home' %}">Builder Home</a> |
-    <a href="{% url 'attribute_list' %}">Attributes</a> |
-    <a href="{% url 'badge_list' %}">Badges</a> |
-    <!-- <a href="{% url 'badgelevel_list' %}">Badge Levels</a> | -->
-    <a href="{% url 'build_list' %}">Builds</a> |
-    <a href="{% url 'build_intro' %}">New Build</a>
+    {# 2) Compare request.path to each URL var #}
+    <a href="{{ dir_url }}" {% if request.path == dir_url %}aria-current="page" {% endif %}>
+      All Apps
+    </a> |
+
+    <a href="{{ proj_url }}" {% if request.path == proj_url %}aria-current="page" {% endif %}>
+      Builder Home
+    </a> |
+
+    <a href="{{ attr_url }}" {% if request.path == attr_url %}aria-current="page" {% endif %}>
+      Attributes
+    </a> |
+
+    <a href="{{ badge_url }}" {% if request.path == badge_url %}aria-current="page" {% endif %}>
+      Badges
+    </a> |
+
+    <a href="{{ build_url }}" {% if request.path == build_url %}aria-current="page" {% endif %}>
+      Builds
+    </a> |
+
+    <a href="{{ newbuild_url }}" {% if request.path == newbuild_url %}aria-current="page" {% endif %}>
+      New Build
+    </a>
   </nav>
+
   <hr>
   <main class="container">
     {% block content %}{% endblock %}

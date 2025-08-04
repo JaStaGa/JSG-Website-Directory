@@ -1,0 +1,93 @@
+/* quotes.css */
+
+/* 1) Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:wght@400;700&display=swap');
+
+/* 2) Core styles */
+body {
+    margin: 0;
+    padding: 0;
+    background: #121212;
+    color: #f0f0f0;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* 3) Main heading */
+h1 {
+    font-family: 'Anton', sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    margin: 1rem 0;
+    text-shadow:
+        0 0 8px #FF0080,
+        0 0 16px #00FF41;
+}
+
+/* 4) Nav styling */
+nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 1.5rem;
+}
+
+nav a {
+    color: #f0f0f0;
+    font-family: 'Anton', sans-serif;
+    text-decoration: none;
+    text-transform: uppercase;
+    padding: 0.6rem 1.2rem;
+    margin: 0 0.5rem;
+    border: 2px solid #00FF41;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+nav a:hover {
+    background: #00FF41;
+    color: #121212;
+    box-shadow: 0 0 12px #00FF41;
+}
+
+/* 5) Quote card */
+.quote-card {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border-left: 6px solid #FF0080;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.quote-card img {
+    width: 140px;
+    height: 140px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 3px solid #00FF41;
+    box-shadow: 0 0 10px #00FF41;
+}
+
+.quote-text {
+    font-size: 1.2rem;
+    font-style: italic;
+    line-height: 1.3;
+}
+
+/* 6) “Show All” grid */
+.show-all-grid {
+    display: ruby-base;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 2rem;
+    padding: 0 1rem 2rem;
+}
+
+.show-all-grid .quote-card {
+    flex-direction: column;
+    text-align: center;
+}

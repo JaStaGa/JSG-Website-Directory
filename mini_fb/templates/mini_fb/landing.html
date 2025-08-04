@@ -1,0 +1,34 @@
+{% extends "mini_fb/base.html" %}
+{% block title %}Welcome to Mini-Facebook{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>Welcome to Mini-Facebook</h1>
+    <p>
+        This is your personal social media sandbox! Here’s what you can do:
+    </p>
+    <ul>
+        <li>
+            <strong>Browse</strong> public posts and profiles without logging in.
+        </li>
+        <li>
+            <strong>Sign Up</strong> to create your account and start posting.
+        </li>
+        <li>
+            <strong>Log In</strong> to:
+            <ul>
+                <li>Post status updates &amp; photos</li>
+                <li>Add and accept friends</li>
+                <li>View a personalized news feed</li>
+            </ul>
+        </li>
+        <li>
+            <em>You must be logged in</em> to like, comment, or view private profiles.
+        </li>
+    </ul>
+    <div style="margin-top: 24px;">
+        <a href="{% url 'login' %}" class="btn primary">Log In</a>
+        <a href="{% url 'create_profile' %}" class="btn secondary">Sign Up</a>
+    </div>
+</div>
+{% endblock %}

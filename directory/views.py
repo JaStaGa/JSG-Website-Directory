@@ -16,7 +16,7 @@ def restaurants(request):
     return render(request, 'restaurants/main.html')
 
 def mini_fb(request):
-    return render(request, 'mini_fb/base.html')
+    return render(request, 'mini_fb/landing.html')
 
 def voter_analytics(request):
     return render(request, 'voter_analytics/landing.html')

@@ -39,7 +39,6 @@ images_list = [
     "https://upload.wikimedia.org/wikipedia/commons/5/5d/Lil_Wayne_Camp_Flog_Gnaw_2012.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/5/5a/Lil_Wayne_cropped.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/1/12/Lil_Wayne_Feb._2020.jpg",
-
 ]
 
 

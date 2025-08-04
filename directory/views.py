@@ -19,7 +19,7 @@ def mini_fb(request):
     return render(request, 'mini_fb/base.html')
 
 def voter_analytics(request):
-    return render(request, 'voter_analytics/base.html')
+    return render(request, 'voter_analytics/landing.html')
 
 def project(request):
     return render(request, 'project/home.html')

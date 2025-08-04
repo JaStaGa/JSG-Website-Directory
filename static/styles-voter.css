@@ -1,101 +1,185 @@
+/* styles-voter.css */
+
+/* 1) Import a neutral sans-serif */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+/* 2) Color variables */
+:root {
+  --bg:         #1a1a1a;  /* page background */
+  --card-bg:    #2a2a2a;  /* panels/forms */
+  --header-bg:  #222;     /* nav & header */
+  --accent:     #0054a6;  /* DMV blue */
+  --text:       #ddd;     /* main text */
+  --text-muted: #aaa;     /* secondary text */
+  --border:     #444;     /* table/form borders */
+  --radius:     4px;
+}
+
+/* 3) Global reset & typography */
+* {
+  margin: 0; padding: 0;
+  box-sizing: border-box;
+}
 body {
-  background-color: lightgrey;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Open Sans', sans-serif;
+  line-height: 1.5;
 }
 
-h1, h2, h3, footer,header, p {
-  font-family: verdana;
-  color: rgb(40, 40, 138);
+/* 4) Page header */
+h1 {
+  background: var(--header-bg);
+  color: #fff;
+  text-align: center;
+  padding: 1rem;
+  font-size: 1.8rem;
 }
 
-/* table, td, th {
-  width: 90%; 
-  max-width: 1000px;
-  margin-left: 25px;
-  text-decoration:none;
-  padding: 10px;
-  margin: 10px;
-  color: rgb(40, 40, 138);
-  font-family: verdana;
-} */
-
-table {
-  width: 90%; 
-  max-width: 1000px;
-  margin-left: 25px;
-  border-collapse: collapse;
-  text-decoration:none;
+/* 5) Site nav */
+nav {
+  background: var(--card-bg);
+  padding: 0.5rem;
 }
-
-td, th {
-  padding: 10px;
-  color: rgb(40, 40, 138);
-  font-family: verdana;
-  text-align: left; /* Align text in cells */
-}
-
-/* Optionally, remove margins on td */
-td {
-  margin: 0; /* Avoids spacing issues */
-}
-
-
 nav ul {
-  text-align: center;
-}
-
-nav ul a, .container{
-  font-family: verdana;
-  color: rgb(40, 40, 138);
-  width: 90%;
-  max-width: 100px;
-  padding: 10px;
-  text-align: center;
-  transition: max-width 0.3s ease;
-  list-style-type: none;
-}
-li {
-  list-style-type: none;
-}
-
-.form-table {
+  display: flex;
+  list-style: none;
   justify-content: center;
-  text-align: center;
+  gap: 1rem;
+}
+nav ul a {
+  color: var(--text);
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
+nav ul a:hover {
+  background: var(--accent);
+  color: #fff;
 }
 
+/* 6) Main container/cards */
 .container {
   width: 90%;
   max-width: 1000px;
-  padding: 30px;
-  margin: 20px auto;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  text-align: center;
-  transition: max-width 0.3s ease;
+  margin: 1.5rem auto;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: var(--radius);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
 }
 
-.header-title {
-  text-align: center;
-  color: #7599d2;
-  text-decoration: none;
-  padding: 10px;
-  margin: 10px;
+/* 7) Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+th, td {
+  padding: 0.75rem;
+  border: 1px solid var(--border);
+  text-align: left;
+  color: var(--text);
+}
+th {
+  background: var(--header-bg);
+  color: #fff;
+  font-weight: 600;
+}
+tr:nth-child(even) {
+  background: #232323;
+}
+tr:hover {
+  background: var(--border);
 }
 
-h4 a {
-  font-family:verdana;
-  display: inline-block;
-  color: rgb(40, 40, 138);
-  padding: 10px 20px;
-  text-decoration: none;
-  background-color: #ccd0d6;
-  margin: 10px;
+/* 8) Filter form elements */
+select, input[type="submit"] {
+  font-family: inherit;
+}
+select {
+  width: 100%;
+  max-width: 250px;
+  padding: 0.4rem;
+  margin-top: 0.2rem;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  color: var(--text);
+}
+input[type="submit"] {
+  margin-top: 0.5rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+input[type="submit"]:hover {
+  background: #003e7e;
 }
 
-.form-picture {
-  margin: 5px 0;
+/* 9) Reset-filters link & general links */
+a {
+  color: var(--accent);
+}
+a:hover {
+  text-decoration: underline;
 }
 
-.form-table {
+/* 10) Pagination */
+.pagination {
+  display: flex;
+  list-style: none;
   justify-content: center;
-  text-align: center;
+  gap: 0.75rem;
+  margin: 1rem 0;
+  padding: 0;
+}
+.pagination li span,
+.pagination li span a {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  border-radius: var(--radius);
+}
+.pagination li span {
+  color: var(--text-muted);
+}
+.pagination li span a {
+  background: var(--card-bg);
+  color: var(--text);
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.pagination li span a:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* 11) Lists on detail pages */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0;
+}
+ul li {
+  margin-bottom: 0.5rem;
+}
+ul li strong {
+  display: inline-block;
+  width: 140px;
+  color: var(--text-muted);
+}
+
+/* 12) Responsive helpers */
+@media (max-width: 600px) {
+  nav ul {
+    flex-wrap: wrap;
+  }
+  select {
+    max-width: 100%;
+  }
 }

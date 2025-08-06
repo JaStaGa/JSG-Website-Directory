@@ -29,5 +29,13 @@ urlpatterns = [
     path('voter_analytics/', include("voter_analytics.urls")),
     path('project/', include("project.urls")),
 ]   
+
+if settings.DEBUG:
+    # only in dev
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+else:
+    # in production, you may need the same if you rely on WhiteNoise
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

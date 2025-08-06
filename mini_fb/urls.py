@@ -12,6 +12,7 @@ from django.views.generic import TemplateView
 
 urlpatterns = [
     path('home', views.home, name='home'),
+    path('landing', views.landing, name='landing'),
     path('all_profiles/', ShowAllProfilesView.as_view(), name="show_all_profiles"),
     path('profile/<int:pk>/', ShowProfilePageView.as_view(), name="show_profile"),
     path('create_profile/', CreateProfileView.as_view(), name='create_profile'),

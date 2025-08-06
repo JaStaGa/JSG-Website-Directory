@@ -1,38 +1,36 @@
 <!-- mini_fb/friend_suggestions.html -->
-
 {% extends 'mini_fb/base.html' %}
 
 {% block content %}
-<h2>Friend Suggestions for {{ profile.first_name }} {{ profile.last_name }}:</h2>
-<div class="grid_container">
-    
-    <profile>
-        {% for suggestion in friend_suggestions %}
-        &nbsp;
-        <a href="{% url 'add_friend' suggestion.pk %}"><h2>Add Friend:</h2>
-        <div class="crop">
-            {% if suggestion.image_file %}
-            <img src={{suggestion.image_file.url}} alt="" style="width: 200px; height: 200px;">
-            {% else %}
-            <h3>No image</h3>
-            {% endif %}
+<div class="container">
+    <section class="friend-suggestions">
+        <header class="section-header">
+            <h2>People You May Know</h2>
+            <a href="{% url 'show_profile' profile.pk %}" class="btn secondary">← Back to Profile</a>
+        </header>
+
+        {% if friend_suggestions %}
+        <div class="grid-container">
+            {% for suggestion in friend_suggestions %}
+            <div class="suggestion-card">
+                <a href="{% url 'add_friend' suggestion.pk %}" class="suggestion-link">
+                    <div class="crop">
+                        {% if suggestion.image_file %}
+                        <img src="{{ suggestion.image_file.url }}"
+                            alt="{{ suggestion.first_name }} {{ suggestion.last_name }}" class="avatar">
+                        {% else %}
+                        <div class="placeholder-pic small">No Image</div>
+                        {% endif %}
+                    </div>
+                    <h4>{{ suggestion.first_name }} {{ suggestion.last_name }}</h4>
+                    <button class="btn primary add-friend-btn">Add Friend</button>
+                </a>
+            </div>
+            {% endfor %}
         </div>
-
-        {{ suggestion.first_name }} {{ suggestion.last_name }}
-        </a>
-    </profile>
-
-
-
-    {% empty %}
-        <li>No suggestions available.</li>
-    {% endfor %}
-    </ul>
+        {% else %}
+        <p>No suggestions available at this time.</p>
+        {% endif %}
+    </section>
 </div>
-  
-
-
-
-  <br>
-  <a href="{% url 'show_profile' profile.pk %}">← Back to Profile</a>
 {% endblock %}

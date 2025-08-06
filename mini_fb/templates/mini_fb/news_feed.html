@@ -1,29 +1,41 @@
 <!-- mini_fb/news_feed.html -->
 {% extends 'mini_fb/base.html' %}
 {% block content %}
-<h1>News Feed for {{ profile.first_name }} {{ profile.last_name }}</h1>
+<div class="container">
+    <section class="news-feed">
+        <header class="news-feed-header">
+            <h1>News Feed for {{ profile.first_name }} {{ profile.last_name }}</h1>
+            <a href="{% url 'show_profile' profile.pk %}" class="btn secondary">← Back to Profile</a>
+        </header>
 
-<a href="{% url 'show_profile' profile.pk %}">← Back to Profile</a>
+        {% for message in news_feed %}
+        <div class="newsfeed_item status-card">
+            <div class="newsfeed_header">
+                <a href="{% url 'show_profile' message.profile.pk %}" class="newsfeed_profile">
+                    {% if message.profile.image_file %}
+                    <img src="{{ message.profile.image_file.url }}" alt="{{ message.profile.first_name }}"
+                        class="profile-thumb">
+                    {% else %}
+                    <div class="profile-thumb placeholder"></div>
+                    {% endif %}
+                    <strong>{{ message.profile.first_name }} {{ message.profile.last_name }}</strong>
+                </a>
+                <span class="timestamp">{{ message.timestamp|date:"M j, Y H:i" }}</span>
+            </div>
 
-{% for message in news_feed %}
-    <div style="border: 1px solid #ccc; padding: 10px; margin: 15px 0;">
-        <div style="display: flex; align-items: center;">
-            {% if message.profile.image_file %}
-            <a href="{% url 'show_profile' message.profile.pk %}">
-                <img src="{{ message.profile.image_file.url }}" alt="Profile Image"
-                style="width: 60px; height: 60px; object-fit: cover; border-radius: 0%; margin-right: 0px;">
-            </a>            
-                {% endif %}
-            <strong>{{ message.profile.first_name }} {{ message.profile.last_name }}</strong>
+            <p class="content">{{ message.message }}</p>
+
+            {% if message.get_images %}
+            <div class="newsfeed_images">
+                {% for img in message.get_images %}
+                <img src="{{ img.image_file.url }}" alt="Attached image" class="attached-image">
+                {% endfor %}
+            </div>
+            {% endif %}
         </div>
-        <p><em>{{ message.timestamp }}</em></p>
-        <p>{{ message.message }}</p>
-
-        {% for img in message.get_images %}
-            <img src="{{ img.image_file.url }}" style="width: 150px; height: auto; margin: 5px;">
+        {% empty %}
+        <p>No status messages to show.</p>
         {% endfor %}
-    </div>
-{% empty %}
-    <p>No status messages to show.</p>
-{% endfor %}
+    </section>
+</div>
 {% endblock %}

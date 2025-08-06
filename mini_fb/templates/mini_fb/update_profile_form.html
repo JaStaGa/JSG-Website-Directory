@@ -1,16 +1,19 @@
 <!-- mini_fb/update_profile_form.html -->
-
 {% extends "mini_fb/base.html" %}
-
 {% block content %}
-  <h2>Update Profile</h2>
-
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    <table>
-      {{ form.as_table }}
-    </table>
-    <button type="submit">Save Changes</button>
-    <a href="{% url 'show_profile' pk=object.pk %}">Cancel</a>
-  </form>
+<div class="container">
+  <div class="form-panel">
+    <h2>Update Profile</h2>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      <table class="form-table">
+        {{ form.as_table }}
+      </table>
+      <div class="form-actions">
+        <button type="submit" class="btn primary">Save Changes</button>
+        <a href="{% url 'show_profile' pk=object.pk %}" class="btn secondary">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
 {% endblock %}

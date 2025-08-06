@@ -5,16 +5,18 @@
 
 /* 2) Dark palette & vars */
 :root {
-  --bg-page:      #121212;   /* overall page */
-  --bg-panel:     #1e1e1e;   /* cards, forms, panels */
-  --bg-header:    #181818;   /* header/nav */
-  --text-primary: #e4e6eb;   /* main text */
-  --text-muted:   #898d95;   /* secondary text */
-  --link:         #2d88ff;   /* accent links/buttons */
-  --border:       #383838;   /* borders, separators */
-  --radius:       8px;       /* rounding */
-  --gap:          16px;      /* base spacing */
-  --shadow:       rgba(0,0,0,0.7); /* darker shadow */
+  --bg-page:      #1A120B;   /* deep chocolate background */
+  --bg-panel:     #3C2A21;   /* rich mahogany panels */
+  --text-primary: #E5E5CB;   /* light sand for primary copy */
+  --text-muted:   #D5CEA3;   /* pale khaki for secondary text */
+  --accent:       #E5E5CB;   /* reuse sand for buttons/links */
+  --bg-header:    #24150E;   /* a midway shade between page & panel */
+  --border:       #4F3E37;   /* dark taupe for subtle separators */
+  --hover-accent: #D5CEA3;   /* slightly darker sand on hover */
+  --link:         #b26641;   /* vibrant orange for links */
+  --shadow:       rgba(0,0,0,0.7);
+  --radius:       8px;
+  --gap:          16px;
 }
 
 /* 3) Reset & base typography */

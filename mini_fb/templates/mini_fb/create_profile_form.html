@@ -1,25 +1,31 @@
 <!-- mini_fb/create_profile_form.html -->
-
 {% extends "mini_fb/base.html" %}
-
 {% block content %}
-  <h2>Create a New Profile</h2>
+<div class="container">
+  <div class="form-panel">
 
-  <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
+    <h2>Create a New Profile</h2>
 
-    <!-- 7-3-2 -->
-    <h3>User Registration</h3>
-    <table>
-      {{ user_form.as_table }}
-    </table>
+    <form method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
 
-    <h3>Profile Information</h3>
-    <table>
-      {{form.as_table}}
-    </table>
+      <h3>User Registration</h3>
 
-    <button type="submit">Create Profile</button>
-  </form>
+      <div class="form-group">
+        {{ user_form.as_table }}
+      </div>
 
+      <h3>Profile Information</h3>
+
+      <div class="form-group">
+        {{form.as_table}}
+      </div>
+
+      <div class="form-actions">
+        <button type="submit">Create Profile</button>
+      </div>
+
+    </form>
+  </div>
+</div>
 {% endblock %}

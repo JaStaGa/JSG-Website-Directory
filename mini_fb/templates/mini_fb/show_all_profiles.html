@@ -1,28 +1,50 @@
 <!-- mini_fb/show_all_profiles.html -->
-
 {% extends 'mini_fb/base.html' %}
+
 {% block content %}
-<h1>
-    Showing All Profiles
-</h1>
-<!-- {{profiles}} -->
-<main class="grid-container">
-    {% for profile in profiles %}
-    <profile>
-        <a href="{% url 'show_profile' profile.pk %}">
-        <div class="crop">
-            {% if profile.image_file %}
-            <img src={{profile.image_file.url}} alt="" style="width: 200px; height: 200px;">
-            {% else %}
-            <h3>No image</h3>
-            {% endif %}
+<div class="container">
+    <section class="profiles-list">
+        <header class="section-header">
+            <h1>All Profiles</h1>
+        </header>
+
+        <div class="search-wrapper">
+            <input type="search" placeholder="Search profiles…" class="search-input"
+                oninput="filterProfiles(this.value)" />
         </div>
-        {{profile.first_name}} {{profile.last_name}} 
-        </a>
-        <p>
-            {{profile.city}}
-        </p>
-    </profile>
-    {% endfor %}
-</main>
+
+        <script>
+            function filterProfiles(query) {
+                const cards = document.querySelectorAll('.profile-card');
+                cards.forEach(card => {
+                    const name = card.querySelector('h4').textContent.toLowerCase();
+                    if (name.includes(query.toLowerCase())) {
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            }
+        </script>
+
+        <div class="grid-container">
+            {% for profile in profiles %}
+            <div class="profile-card">
+                <a href="{% url 'show_profile' profile.pk %}" class="profile-link">
+                    <div class="crop">
+                        {% if profile.image_file %}
+                        <img src="{{ profile.image_file.url }}" alt="{{ profile.first_name }} {{ profile.last_name }}"
+                            class="avatar">
+                        {% else %}
+                        <div class="placeholder-pic small">No Image</div>
+                        {% endif %}
+                    </div>
+                    <h4>{{ profile.first_name }} {{ profile.last_name }}</h4>
+                    <p class="city">{{ profile.city }}</p>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </section>
+</div>
 {% endblock %}

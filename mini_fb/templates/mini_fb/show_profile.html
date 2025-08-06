@@ -1,87 +1,67 @@
 <!-- mini_fb/show_profile.html -->
- 
 {% extends "mini_fb/base.html" %}
-
 {% load static %}
 
 {% block content %}
-
-<div class="main">
-    
-    <!-- 7-1-5 -->
-    {% if request.user.is_authenticated and request.user != profile.user %}
-    <p>You are viewing {{ profile.user.username }}'s profile in read-only mode.</p>
-    {% else %}
-    <a href="{% url 'show_news_feed' %}">
-        <h2>View News Feed</h2>
-    </a>
-    {% endif %}
-
-
-    <profile class="featured">
-        
-
-        {% if profile.image_file %}
-        <img src={{profile.image_file.url}} alt="" style="width: 200px;">
-
+<div class="container">
+    <section class="profile-header">
+        {% if request.user.is_authenticated and request.user != profile.user %}
+        <div class="alert info">
+            You are viewing {{ profile.user.username }}'s profile in read-only mode.
+        </div>
         {% else %}
-        <h3>No image</h3>
-
+        <a href="{% url 'show_news_feed' %}" class="btn secondary">← Back to News Feed</a>
         {% endif %}
 
-        <div>
-            <h1>{{profile.first_name}} {{profile.last_name}}</h1>
-            <h3>{{profile.city}}</h3>
-            <h3>{{profile.email_address}}</h3>
+        <br><br>
 
-            <!-- 7-1-5 -->
-            {% if request.user.is_authenticated and request.user == profile.user %}
-            <a href="{% url 'create_status' %}">Post a New Status</a>
-            {% endif %}
-            <!-- 7-1-5 -->
-            {% if request.user.is_authenticated and request.user == profile.user %}
-            <a href="{% url 'update_profile' %}">Update Profile</button></a>  
-            {% endif %}      
-
-        </div>
-
-    </profile>
-
-    
-
-    <div class="grid_container">
-        <h2>{{ profile.first_name }}'s Friends</h2>
-        
-        <profile>
-            <!-- Loop thru profile's friends -->
-            {% for friend in profile.get_friends %}
-
-            <!-- Show image -->
-            <a href="{% url 'show_profile' friend.pk %}">
-            <div class="crop">
-                {% if friend.image_file %}
-                <img src={{friend.image_file.url}} alt="" style="width: 200px; height: 200px;">
+        <div class="featured profile-card">
+            <div class="profile-picture">
+                {% if profile.image_file %}
+                <img src="{{ profile.image_file.url }}" alt="{{ profile.first_name }}'s picture">
                 {% else %}
-                <h3>No image</h3>
+                <div class="placeholder-pic">No Image</div>
                 {% endif %}
-            </div>            
-            
-            <h4>{{ friend.first_name }} {{ friend.last_name }}</h4>
-            </a>
+            </div>
+            <div class="profile-details">
+                <h1>{{ profile.first_name }} {{ profile.last_name }}</h1>
+                <p class="location">{{ profile.city }}</p>
+                <p class="email">{{ profile.email_address }}</p>
+                <div class="profile-actions">
+                    {% if request.user.is_authenticated and request.user == profile.user %}
+                    <a href="{% url 'create_status' %}" class="btn primary">Post Status</a>
+                    <a href="{% url 'update_profile' %}" class="btn secondary">Edit Profile</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="friend-list">
+        <h2>{{ profile.first_name }}'s Friends</h2>
+        <div class="grid-container">
+            {% for friend in profile.get_friends %}
+            <div class="friend-card">
+                <a href="{% url 'show_profile' friend.pk %}">
+                    <div class="crop">
+                        {% if friend.image_file %}
+                        <img src="{{ friend.image_file.url }}" alt="{{ friend.first_name }}'s picture">
+                        {% else %}
+                        <div class="placeholder-pic small">No Image</div>
+                        {% endif %}
+                    </div>
+                    <h4>{{ friend.first_name }} {{ friend.last_name }}</h4>
+                </a>
+            </div>
             {% empty %}
-            <li>No friends yet.</li>
+            <p>No friends yet.</p>
             {% endfor %}
-        </profile>
-    </div>
-    <br>
-    <!-- 7-1-5 -->
-    {% if request.user.is_authenticated and request.user == profile.user %}
-    <a href="{% url 'friend_suggestions' %}">Friend Suggestions</a>
-    {% endif %}
-
-
+        </div>
+        {% if request.user.is_authenticated and request.user == profile.user %}
+        <div class="form-actions">
+            <a href="{% url 'friend_suggestions' %}" class="btn primary">Find Friends</a>
+        </div>
+        {% endif %}
+    </section>
 </div>
-
-
 {% endblock %}

@@ -80,6 +80,9 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
 def home(request):
     return render(request, 'directory/base.html')
 
+def landing(request):
+    return render(request, 'mini_fb/landing.html')
+
 # 7-1-4
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''For updating profile'''

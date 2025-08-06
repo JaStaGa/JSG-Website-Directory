@@ -16,25 +16,26 @@
     <hr>
   </header>
 
-  <nav>
+  <!-- <nav>
     <ul>
       <li><a href="{% url 'project' %}">NBA2K25 Builder <small>&#8594; App</small></a></li>
       <li><a href="{% url 'voter_analytics' %}">Voter Analytics <small>&#8594; App</small></a></li>
       <li><a href="{% url 'quotes' %}">Quotes <small>&#8594; App</small></a></li>
       <li><a href="{% url 'restaurants' %}">Restaurant <small>&#8594; App</small></a></li>
-      <li><a href="{% url 'mini_fb' %}">Mini-Facebook <small>&#8594; App</small></a></li>
+      <li><a href="{% url 'mini_fb' %}">FriendZone <small>&#8594; App</small></a></li>
     </ul>
-  </nav>
+  </nav> -->
 
   <main>
     {% block content %}
     <div class="projects-grid">
 
       <div class="project-card">
-        <h2>2K MyPlayer Builder</h2>
+        <h2 style="align-self: center;">2K MyPlayer Builder</h2>
         <p>
-                    With the price that NBA2K VC costs nowadays, you need your first build to be 'the one'. This inspired me to create this 
- Django web app. It allows users to select desired NBA2K25 badges and
+          With the price that NBA2K VC costs nowadays, you need your first build to be 'the one'. This inspired me to
+          create this
+          Django web app. It allows users to select desired NBA2K25 badges and
           compute the required attributes and height to unlock them. Built with
           Django models, forms, and class-based views; data stored in SQLite/Postgres;
           styled with Bootstrap and custom CSS.
@@ -42,8 +43,19 @@
         <a href="{% url 'project' %}" class="project-launch">Launch App</a>
       </div>
 
+
       <div class="project-card">
-        <h2>Voter Analytics</h2>
+        <h2 style="align-self: center;">FriendZone</h2>
+        <p>
+          A mock social media app supporting user registration, profiles,
+          status posts, image uploads, and friend connections. Built with
+          Django’s auth system, FileField for media, and ListView/DetailView.
+        </p>
+        <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
+      </div>
+
+      <div class="project-card">
+        <h2 style="align-self: center;">Voter Analytics</h2>
         <p>
           A dynamic data-driven application analyzing US election results.
           Integrates Django ORM with Pandas for data processing, and renders
@@ -53,7 +65,7 @@
       </div>
 
       <div class="project-card">
-        <h2>Random Quote Generator</h2>
+        <h2 style="align-self: center;">Random Quote Generator</h2>
         <p>
           A simple API-powered app that displays random inspirational quotes.
           Backend in Django REST Framework, frontend using vanilla JS and AJAX.
@@ -63,23 +75,13 @@
       </div>
 
       <div class="project-card">
-        <h2>Fictional Restaurant App</h2>
+        <h2 style="align-self: center;">Fictional Restaurant App</h2>
         <p>
           A CRUD application for managing a fictional restaurant’s menu.
           Demonstrates Django forms, models, and auth: users can add/edit
           menu items, leave reviews, and upload images. Styled with Tailwind CSS.
         </p>
         <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
-      </div>
-
-      <div class="project-card">
-        <h2>Mini-Facebook</h2>
-        <p>
-          A Facebook-style app supporting user registration, profiles,
-          status posts, image uploads, and friend connections. Built with
-          Django’s auth system, FileField for media, and ListView/DetailView.
-        </p>
-        <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
       </div>
 
     </div>

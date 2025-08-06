@@ -1,8 +1,12 @@
 <!-- mini_fb/logged_out.html -->
-
-<!-- 7-2-3 -->
 {% extends "mini_fb/base.html" %}
 {% block content %}
-  <h2>You have been logged out.</h2>
-  <a href="{% url 'login' %}">Log in again</a>
+<div class="container">
+  <div class="notification-panel">
+    <h2 class="notification-title">You’ve successfully logged out</h2>
+    <p class="notification-text">Thanks for stopping by FriendZone! See you again soon.</p>
+    <a href="{% url 'login' %}" class="btn primary">Log In Again</a>
+    <a href="{% url 'create_profile' %}" class="btn secondary">Create New Profile</a>
+  </div>
+</div>
 {% endblock %}

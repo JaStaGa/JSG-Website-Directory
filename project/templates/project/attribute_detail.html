@@ -14,7 +14,9 @@
     <p>{{ attribute.description }}</p>
   </div>
   {% endif %}
+  <div class="links">
+    <a href="{% url 'attribute_list' %}">← Back to Attributes</a>
+  </div>
 
-  <a href="{% url 'attribute_list' %}">← Back to Attributes</a>
 </div>
 {% endblock %}

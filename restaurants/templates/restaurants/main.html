@@ -1,31 +1,56 @@
-<html>
-    <head>
-        {% load static %}
-        <title>Anime Meals</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
-    <body>
-        <header>
-            <h1>AniMeals</h1>
-        </header>
-        <br><br><br><br>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">CS412</a></li>
-                <li><a href="{% url 'main' %}">Main</a></li>
-                <li><a href="{% url 'order' %}">Order</a></li>
-            </ul>
-        </nav>
-        <br><br>
-        <main>
-            <h2>Hello Weeb!</h2>
-            <p>
-                Located in the Grand Line. Our hours of operation are listed below:
-            </p>
-            <p>Monday-Friday: 10am-8pm</p>
-            <p>Saturday&Sunday: 12pm-5pm</p>
-            <img src="https://i.pinimg.com/736x/6c/ef/11/6cef11d8b530823aff10f6835a33aecb.jpg" width="300"><br>
+<!DOCTYPE html>
+<html lang="en">
 
-        </main>
-    </body>
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AniMeals</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title"><a href="{% url 'home' %}">AniMeals</a></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'home' %}">All Apps</a></li>
+                    <li><a href="{% url 'main' %}">Home</a></li>
+                    <li><a href="{% url 'order' %}">Order</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h2>Welcome to AniMeals</h2>
+            <p>Dive into the flavors of the Grand Line with our One Piece–inspired dishes.</p>
+            <a href="{% url 'order' %}" class="btn primary">Order Now</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <section class="hours">
+            <h2>Hours of Operation</h2>
+            <p>Monday–Friday: 10 am–8 pm</p>
+            <p>Saturday & Sunday: 12 pm–5 pm</p>
+        </section>
+        <section class="featured-dish">
+            <h2>Featured Dish: Thousand Sunny Ramen</h2>
+            <img src="https://i.pinimg.com/736x/6c/ef/11/6cef11d8b530823aff10f6835a33aecb.jpg"
+                alt="Thousand Sunny Ramen">
+        </section>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            &copy; {% now "Y" %} AniMeals. All Rights Reserved.
+        </div>
+    </footer>
+
+</body>
+
 </html>

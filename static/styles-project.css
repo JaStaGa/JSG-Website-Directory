@@ -313,3 +313,23 @@ nav a[aria-current="page"]::after {
   background: var(--accent);
   margin-top: 4px;
 }
+
+.attr-card a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+/* remove bullets & reset padding on custom lists */
+.build-summary ul.no-bullets {
+  list-style-type: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.build-summary ul.no-bullets > li {
+  list-style-type: none !important;
+}

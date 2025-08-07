@@ -4,50 +4,99 @@
 <head>
     {% load static %}
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AniMeals</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Sanji’s Kitchen</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
 </head>
 
 <body>
 
+    <!-- Header + Nav -->
     <header class="site-header">
         <div class="container">
-            <h1 class="site-title"><a href="{% url 'home' %}">AniMeals</a></h1>
+            <h1 class="site-title"><a href="{% url 'home' %}">Sanji’s Kitchen</a></h1>
             <nav class="main-nav">
                 <ul>
                     <li><a href="{% url 'home' %}">All Apps</a></li>
-                    <li><a href="{% url 'main' %}">Home</a></li>
+                    <li><a href="{% url 'main' %}" aria-current="page">Home</a></li>
                     <li><a href="{% url 'order' %}">Order</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
+    <!-- Hero -->
     <section class="hero">
         <div class="container">
-            <h2>Welcome to AniMeals</h2>
-            <p>Dive into the flavors of the Grand Line with our One Piece–inspired dishes.</p>
+            <h2>Welcome to Sanji’s Kitchen</h2>
+            <p>Experience gourmet dishes crafted by the Straw Hat crew’s master chef.</p>
             <a href="{% url 'order' %}" class="btn primary">Order Now</a>
         </div>
     </section>
 
+    <!-- About Us -->
+    <section class="about">
+        <div class="container">
+            <h2>Our Story</h2>
+            <p>
+                In the heart of the Grand Line, Sanji’s Kitchen brings you dishes that blend
+                culinary skill with the spirit of adventure. From Marine curry to hearty seafood rice,
+                every plate is a taste of the seas.
+            </p>
+        </div>
+    </section>
+
+    <!-- Featured Items -->
+    <section class="menu-teaser">
+        <div class="container">
+            <h2>Featured Items</h2>
+            <div class="menu-grid">
+                <!-- Marine Curry -->
+                <div class="dish-card">
+                    <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/10/7748F3EA-CCE7-4E73-93B1-9273C3E589B2.jpeg?q=50&fit=crop&w=825&dpr=1.5"
+                        alt="Marine Curry">
+                    <h3>Marine Curry</h3>
+                    <p>A spicy, tangy curry inspired by the Navy’s finest flavors.</p>
+                    <a href="{% url 'order' %}" class="btn primary">Order Now</a>
+                </div>
+                <!-- Traditional Seafood Rice -->
+                <div class="dish-card">
+                    <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/10/F14E3C81-B59F-41A9-9C92-445F9DF16806.jpeg?q=50&fit=crop&w=825&dpr=1.5"
+                        alt="Traditional Seafood Rice">
+                    <h3>Seafood Rice</h3>
+                    <p>Fragrant rice loaded with shrimp, squid & sea pork—Sanji’s specialty.</p>
+                    <a href="{% url 'order' %}" class="btn primary">Order Now</a>
+                </div>
+                <!-- Hormone Soup with Sea Pork -->
+                <div class="dish-card">
+                    <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/10/06B86223-D8A1-43D8-B7DA-9A8BD715E251.jpeg?q=50&fit=crop&w=825&dpr=1.5"
+                        alt="Hormone Soup with Sea Pork">
+                    <h3>Hormone Soup</h3>
+                    <p>A rich, healing broth simmered with sea pork and savory spices.</p>
+                    <a href="{% url 'order' %}" class="btn primary">Order Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Hours & Featured Dish -->
     <main class="container">
         <section class="hours">
             <h2>Hours of Operation</h2>
-            <p>Monday–Friday: 10 am–8 pm</p>
-            <p>Saturday & Sunday: 12 pm–5 pm</p>
+            <p>Monday–Friday: 10 am–8 pm</p>
+            <p>Saturday & Sunday: 12 pm–5 pm</p>
         </section>
         <section class="featured-dish">
-            <h2>Featured Dish: Thousand Sunny Ramen</h2>
-            <img src="https://i.pinimg.com/736x/6c/ef/11/6cef11d8b530823aff10f6835a33aecb.jpg"
-                alt="Thousand Sunny Ramen">
+            <h2>Chef’s Special: Sanji’s Fish Stew</h2>
+            <img src="https://static1.cbrimages.com/wordpress/wp-content/uploads/2022/10/6FED28B6-0D29-4250-B87F-8231546334DC.jpeg?q=50&fit=crop&w=825&dpr=1.5"
+                alt="Sanji’s Fish Stew">
         </section>
     </main>
 
+    <!-- Footer -->
     <footer class="site-footer">
         <div class="container">
-            &copy; {% now "Y" %} AniMeals. All Rights Reserved.
+            <p>&copy; {% now "Y" %} Sanji’s Kitchen. All Rights Reserved.</p>
         </div>
     </footer>
 

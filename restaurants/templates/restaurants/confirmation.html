@@ -1,33 +1,63 @@
-<main>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Order Confirmation — Sanji’s Kitchen</title>
     <link rel="stylesheet" href="{% static 'styles.css' %}">
-    <nav>
+</head>
+
+<body>
+
+    <!-- Header + Nav -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title"><a href="{% url 'home' %}">Sanji’s Kitchen</a></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'main' %}">Home</a></li>
+                    <li><a href="{% url 'order' %}" aria-current="page">Order</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Confirmation Summary -->
+    <main class="confirmation">
+        <h1>Thank you for your order!</h1>
+        <h4>Your order will be ready at: {{ time }}</h4>
+
+        <h3>Featured Items Ordered:</h3>
         <ul>
-            <li><a href="{% url 'main' %}">Main</a></li>
-            <li><a href="{% url 'order' %}">Order</a></li>
-        </ul>
-    </nav>
-    <h1>Thank you for  ordering!</h2>
-    <h4>Your order will be ready at: {{ time }}</h4>
-
-    <h3>Your order is confirmed:</h3>
-    <ul>
-        {% for item in selected_items %}
+            {% for item in selected_items %}
             <li>{{ item }}</li>
-        {% empty %}
+            {% empty %}
             <li>No items selected.</li>
-        {% endfor %}
-    </ul>
+            {% endfor %}
+        </ul>
 
-    <p>Total: ${{total}}</p>
+        <p><strong>Total:</strong> ${{ total }}</p>
 
-    <h3>Customer Information:</h3>
-    <p>Name: {{ name }}</p>
-    <p>Phone: {{ phone }}</p>
-    <p>Email: {{ email }}</p>
+        <h3>Customer Info:</h3>
+        <p><strong>Name:</strong> {{ name }}</p>
+        <p><strong>Phone:</strong> {{ phone }}</p>
+        <p><strong>Email:</strong> {{ email }}</p>
 
-    {% if special_instructions %}
+        {% if special_instructions %}
         <h3>Special Instructions:</h3>
         <p>{{ special_instructions }}</p>
-    {% endif %}
-</main>
+        {% endif %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {% now "Y" %} Sanji’s Kitchen. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+
+</html>

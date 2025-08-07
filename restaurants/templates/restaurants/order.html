@@ -1,88 +1,74 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
     {% load static %}
-    <head>
-        <title>AniMeals</title>
-        <link rel="stylesheet" href="{% static 'styles.css' %}">
-    </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Place an Order — Sanji’s Kitchen</title>
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
 
-    <body>
-        <div class="grid-container">
-        <header>
-            <h1>AniMeals</h1>
-        </header>
+<body>
 
-        <br>
-        <br>
-        <br>
-        <br>
-        <br>
+    <!-- Header + Nav -->
+    <header class="site-header">
+        <div class="container">
+            <h1 class="site-title"><a href="{% url 'home' %}">Sanji’s Kitchen</a></h1>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="{% url 'main' %}">Home</a></li>
+                    <li><a href="{% url 'order' %}" aria-current="page">Order</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
 
-        <nav>
-        <li><a href="{% url 'main' %}">Main</a></li>    
-        <li><a href="{% url 'order' %}">Order</a></li>    
-        </nav>
-        
-        <main>
-        
-        
-    <h2>Place an Order</h2>
-
-        <form action="{% url 'confirmation' %}" method="POST">
+    <!-- Order Form -->
+    <main class="order-container">
+        <h2>Place an Order</h2>
+        <form class="order-form" action="{% url 'confirmation' %}" method="POST">
             {% csrf_token %}
-            <p>
-            <h3>Make your selection:</h3>
-            <div><input type="checkbox" name="onigiri">Brock's Onigiri $40</div>
-            <div><input type="checkbox" name="apple">Ryuk's Apple $15</div>
-            <div><input type="checkbox" name="ramen">Naruto's Ramen $60</div>     
-            <div><input type="checkbox" name="drumstick">Luffy's Drumsticks $200</div>    
-            </p>
 
-        <p>
-        <h3>Today's Special:</h3>
-        <div><input type="checkbox" name="special">Eren's Spinal Fluid $15</div>
-        </p>
-        
-        <p>
-        <h3>Special Instructions</h3>
-        Please share any special instructions:
-        <div><textarea name="special_instructions" rows="3" cols="60"></textarea></div>
-        </p>
-        <p>
-        <h3>Customer Information</h3>
+            <h3>Featured Items</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="marine_curry"> Marine Curry — $25</label>
+                <label><input type="checkbox" name="seafood_rice"> Seafood Rice — $22</label>
+                <label><input type="checkbox" name="hormone_soup"> Hormone Soup — $18</label>
+            </div>
 
-        <div>Name:</div> <div><input name="name"></div>
-        <div>Phone:</div> <div><input name="phone"></div>
+            <h3>Regular Menu</h3>
+            <div class="checkbox-group">
+                <label><input type="checkbox" name="soba_shop"> Sanji's Soba Shop Special — $20</label>
+                <label><input type="checkbox" name="potato_pallie"> Potato Pallie — $15</label>
+                <label><input type="checkbox" name="luffy_meat"> Luffy's Meat On The Bone — $30</label>
+                <label><input type="checkbox" name="strawhat_special"> Strawhat Special Meal — $28</label>
+                <label><input type="checkbox" name="bigmom_cake"> Big Mom's Wedding Cake — $35</label>
+                <label><input type="checkbox" name="sentimental_mom"> Sentimental Meal For Mom — $18</label>
+                <label><input type="checkbox" name="bento_luffy"> Bento For Luffy — $22</label>
+            </div>
 
-        <div>Email:</div> <div><input name="email"></div>
-        </p>
+            <h3>Special Instructions</h3>
+            <textarea name="special_instructions" rows="3" placeholder="Any dietary requests?"></textarea>
 
-        <p>
-        <h3>Place your order!</h3>
-        <input type="submit">        
-        </p>
+            <h3>Customer Information</h3>
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+            <input type="email" name="email" placeholder="Email Address" required>
 
-        <br>
-        <br><br>
+            <div class="form-actions">
+                <button type="submit" class="btn primary">Submit Order</button>
+            </div>
+        </form>
+    </main>
 
-    </form>
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; {% now "Y" %} Sanji’s Kitchen. All Rights Reserved.</p>
+        </div>
+    </footer>
 
-    </p>
+</body>
 
-
-        </main>
-
-        <aside>
-            <p></p>
-        </aside>
-
-        <footer>
-            <p>
-                Page created by jstarlin@bu.edu.<br>
-            </p>
-
-        </footer>
-        
-    
-    </div>
-    </body>
-<html>
+</html>

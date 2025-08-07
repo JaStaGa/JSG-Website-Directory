@@ -12,74 +12,72 @@
 <body>
   <header>
     <h1>JSG Full-Stack Project Directory</h1>
-    <p>A showcase of some full-stack Django apps I have built</p>
+    <p>A personal showcase of Django apps built from the ground up</p>
     <hr>
   </header>
-
-  <!-- <nav>
-    <ul>
-      <li><a href="{% url 'project' %}">NBA2K25 Builder <small>&#8594; App</small></a></li>
-      <li><a href="{% url 'voter_analytics' %}">Voter Analytics <small>&#8594; App</small></a></li>
-      <li><a href="{% url 'quotes' %}">Quotes <small>&#8594; App</small></a></li>
-      <li><a href="{% url 'restaurants' %}">Restaurant <small>&#8594; App</small></a></li>
-      <li><a href="{% url 'mini_fb' %}">FriendZone <small>&#8594; App</small></a></li>
-    </ul>
-  </nav> -->
 
   <main>
     {% block content %}
     <div class="projects-grid">
 
+      <!-- 2K MyPlayer Builder -->
       <div class="project-card">
-        <h2 style="align-self: center;">2K MyPlayer Builder</h2>
+        <h2>2KHub</h2>
+        <h3>MyPlayer Build Planner</h3>
         <p>
-          With the price that NBA2K VC costs nowadays, you need your first build to be 'the one'. This inspired me to
-          create this
-          Django web app. It allows users to select desired NBA2K25 badges and
-          compute the required attributes and height to unlock them. Built with
-          Django models, forms, and class-based views; data stored in SQLite/Postgres;
-          styled with Bootstrap and custom CSS.
+          Tired of the VC grind? 2KHub helps you plan the ultimate NBA2K25 MyPlayer build before you even spend a dime.
+          Select your dream badges and it calculates the exact height and attribute requirements. Built with Django
+          models, forms, and class-based views; data smoothly transitions between SQLite locally and PostgreSQL in
+          production; styled with Bootstrap and custom CSS for a polished, responsive experience.
         </p>
         <a href="{% url 'project' %}" class="project-launch">Launch App</a>
       </div>
 
-
+      <!-- FriendZone -->
       <div class="project-card">
-        <h2 style="align-self: center;">FriendZone</h2>
+        <h2>FriendZone</h2>
+        <h3>Social Sandbox</h3>
         <p>
-          A mock social media app supporting user registration, profiles,
-          status posts, image uploads, and friend connections. Built with
-          Django’s auth system, FileField for media, and ListView/DetailView.
+          Ever wanted a lightweight social network just for fun? FriendZone lets you sign up, craft your profile, post
+          status updates with images, add friends, and explore a personalized news feed. Powered by Django’s
+          authentication and FileField for media storage, it leverages ListView and DetailView for clean, maintainable
+          code.
         </p>
         <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
       </div>
 
+      <!-- Voter Analytics -->
       <div class="project-card">
-        <h2 style="align-self: center;">Voter Analytics</h2>
+        <h2>Voter Analytics</h2>
+        <h3>Election Insights</h3>
         <p>
-          A dynamic data-driven application analyzing US election results.
-          Integrates Django ORM with Pandas for data processing, and renders
-          interactive charts via Plotly. Supports filtering by state and year.
+          Dive into US election data with Voter Analytics. I combined Django ORM with Pandas for robust data processing
+          and rendered interactive Plotly charts to visualize trends by state and year. Filter and explore key metrics
+          in real time—perfect for data enthusiasts.
         </p>
         <a href="{% url 'voter_analytics' %}" class="project-launch">Launch App</a>
       </div>
 
+      <!-- Lil Wayne Quotes -->
       <div class="project-card">
-        <h2 style="align-self: center;">Random Quote Generator</h2>
+        <h2>Lil Wayne Quote Machine</h2>
+        <h3>Random Quote Generator</h3>
         <p>
-          A simple API-powered app that displays random inspirational quotes.
-          Backend in Django REST Framework, frontend using vanilla JS and AJAX.
-          Quotes stored in a PostgreSQL database and served via JSON endpoints.
+          Get inspired by random Lil Wayne lyrics on demand. This app uses Django REST Framework to serve quotes stored
+          in PostgreSQL via JSON endpoints, and a vanilla JavaScript front end makes AJAX calls to pull fresh quotes
+          without page reloads.
         </p>
         <a href="{% url 'quotes' %}" class="project-launch">Launch App</a>
       </div>
 
+      <!-- Sanji's Kitchen -->
       <div class="project-card">
-        <h2 style="align-self: center;">Fictional Restaurant App</h2>
+        <h2>Sanji’s Kitchen</h2>
+        <h3>One-Piece Inspired Restaurant</h3>
         <p>
-          A CRUD application for managing a fictional restaurant’s menu.
-          Demonstrates Django forms, models, and auth: users can add/edit
-          menu items, leave reviews, and upload images. Styled with Tailwind CSS.
+          Step into the Grand Line with Sanji’s Kitchen, a themed restaurant app that lets you browse a custom menu,
+          place orders, and enjoy chef-crafted dishes. Showcases Django forms, models, and authentication, wrapped in
+          Tailwind CSS for a sleek, modern interface.
         </p>
         <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
       </div>

@@ -17,6 +17,7 @@
             <h1 class="site-title"><a href="{% url 'home' %}">Sanji’s Kitchen</a></h1>
             <nav class="main-nav">
                 <ul>
+                    <li><a href="{% url 'home' %}">All Apps</a></li>
                     <li><a href="{% url 'main' %}">Home</a></li>
                     <li><a href="{% url 'order' %}" aria-current="page">Order</a></li>
                 </ul>
@@ -29,16 +30,7 @@
         <h1>Thank you for your order!</h1>
         <h4>Your order will be ready at: {{ time }}</h4>
 
-        <h3>Featured Items Ordered:</h3>
-        <ul>
-            {% for item in selected_items %}
-            <li>{{ item }}</li>
-            {% empty %}
-            <li>No items selected.</li>
-            {% endfor %}
-        </ul>
-
-        <p><strong>Total:</strong> ${{ total }}</p>
+        <br><hr><br>
 
         <h3>Customer Info:</h3>
         <p><strong>Name:</strong> {{ name }}</p>
@@ -49,6 +41,22 @@
         <h3>Special Instructions:</h3>
         <p>{{ special_instructions }}</p>
         {% endif %}
+
+        <br><hr><br>
+
+        <h3>Featured Items Ordered:</h3>
+        <ul>
+            {% for item in selected_items %}
+            <li>{{ item }}</li>
+            {% empty %}
+            <li>No items selected.</li>
+            {% endfor %}
+        </ul>
+
+        <br>
+        
+        <h2 class="dark"><strong>Total:</strong> ${{ total }}</h2>
+
     </main>
 
     <!-- Footer -->

@@ -17,11 +17,12 @@ def order(request):
 
 def confirmation(request):
     menu = {
-        "onigiri": ("Brock's Onigiri $40", 40),
-        "apple": ("Ryuk's Apple $15", 15),
-        "ramen": ("Naruto's Ramen $60", 60),
-        "drumstick": ("Luffy's Drumsticks $200", 200),
-        "special": ("Eren's Spinal Fluid $15", 15)
+        "soba_shop": ("Sanji's Soba Shop Special - $20", 20),
+        "potato_pallie": ("Potato Pallie - $15", 15),
+        "strawhat_special": ("Luffy's Meat On The Bone - $30", 30),
+        "bigmom_cake": ("Big Mom's Wedding Cake - $35", 35),
+        "sentimental_mom": ("Sentimental Meal For Mom - $18", 18),
+        "bento_luffy": ("Bento For Luffy - $22", 22)
     }
     selected_items = []
     total = 0

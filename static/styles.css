@@ -16,11 +16,12 @@ body {
     background: #0d1b2a;
     color: #fff;
     line-height: 1.6;
+    margin-top: auto;
 }
 
 /* 2) CSS Variables */
 :root {
-    --header-height: 70px;
+    --header-height: 100px;
     --side-pad: 2rem;
     --max-width: 1200px;
 
@@ -233,9 +234,10 @@ main.container {
 
 /* 9) Forms (Order Page) */
 .order-container {
+    margin-top: var(--header-height);
     max-width: var(--max-width);
     margin: var(--side-pad) auto;
-    padding: var(--side-pad);
+    padding: 6rem 2rem 3rem;
 }
 
 .order-container h2 {
@@ -284,15 +286,20 @@ main.container {
 .confirmation {
     max-width: var(--max-width);
     margin: var(--side-pad) auto;
-    padding: var(--side-pad);
     background: var(--bg-mid);
     border-radius: 10px;
-}
+    margin-top: var(--header-height);
+    padding: 2rem 2rem 3rem;}
 
 .confirmation h1 {
     color: var(--accent);
     text-align: center;
     margin-bottom: 1rem;
+}
+
+.confirmation h3 {
+    color: var(--accent);
+    padding: 4px 4px;
 }
 
 .confirmation ul {
@@ -302,9 +309,13 @@ main.container {
 
 .confirmation li {
     background: rgba(255, 255, 255, 0.05);
-    margin: 0.5rem 0;
+    /* margin: 0.5rem 0; */
     padding: 0.5rem;
     border-radius: 5px;
+}
+
+.dark {
+    color: var(--accent-dark);
 }
 
 /* 11) Footer */

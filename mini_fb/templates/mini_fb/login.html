@@ -1,24 +1,27 @@
 <!-- mini_fb/login.html -->
-
-<!-- 7-2-2-a -->
 {% extends 'mini_fb/base.html' %}
-
 {% block content %}
+<div class="container">
+    <div class="form-panel">
+        <h2> Login to Mini Facebook</h2>
 
-<h1> Login to Mini Facebook</h1>
-<form method="post" action="{% url 'login' %}">
-    {% csrf_token %}
-    {{form.as_table}}
-    <input type="submit" value="Login">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            {{form.as_table}}
+            <input type="submit" value="Login">
 
-    <!-- 7-2-2-c -->
-    {% if request.GET.next %}
-    <input type="hidden" name="next" value="{{request.GET.next}}">
-    {% else %}
-    <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
-    {% endif %}
-</form>
+            <!-- 7-2-2-c -->
+            {% if request.GET.next %}
+            <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% else %}
+            <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+            {% endif %}
+        </form>
 
-<hr>
-Don't have an account? <a href="{% url 'create_profile' %}">Register here</a>.
+        <hr>
+        Don't have an account? <a href="{% url 'create_profile' %}">Register here</a>.
+    </div>
+</div>
+
+
 {% endblock %}

@@ -394,7 +394,7 @@ nav a.active {
 }
 
 .status-card {
-  background: var(--bg-panel);
+  background: var(--bg-header);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: var(--gap);
@@ -572,7 +572,18 @@ p {
 }
 
 input[type="submit"] {
-  cursor: pointer;
+  display: inline-block;
+  padding: 8px 16px;
+  border-radius: var(--radius);
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 0.2s;
+  background-color: var(--link);
+  color: #fff;
+}
+
+input[type="submit"]:hover {
+  background-color: #185fcc;
 }
 
 /* 12) Sidebar */
@@ -616,4 +627,9 @@ footer {
   .profile.featured {
     display: block;
   }
+}
+
+.form-panel a {
+  color: var(--accent);
+  text-decoration: none;
 }

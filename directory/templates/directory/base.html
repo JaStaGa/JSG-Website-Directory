@@ -2,104 +2,197 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}JSG Full-Stack Directory{% endblock %}</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}JSG Web Projects Directory{% endblock %}</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'directory.css' %}">
 </head>
 
 <body>
   <header>
-    <h1>JSG Full-Stack Project Directory</h1>
-    <p>A personal showcase of Django apps built from the ground up</p>
+    <h1>JSG Web Projects</h1>
+    <p>A curated directory of my websites and apps — Django, Next.js, React, and more.</p>
     <hr>
   </header>
 
   <main>
     {% block content %}
+
+    <!-- Controls -->
+    <section class="projects-controls">
+      <div class="filters" aria-label="Project filters">
+        <button class="chip is-active" data-filter="all">All</button>
+        <button class="chip" data-filter="django">Django</button>
+        <button class="chip" data-filter="nextjs">Next.js</button>
+        <button class="chip" data-filter="react">React</button>
+        <button class="chip" data-filter="python">Python</button>
+        <button class="chip" data-filter="javascript">JavaScript</button>
+        <button class="chip" data-filter="ploty">Plotly</button>
+        <button class="chip" data-filter="api">API</button>
+        <button class="chip" data-filter="ai">AI</button>
+      </div>
+      <input id="project-search" class="search" type="search" placeholder="Search projects…"
+        aria-label="Search projects">
+    </section>
+
+    <!-- Grid -->
     <div class="projects-grid">
 
-      <!-- 2K MyPlayer Builder -->
-      <div class="project-card">
+      <!-- MacroLens (Next.js + in-browser AI) -->
+      <article class="project-card featured" data-tags="nextjs,javascript,api,ai" data-stack="nextjs javascript api ai">
+        <div class="banner" style="--banner-img: url('{% static 'MacroLens.png' %}')"></div>
+        <h2>MacroLens</h2>
+        <h3>Markets Insightboard</h3>
+        <p>
+          A Next.js prototype using free macro data (e.g., FRED/BLS/ECB) with a lightweight in‑browser summary step.
+          Contains an AI chat bot for financial questions. Focused on “what changed” and KPI micro‑charts.
+        </p>
+        <ul class="tags">
+          <li>Next.js</li>
+          <li>JavaScript</li>
+          <li>API</li>
+          <li>AI</li>
+        </ul>
+        <a href="https://macro-lens.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
+      </article>
+      
+      <!-- Harry Potter Game (Next.js/React) -->
+      <article class="project-card" data-tags="react,nextjs,javascript,api" data-stack="react nextjs javascript api">
+        <div class="banner" style="--banner-img: url('{% static 'Harry.png' %}')"></div>
+        <h2>Harry Potter Game</h2>
+        <h3>Guess the Character</h3>
+        <p>
+          A fast guessing game with silhouettes and attribute hints. Built with React/Next.js,
+          debounced search, guess log, and simple state machine for win/lose flows.
+        </p>
+        <ul class="tags">
+          <li>Next.js</li>
+          <li>React</li>
+          <li>JavaScript</li>
+          <li>API</li>
+        </ul>
+        <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
+          class="project-launch">Launch App</a>
+      </article>
+
+      <!-- FEATURED: adjust which one you want to highlight -->
+      <article class="project-card" data-tags="django,python,plotly" data-stack="django python plotly">
+        <div class="banner" style="--banner-img: url('{% static '2kHub.png' %}')"></div>
         <h2>2KHub</h2>
         <h3>MyPlayer Build Planner</h3>
         <p>
-          Tired of the VC grind? 2KHub helps you plan the ultimate NBA2K25 MyPlayer build before you even spend a dime.
-          Select your dream badges and it calculates the exact height and attribute requirements. Built with Django
-          models, forms, and class-based views; data smoothly transitions between SQLite locally and PostgreSQL in
-          production; styled with Bootstrap and custom CSS for a polished, responsive experience.
+          Plan NBA2K25 builds before spending VC. Pick badges and see exact height + attribute requirements.
+          Django models/forms/CBVs; SQLite→Postgres; Bootstrap + custom CSS.
         </p>
+        <ul class="tags">
+          <li>Django</li>
+          <li>Python</li>
+          <li>Plotly</li>
+        </ul>
         <a href="{% url 'project' %}" class="project-launch">Launch App</a>
-      </div>
-
-      <!-- FriendZone -->
-      <div class="project-card">
-        <h2>FriendZone</h2>
-        <h3>Social Sandbox</h3>
-        <p>
-          Ever wanted a lightweight social network just for fun? FriendZone lets you sign up, craft your profile, post
-          status updates with images, add friends, and explore a personalized news feed. Powered by Django’s
-          authentication and FileField for media storage, it leverages ListView and DetailView for clean, maintainable
-          code.
-        </p>
-        <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
-      </div>
+      </article>
 
       <!-- Voter Analytics -->
-      <div class="project-card">
+      <article class="project-card" data-tags="django,python,plotly" data-stack="django python plotly">
+        <div class="banner" style="--banner-img: url('{% static 'Voter.png' %}')"></div>
         <h2>Voter Analytics</h2>
         <h3>Election Insights</h3>
         <p>
-          Dive into US election data with Voter Analytics. I combined Django ORM with Pandas for robust data processing
-          and rendered interactive Plotly charts to visualize trends by state and year. Filter and explore key metrics
-          in real time—perfect for data enthusiasts.
+          Django ORM + Pandas for processing, Plotly for interactive charts by state/year.
+          Filter and explore trends in real time.
         </p>
+        <ul class="tags">
+          <li>Django</li>
+          <li>Python</li>
+          <li>Pandas</li>
+          <li>Plotly</li>
+        </ul>
         <a href="{% url 'voter_analytics' %}" class="project-launch">Launch App</a>
-      </div>
+      </article>
+
+      <!-- Sanji’s Kitchen -->
+      <article class="project-card" data-tags="django,python" data-stack="django python">
+        <div class="banner" style="--banner-img: url('{% static 'Sanji.png' %}')"></div>
+        <h2>Sanji’s Kitchen</h2>
+        <h3>One‑Piece Restaurant</h3>
+        <p>
+          Menu browsing and ordering demo. One Piece themed site, allows users to order and receive a estimated wait
+          time and order summary.
+        </p>
+        <ul class="tags">
+          <li>Django</li>
+          <li>Python</li>
+        </ul>
+        <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
+      </article>
+
+      <!-- FriendZone -->
+      <article class="project-card featured" data-tags="django,python" data-stack="django python">
+        <div class="banner" style="--banner-img: url('{% static 'FriendZone.png' %}')"></div>
+        <h2>FriendZone</h2>
+        <h3>Social Sandbox</h3>
+        <p>
+          Lightweight social network: profiles, image posts, friends, news feed.
+          Uses Django auth, FileField, ListView/DetailView for clean structure.
+        </p>
+        <ul class="tags">
+          <li>Django</li>
+          <li>Python</li>
+        </ul>
+        <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
+      </article>
 
       <!-- Lil Wayne Quotes -->
-      <div class="project-card">
+      <article class="project-card" data-tags="django,python" data-stack="django python">
+        <div class="banner" style="--banner-img: url('{% static 'Wayne.png' %}')"></div>
         <h2>Lil Wayne Quote Machine</h2>
         <h3>Random Quote Generator</h3>
         <p>
-          Get inspired by random Lil Wayne lyrics on demand. This app uses Django REST Framework to serve quotes stored
-          in PostgreSQL via JSON endpoints, and a vanilla JavaScript front end makes AJAX calls to pull fresh quotes
-          without page reloads.
+          A Django app that displays a random lyric/quote from a local dataset. Simple client‑side button triggers a new
+          selection
         </p>
+        <ul class="tags">
+          <li>Django</li>
+          <li>Python</li>
+        </ul>
         <a href="{% url 'quotes' %}" class="project-launch">Launch App</a>
-      </div>
-
-      <!-- Sanji's Kitchen -->
-      <div class="project-card">
-        <h2>Sanji’s Kitchen</h2>
-        <h3>One-Piece Inspired Restaurant</h3>
-        <p>
-          Step into the Grand Line with Sanji’s Kitchen, a themed restaurant app that lets you browse a custom menu,
-          place orders, and enjoy chef-crafted dishes. Showcases Django forms, models, and authentication, wrapped in
-          Tailwind CSS for a sleek, modern interface.
-        </p>
-        <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
-      </div>
-
-      <div class="project-card">
-        <h2>Harry Potter Game</h2>
-        <h3>Guess The Character</h3>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Consectetur officiis quo, illo quod obcaecati quidem, aspernatur eos ducimus vel enim voluptatem blanditiis architecto? Temporibus iusto quisquam corporis? Dignissimos, repellat veniam!
-        </p>
-        <a href="https://harry-potter-guessing-game.vercel.app/" class="project-launch">Launch App</a>
-      </div>
+      </article>
 
     </div>
     {% endblock %}
   </main>
 
-
   <footer>
     <hr>
     <p>&copy; {% now "Y" %} Jaylin Starlin Ganaway</p>
   </footer>
+
+  <!-- Tiny script for filters/search -->
+  <script>
+    const chips = Array.from(document.querySelectorAll('.chip'));
+    const cards = Array.from(document.querySelectorAll('.project-card'));
+    const search = document.getElementById('project-search');
+
+    function applyFilters() {
+      const active = document.querySelector('.chip.is-active')?.dataset.filter || 'all';
+      const q = (search.value || '').toLowerCase();
+      cards.forEach(card => {
+        const stacks = card.dataset.stack || '';
+        const text = card.innerText.toLowerCase();
+        const matchesStack = (active === 'all') || stacks.includes(active);
+        const matchesText = !q || text.includes(q);
+        card.style.display = (matchesStack && matchesText) ? '' : 'none';
+      });
+    }
+
+    chips.forEach(btn => btn.addEventListener('click', () => {
+      chips.forEach(c => c.classList.remove('is-active'));
+      btn.classList.add('is-active');
+      applyFilters();
+    }));
+    search.addEventListener('input', applyFilters);
+  </script>
 </body>
 
 </html>

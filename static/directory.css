@@ -143,3 +143,167 @@ footer {
     color: var(--muted);
     font-size: .9rem;
 }
+
+/* --- keep your existing vars/fonts/body/header --- */
+
+/* Controls */
+.projects-controls {
+    max-width: 1200px;
+    margin: 0 auto 1rem;
+    padding: 0 1rem;
+    display: grid;
+    gap: .75rem;
+}
+
+.projects-controls .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: .5rem;
+}
+
+.chip {
+    background: var(--bg-light);
+    color: var(--text);
+    border: 1px solid #24345a;
+    border-radius: 999px;
+    padding: .35rem .75rem;
+    font-size: .9rem;
+    cursor: pointer;
+}
+
+.chip.is-active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: #fff;
+}
+
+.search {
+    background: var(--bg-light);
+    border: 1px solid #24345a;
+    color: var(--text);
+    padding: .55rem .75rem;
+    border-radius: 8px;
+    width: 100%;
+}
+
+/* Grid */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Featured card spans 2 columns on md+ */
+.project-card.featured {
+    grid-column: span 1;
+}
+
+@media (min-width: 860px) {
+    .project-card.featured {
+        grid-column: span 2;
+    }
+}
+
+/* Cards */
+.project-card {
+    background: var(--bg-light);
+    border-radius: 12px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
+    padding: 1.2rem 1.2rem 1.4rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .5);
+}
+
+/* Simple banner (can replace with real images later) */
+.banner {
+    aspect-ratio: 16 / 9;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    /* Top layer: soft overlay for readability, bottom layer: image or gradient fallback */
+    background-image:
+        linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .35)),
+        var(--banner-img, linear-gradient(135deg, #203a67, #0f3460));
+    background-size: cover;
+    background-position: center;
+}
+
+
+.banner--alt {
+    background: linear-gradient(135deg, #2f1a3a, #0f3460);
+}
+
+.banner--hp {
+    background: linear-gradient(135deg, #3a2d55, #1a1a2e);
+}
+
+.banner--macro {
+    background: linear-gradient(135deg, #1d3c34, #0f3460);
+}
+
+/* Title/body */
+.project-card h2 {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.4rem;
+    margin: .25rem 0 .25rem;
+}
+
+.project-card h3 {
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0 0 .5rem;
+}
+
+.project-card p {
+    flex-grow: 1;
+    line-height: 1.5;
+    color: var(--text);
+    margin-bottom: 1rem;
+}
+
+/* Tech tags */
+.tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .4rem;
+    padding: 0;
+    margin: 0 0 1rem;
+}
+
+.tags li {
+    font-size: .8rem;
+    padding: .25rem .5rem;
+    border: 1px solid #2b3a70;
+    border-radius: 999px;
+    color: var(--muted);
+}
+
+/* Launch button (replace Sass darken) */
+.project-launch {
+    display: inline-block;
+    background: var(--accent);
+    color: #fff;
+    padding: .65rem 1.1rem;
+    border-radius: 6px;
+    font-weight: 700;
+    transition: filter .2s ease, transform .05s ease;
+}
+
+.project-launch:hover {
+    filter: brightness(0.93);
+}
+
+.project-launch:active {
+    transform: translateY(1px);
+}
+
+/* Footer (keep yours) */

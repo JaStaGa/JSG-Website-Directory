@@ -1,12 +1,16 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>{% block title %}JSG Web Projects Directory{% endblock %}</title>
-  {% load static %}
+  <title>JSG Web Projects Directory</title>
   <link rel="stylesheet" href="{% static 'directory.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap"
+    rel="stylesheet">
 </head>
 
 <body>
@@ -17,150 +21,128 @@
   </header>
 
   <main>
-    {% block content %}
+    <!-- Featured -->
+    <section aria-labelledby="featured-title" class="section">
+      <h2 id="featured-title">Featured projects</h2>
+      <div class="projects-grid" id="featured-grid">
+        <!-- Restaurant (external) -->
+        <article class="project-card featured compact" data-title="Restaurant Demo">
+          <h2>Restaurant Demo</h2>
+          <h3>Next.js sample site</h3>
+          <p>High-contrast bistro theme. Gallery and menu pages. Responsive and fast.</p>
+          <ul class="tags">
+            <li>Next.js</li>
+            <li>React</li>
+            <li>TypeScript</li>
+          </ul>
+          <a href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch
+            App</a>
+        </article>
 
-    <!-- Controls -->
-    <section class="projects-controls">
-      <div class="filters" aria-label="Project filters">
-        <button class="chip is-active" data-filter="all">All</button>
-        <button class="chip" data-filter="django">Django</button>
-        <button class="chip" data-filter="nextjs">Next.js</button>
-        <button class="chip" data-filter="react">React</button>
-        <button class="chip" data-filter="python">Python</button>
-        <button class="chip" data-filter="javascript">JavaScript</button>
-        <button class="chip" data-filter="ploty">Plotly</button>
-        <button class="chip" data-filter="api">API</button>
-        <button class="chip" data-filter="ai">AI</button>
+        <!-- JSG Drip (external) -->
+        <article class="project-card featured compact" data-title="JSG Drip">
+          <h2>JSG Drip</h2>
+          <h3>Sneaker Sizing + Converters</h3>
+          <p>Conversions and simple utilities for shoppers. Clean UI and fast nav.</p>
+          <ul class="tags">
+            <li>Next.js</li>
+            <li>React</li>
+            <li>TypeScript</li>
+          </ul>
+          <a href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
+        </article>
+
+        <!-- Harry Potter (external) -->
+        <article class="project-card featured compact" data-title="Harry Potter Game">
+          <h2>Harry Potter Game</h2>
+          <h3>Guess the Character</h3>
+          <p>Silhouette-based guessing game with hints and a simple state machine.</p>
+          <ul class="tags">
+            <li>Next.js</li>
+            <li>React</li>
+            <li>JavaScript</li>
+          </ul>
+          <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
+            class="project-launch">Launch App</a>
+        </article>
       </div>
-      <input id="project-search" class="search" type="search" placeholder="Search projects…"
-        aria-label="Search projects">
     </section>
 
-    <!-- Grid -->
-    <div class="projects-grid">
+    <!-- Directory controls + layout -->
+    <section aria-labelledby="directory-title" class="section">
+      <h2 id="directory-title" class="sr-only">Directory</h2>
 
-      <!-- MacroLens (Next.js + in-browser AI) -->
-      <article class="project-card featured" data-tags="nextjs,javascript,api,ai" data-stack="nextjs javascript api ai">
-        <div class="banner" style="--banner-img: url('{% static 'MacroLens.png' %}')"></div>
-        <h2>MacroLens</h2>
-        <h3>Markets Insightboard</h3>
-        <p>
-          A Next.js prototype using free macro data (e.g., FRED/BLS/ECB) with a lightweight in‑browser summary step.
-          Contains an AI chat bot for financial questions. Focused on “what changed” and KPI micro‑charts.
-        </p>
-        <ul class="tags">
-          <li>Next.js</li>
-          <li>JavaScript</li>
-          <li>API</li>
-          <li>AI</li>
-        </ul>
-        <a href="https://macro-lens.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
-      </article>
-      
-      <!-- Harry Potter Game (Next.js/React) -->
-      <article class="project-card" data-tags="react,nextjs,javascript,api" data-stack="react nextjs javascript api">
-        <div class="banner" style="--banner-img: url('{% static 'Harry.png' %}')"></div>
-        <h2>Harry Potter Game</h2>
-        <h3>Guess the Character</h3>
-        <p>
-          A fast guessing game with silhouettes and attribute hints. Built with React/Next.js,
-          debounced search, guess log, and simple state machine for win/lose flows.
-        </p>
-        <ul class="tags">
-          <li>Next.js</li>
-          <li>React</li>
-          <li>JavaScript</li>
-          <li>API</li>
-        </ul>
-        <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
-          class="project-launch">Launch App</a>
-      </article>
+      <div class="directory-layout">
+        <!-- Sidebar -->
+        <aside class="sidebar" aria-label="Section filters">
+          <h3>Sections</h3>
+          <label class="check">
+            <input type="checkbox" data-section-checkbox value="business">
+            <span>Business <small>(<span data-count="business">0</span>)</small></span>
+          </label>
+          <label class="check">
+            <input type="checkbox" data-section-checkbox value="finance">
+            <span>Finance <small>(<span data-count="finance">0</span>)</small></span>
+          </label>
+          <label class="check">
+            <input type="checkbox" data-section-checkbox value="misc">
+            <span>Miscellaneous <small>(<span data-count="misc">0</span>)</small></span>
+          </label>
 
-      <!-- FEATURED: adjust which one you want to highlight -->
-      <article class="project-card" data-tags="django,python,plotly" data-stack="django python plotly">
-        <div class="banner" style="--banner-img: url('{% static '2kHub.png' %}')"></div>
-        <h2>2KHub</h2>
-        <h3>MyPlayer Build Planner</h3>
-        <p>
-          Plan NBA2K25 builds before spending VC. Pick badges and see exact height + attribute requirements.
-          Django models/forms/CBVs; SQLite→Postgres; Bootstrap + custom CSS.
-        </p>
-        <ul class="tags">
-          <li>Django</li>
-          <li>Python</li>
-          <li>Plotly</li>
-        </ul>
-        <a href="{% url 'project' %}" class="project-launch">Launch App</a>
-      </article>
+          <div class="divider"></div>
 
-      <!-- Voter Analytics -->
-      <article class="project-card" data-tags="django,python,plotly" data-stack="django python plotly">
-        <div class="banner" style="--banner-img: url('{% static 'Voter.png' %}')"></div>
-        <h2>Voter Analytics</h2>
-        <h3>Election Insights</h3>
-        <p>
-          Django ORM + Pandas for processing, Plotly for interactive charts by state/year.
-          Filter and explore trends in real time.
-        </p>
-        <ul class="tags">
-          <li>Django</li>
-          <li>Python</li>
-          <li>Pandas</li>
-          <li>Plotly</li>
-        </ul>
-        <a href="{% url 'voter_analytics' %}" class="project-launch">Launch App</a>
-      </article>
+          <label for="dir-search" class="side-label">Search</label>
+          <input id="dir-search" type="search" class="search" placeholder="Search visible items…">
+          <p class="hint">Featured is always visible. Other sections show when checked.</p>
+        </aside>
 
-      <!-- Sanji’s Kitchen -->
-      <article class="project-card" data-tags="django,python" data-stack="django python">
-        <div class="banner" style="--banner-img: url('{% static 'Sanji.png' %}')"></div>
-        <h2>Sanji’s Kitchen</h2>
-        <h3>One‑Piece Restaurant</h3>
-        <p>
-          Menu browsing and ordering demo. One Piece themed site, allows users to order and receive a estimated wait
-          time and order summary.
-        </p>
-        <ul class="tags">
-          <li>Django</li>
-          <li>Python</li>
-        </ul>
-        <a href="{% url 'restaurants' %}" class="project-launch">Launch App</a>
-      </article>
+        <!-- Content -->
+        <div class="section-content">
+          <!-- Business -->
+          <section class="dir-section is-hidden" data-section="business" aria-labelledby="business-title">
+            <h3 id="business-title">Business samples</h3>
+            <div class="section-grid">
+              <a class="link-card" href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener"
+                data-title="Restaurant Demo Next.js business sample">Restaurant Demo</a>
+              <a class="link-card" href="https://jsg-construction.vercel.app/" target="_blank" rel="noopener"
+                data-title="Construction Demo Next.js business sample">Construction Demo</a>
+            </div>
+          </section>
 
-      <!-- FriendZone -->
-      <article class="project-card featured" data-tags="django,python" data-stack="django python">
-        <div class="banner" style="--banner-img: url('{% static 'FriendZone.png' %}')"></div>
-        <h2>FriendZone</h2>
-        <h3>Social Sandbox</h3>
-        <p>
-          Lightweight social network: profiles, image posts, friends, news feed.
-          Uses Django auth, FileField, ListView/DetailView for clean structure.
-        </p>
-        <ul class="tags">
-          <li>Django</li>
-          <li>Python</li>
-        </ul>
-        <a href="{% url 'mini_fb' %}" class="project-launch">Launch App</a>
-      </article>
+          <!-- Finance -->
+          <section class="dir-section is-hidden" data-section="finance" aria-labelledby="finance-title">
+            <h3 id="finance-title">Finance</h3>
+            <div class="section-grid">
+              <a class="link-card" href="https://macro-lens.vercel.app/" target="_blank" rel="noopener"
+                data-title="MacroLens markets dashboard AI">MacroLens</a>
+              <a class="link-card" href="https://price-pulse-five.vercel.app/" target="_blank" rel="noopener"
+                data-title="PricePulse crypto movers charts">PricePulse</a>
+            </div>
+          </section>
 
-      <!-- Lil Wayne Quotes -->
-      <article class="project-card" data-tags="django,python" data-stack="django python">
-        <div class="banner" style="--banner-img: url('{% static 'Wayne.png' %}')"></div>
-        <h2>Lil Wayne Quote Machine</h2>
-        <h3>Random Quote Generator</h3>
-        <p>
-          A Django app that displays a random lyric/quote from a local dataset. Simple client‑side button triggers a new
-          selection
-        </p>
-        <ul class="tags">
-          <li>Django</li>
-          <li>Python</li>
-        </ul>
-        <a href="{% url 'quotes' %}" class="project-launch">Launch App</a>
-      </article>
+          <!-- Misc -->
+          <section class="dir-section is-hidden" data-section="misc" aria-labelledby="misc-title">
+            <h3 id="misc-title">Miscellaneous</h3>
+            <div class="section-grid">
+              <a class="link-card" href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
+                data-title="Harry Potter guessing game">Harry Potter Game</a>
+              <a class="link-card" href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener"
+                data-title="JSG Drip sneaker utilities">JSG Drip</a>
 
-    </div>
-    {% endblock %}
+              <a class="link-card" href="{% url 'project' %}" data-title="2KHub MyPlayer build planner Django">2KHub
+                (MyPlayer Planner)</a>
+              <a class="link-card" href="{% url 'voter_analytics' %}"
+                data-title="Voter Analytics Django Plotly Pandas">Voter Analytics</a>
+              <a class="link-card" href="{% url 'restaurants' %}" data-title="Sanji’s Kitchen Django demo">Sanji’s
+                Kitchen</a>
+              <a class="link-card" href="{% url 'mini_fb' %}"
+                data-title="FriendZone mini social network Django">FriendZone</a>
+              <a class="link-card" href="{% url 'quotes' %}" data-title="Lil Wayne Quotes Django">Lil Wayne Quotes</a>
+            </div>
+          </section>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer>
@@ -168,30 +150,93 @@
     <p>&copy; {% now "Y" %} Jaylin Starlin Ganaway</p>
   </footer>
 
-  <!-- Tiny script for filters/search -->
   <script>
-    const chips = Array.from(document.querySelectorAll('.chip'));
-    const cards = Array.from(document.querySelectorAll('.project-card'));
-    const search = document.getElementById('project-search');
+    // --- helpers
+    const qs = (s, el = document) => el.querySelector(s);
+    const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 
-    function applyFilters() {
-      const active = document.querySelector('.chip.is-active')?.dataset.filter || 'all';
-      const q = (search.value || '').toLowerCase();
-      cards.forEach(card => {
-        const stacks = card.dataset.stack || '';
-        const text = card.innerText.toLowerCase();
-        const matchesStack = (active === 'all') || stacks.includes(active);
-        const matchesText = !q || text.includes(q);
-        card.style.display = (matchesStack && matchesText) ? '' : 'none';
+    const checkboxes = qsa('[data-section-checkbox]');
+    const sections = qsa('.dir-section');
+    const search = qs('#dir-search');
+
+    function selectedSectionsFromURL() {
+      const params = new URLSearchParams(location.search);
+      const raw = params.get('sections');
+      if (!raw) return [];
+      return raw.split(',').map(s => s.trim()).filter(Boolean);
+    }
+
+    function setURLFromSelection(values) {
+      const params = new URLSearchParams(location.search);
+      if (values.length) params.set('sections', values.join(','));
+      else params.delete('sections');
+      const newUrl = `${location.pathname}?${params.toString()}${location.hash}`;
+      history.replaceState(null, '', newUrl);
+    }
+
+    function getSelected() {
+      return checkboxes.filter(cb => cb.checked).map(cb => cb.value);
+    }
+
+    function syncCheckboxesFromURL() {
+      const sel = new Set(selectedSectionsFromURL());
+      checkboxes.forEach(cb => cb.checked = sel.has(cb.value));
+    }
+
+    function updateCounts() {
+      const map = {};
+      sections.forEach(sec => {
+        const key = sec.dataset.section;
+        map[key] = qsa('.link-card', sec).length;
+      });
+      Object.entries(map).forEach(([k, v]) => {
+        const span = qs(`[data-count="${k}"]`);
+        if (span) span.textContent = v;
       });
     }
 
-    chips.forEach(btn => btn.addEventListener('click', () => {
-      chips.forEach(c => c.classList.remove('is-active'));
-      btn.classList.add('is-active');
-      applyFilters();
-    }));
-    search.addEventListener('input', applyFilters);
+    function applyVisibility() {
+      const selected = new Set(getSelected());
+      sections.forEach(sec => {
+        const isOn = selected.has(sec.dataset.section);
+        sec.classList.toggle('is-hidden', !isOn);
+      });
+    }
+
+    function applySearch() {
+      const q = (search.value || '').toLowerCase();
+
+      // filter featured cards as well
+      qsa('#featured-grid .project-card').forEach(card => {
+        const text = card.innerText.toLowerCase();
+        card.style.display = q ? (text.includes(q) ? '' : 'none') : '';
+      });
+
+      // filter visible section link-cards
+      sections.forEach(sec => {
+        if (sec.classList.contains('is-hidden')) return;
+        qsa('.link-card', sec).forEach(a => {
+          const text = (a.dataset.title || a.textContent).toLowerCase();
+          a.style.display = q ? (text.includes(q) ? '' : 'none') : '';
+        });
+      });
+    }
+
+    // init
+    syncCheckboxesFromURL();
+    applyVisibility();
+    updateCounts();
+    applySearch();
+
+    // events
+    checkboxes.forEach(cb => {
+      cb.addEventListener('change', () => {
+        applyVisibility();
+        setURLFromSelection(getSelected());
+        applySearch(); // re-run search on new visibility
+      });
+    });
+    search.addEventListener('input', applySearch);
   </script>
 </body>
 

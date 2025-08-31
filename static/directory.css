@@ -1,321 +1,85 @@
-/* directory.css */
-
-/* 1) Fonts & Vars */
+/* JSG Directory – professional theme (CSS-only drop-in) */
+/* ---------- 1) Design tokens ---------- */
 :root {
-    --bg-dark: #1a1a2e;
-    --bg-mid: #16213e;
-    --bg-light: #0f3460;
-    --accent: #e94560;
-    --text: #f0f0f0;
-    --muted: #bbbbbb;
+    --bg-0: #0d0f14;
+    --bg-1: #131722;
+    --bg-2: #1a2130;
+    --line: #2b3550;
+    --text: #e9eef7;
+    --muted: #a9b2c6;
+    --accent: #4c8dff;
+    /* actions + focus */
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, .35);
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, .25);
+    --container: 1200px;
 }
 
-/* 2) Base resets */
+/* ---------- 2) Base ---------- */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
 body {
     margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background: var(--bg-dark);
+    font-family: Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--bg-0);
     color: var(--text);
+    line-height: 1.55;
 }
 
 a {
-    text-decoration: none;
+    color: inherit;
+    text-decoration: none
 }
 
-/* 3) Header */
+img {
+    max-width: 100%;
+    display: block;
+    height: auto
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    opacity: .6;
+    margin: 1.5rem 0
+}
+
+/* ---------- 3) Header ---------- */
 header {
-    background: var(--bg-mid);
+    background: var(--bg-1);
+    padding: 2.25rem 1rem 1.75rem;
     text-align: center;
-    padding: 2rem 1rem;
+    box-shadow: inset 0 -1px 0 var(--line);
 }
 
 header h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: .5rem;
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    font-size: 2.4rem;
+    margin: .1rem 0 .4rem;
+    letter-spacing: .2px;
 }
 
 header p {
     color: var(--muted);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.4;
+    max-width: 720px;
+    margin: .25rem auto 0;
 }
 
-/* 4) Nav */
-nav {
-    background: var(--bg-light);
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: .75rem 0;
-}
-
-nav li {
-    margin: 0 .75rem;
-}
-
-nav a {
-    color: var(--text);
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 2px;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width .25s ease;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-/* 5) Main & Grid */
+/* ---------- 4) Sections / layout ---------- */
 main {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem
 }
 
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* 6) Project Cards */
-.project-card {
-    background: var(--bg-light);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    padding: 1.5rem;
-    display: flex;
-    flex-direction: column;
-}
-
-.project-card h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: .75rem;
-}
-
-.project-card p {
-    flex-grow: 1;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 1.25rem;
-}
-
-.project-launch {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: .6rem 1.2rem;
-    border-radius: 4px;
-    font-weight: 700;
-    transition: background .3s;
-}
-
-.project-launch:hover {
-    background: darken(var(--accent), 10%);
-}
-
-a.project-launch:focus-visible,
-.link-card:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-    border-radius: 6px;
-}
-
-/* 7) Footer */
-footer {
-    background: var(--bg-mid);
-    text-align: center;
-    padding: 1rem;
-    color: var(--muted);
-    font-size: .9rem;
-}
-
-/* --- keep your existing vars/fonts/body/header --- */
-
-/* Controls */
-.projects-controls {
-    max-width: 1200px;
-    margin: 0 auto 1rem;
-    padding: 0 1rem;
-    display: grid;
-    gap: .75rem;
-}
-
-.projects-controls .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: .5rem;
-}
-
-.chip {
-    background: var(--bg-light);
-    color: var(--text);
-    border: 1px solid #24345a;
-    border-radius: 999px;
-    padding: .35rem .75rem;
-    font-size: .9rem;
-    cursor: pointer;
-}
-
-.chip.is-active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: #fff;
-}
-
-.search {
-    background: var(--bg-light);
-    border: 1px solid #24345a;
-    color: var(--text);
-    padding: .55rem .75rem;
-    border-radius: 8px;
-    width: 100%;
-}
-
-/* Grid */
-.projects-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
-}
-
-/* Featured card spans 2 columns on md+ */
-.project-card.featured {
-    grid-column: span 1;
-}
-
-@media (min-width: 860px) {
-    .project-card.featured {
-        grid-column: span 2;
-    }
-}
-
-/* Cards */
-.project-card {
-    background: var(--bg-light);
-    border-radius: 12px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .45);
-    padding: 1.2rem 1.2rem 1.4rem;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    transition: transform .2s ease, box-shadow .2s ease;
-}
-
-.project-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 24px rgba(0, 0, 0, .5);
-}
-
-/* Simple banner (can replace with real images later) */
-.banner {
-    aspect-ratio: 16 / 9;
-    border-radius: 8px;
-    margin-bottom: 1rem;
-    /* Top layer: soft overlay for readability, bottom layer: image or gradient fallback */
-    background-image:
-        linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .35)),
-        var(--banner-img, linear-gradient(135deg, #203a67, #0f3460));
-    background-size: cover;
-    background-position: center;
-}
-
-
-.banner--alt {
-    background: linear-gradient(135deg, #2f1a3a, #0f3460);
-}
-
-.banner--hp {
-    background: linear-gradient(135deg, #3a2d55, #1a1a2e);
-}
-
-.banner--macro {
-    background: linear-gradient(135deg, #1d3c34, #0f3460);
-}
-
-/* Title/body */
-.project-card h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.4rem;
-    margin: .25rem 0 .25rem;
-}
-
-.project-card h3 {
-    color: var(--muted);
-    font-weight: 500;
-    margin: 0 0 .5rem;
-}
-
-.project-card p {
-    flex-grow: 1;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 1rem;
-}
-
-/* Tech tags */
-.tags {
-    list-style: none;
-    display: flex;
-    flex-wrap: wrap;
-    gap: .4rem;
-    padding: 0;
-    margin: 0 0 1rem;
-}
-
-.tags li {
-    font-size: .8rem;
-    padding: .25rem .5rem;
-    border: 1px solid #2b3a70;
-    border-radius: 999px;
-    color: var(--muted);
-}
-
-/* Launch button (replace Sass darken) */
-.project-launch {
-    display: inline-block;
-    background: var(--accent);
-    color: #fff;
-    padding: .65rem 1.1rem;
-    border-radius: 6px;
-    font-weight: 700;
-    transition: filter .2s ease, transform .05s ease;
-}
-
-.project-launch:hover {
-    filter: brightness(0.93);
-}
-
-.project-launch:active {
-    transform: translateY(1px);
-}
-
-/* ---- Sidebar filter layout ---- */
 .section {
-    max-width: 1200px;
-    margin: 0 auto 2rem;
-    padding: 0 1rem;
+    max-width: var(--container);
+    margin: 0 auto 2rem
 }
 
 .directory-layout {
@@ -324,84 +88,277 @@ footer {
     gap: 1.25rem;
 }
 
+@media (max-width:900px) {
+    .directory-layout {
+        grid-template-columns: 1fr
+    }
+}
+
+/* ---------- 5) Sidebar ---------- */
 .sidebar {
-    background: var(--bg-light);
-    border-radius: 12px;
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
     padding: 1rem;
     position: sticky;
     top: 1rem;
     align-self: start;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, .35);
+    box-shadow: var(--shadow-sm);
 }
 
 .sidebar h3 {
-    margin: 0 0 .5rem;
-    font-family: 'Montserrat', sans-serif;
+    margin: .1rem 0 .6rem;
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
 }
 
 .side-label {
     display: block;
-    margin: .75rem 0 .25rem;
+    margin: .75rem 0 .35rem;
     color: var(--muted);
-    font-size: .9rem;
+    font-size: .92rem
+}
+
+.divider {
+    height: 1px;
+    background: var(--line);
+    margin: .9rem 0
 }
 
 .check {
     display: flex;
     align-items: center;
-    gap: .5rem;
-    margin: .4rem 0;
+    gap: .55rem;
+    margin: .45rem 0;
     cursor: pointer;
 }
 
 .check input {
+    accent-color: var(--accent);
     transform: translateY(1px);
-}
-
-.divider {
-    height: 1px;
-    background: #24345a;
-    margin: .9rem 0;
 }
 
 .hint {
     color: var(--muted);
     font-size: .85rem;
-    margin-top: .5rem;
+    margin-top: .5rem
 }
 
-.section-content h3 {
-    margin: .25rem 0 .75rem;
+/* ---------- 6) Search field ---------- */
+.search {
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 10px;
+    padding: .6rem .8rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.search::placeholder {
+    color: #9aa6c0
+}
+
+.search:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, .2);
+}
+
+/* ---------- 7) Grids ---------- */
+.projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.6rem;
 }
 
 .section-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: .75rem;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
 }
 
+/* ---------- 8) Feature + link cards ---------- */
+.project-card,
+.link-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+/* Feature cards (articles) */
+.project-card {
+    padding: 1.15rem 1.15rem 1.3rem;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: #2f437a;
+}
+
+.project-card h2 {
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    font-size: 1.35rem;
+    margin: .15rem 0 .2rem;
+}
+
+.project-card h3 {
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0 0 .55rem;
+    font-size: .98rem
+}
+
+.project-card p {
+    margin: 0 0 1rem
+}
+
+/* Simple banner (keeps your existing classes) */
+.banner {
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .35)),
+        var(--banner-img, linear-gradient(135deg, #203a67, #0f3460));
+    background-size: cover;
+    background-position: center;
+}
+
+.banner--macro {
+    background: linear-gradient(135deg, #1d3c34, #0f3460)
+}
+
+/* Tags */
+.tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+    padding: 0;
+    margin: 0 0 1rem
+}
+
+.tags li {
+    font-size: .8rem;
+    color: var(--muted);
+    padding: .28rem .55rem;
+    border: 1px solid #2b3a70;
+    border-radius: 999px
+}
+
+/* Buttons */
+.project-launch {
+    display: inline-block;
+    user-select: none;
+    background: var(--accent);
+    color: #fff;
+    padding: .65rem 1.1rem;
+    border-radius: 10px;
+    font-weight: 700;
+    transition: filter .15s ease, transform .05s ease, box-shadow .15s ease;
+    box-shadow: 0 4px 10px rgba(233, 69, 96, .25);
+}
+
+.project-launch:hover {
+    filter: brightness(.93)
+}
+
+.project-launch:active {
+    transform: translateY(1px)
+}
+
+a.project-launch:focus-visible,
+.link-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 10px
+}
+
+/* Compact variant already used in HTML */
+.project-card.compact {
+    padding: 1rem 1rem 1.05rem
+}
+
+.project-card.compact h2 {
+    font-size: 1.2rem
+}
+
+.project-card.compact h3 {
+    font-size: .95rem
+}
+
+/* Link cards used in sections */
 .link-card {
     display: block;
-    background: var(--bg-mid);
-    border: 1px solid #24345a;
-    border-radius: 10px;
-    padding: .75rem .9rem;
+    padding: .85rem 1rem;
     color: var(--text);
-    transition: transform .12s ease, box-shadow .15s ease, border-color .15s ease;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, .25);
 }
 
 .link-card:hover {
     transform: translateY(-1px);
-    box-shadow: 0 8px 18px rgba(0, 0, 0, .35);
+    box-shadow: var(--shadow);
     border-color: var(--accent);
 }
 
-.is-hidden {
-    display: none;
+/* Featured layout helpers */
+#featured-grid {
+    display: grid !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    gap: 1.25rem !important;
+    align-items: stretch;
 }
 
-/* screen reader only (for h2 Directory) */
+@media (max-width: 640px) {
+    #featured-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+#featured-grid .project-card.featured {
+    grid-column: auto !important;
+}
+
+/* equalize card heights */
+#featured-grid .project-card.featured {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* square preview + consistent media space */
+#featured-grid .inline-preview {
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #24345a;
+    background: #0f1533;
+    margin: .75rem 0 1rem;
+}
+
+#featured-grid .inline-preview__frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/* push buttons to bottom so cards align visually */
+#featured-grid .actions {
+    margin-top: auto;
+}
+
+@media (min-width:980px) {
+    .project-card.featured {
+        grid-column: span 2
+    }
+}
+
+/* ---------- 9) Accessibility helpers ---------- */
 .sr-only {
     position: absolute !important;
     width: 1px;
@@ -413,79 +370,145 @@ footer {
     border: 0;
 }
 
-@media (max-width: 900px) {
-    .directory-layout {
-        grid-template-columns: 1fr;
-    }
-
-    .sidebar {
-        position: static;
-    }
-}
-
-/* Featured sizing */
-#featured-grid {
-    margin: 0 auto;
-    /* center the grid container */
-    justify-items: center;
-    /* center cards inside columns */
-}
-
-.project-card.featured {
-    grid-column: span 1;
-}
-
-.project-card.featured.compact {
+/* ---------- 10) Footer ---------- */
+footer {
+    background: var(--bg-1);
+    color: var(--muted);
     text-align: center;
-    /* center text in each featured card */
+    padding: 1rem 1rem;
+    box-shadow: inset 0 1px 0 var(--line);
+}
+
+/* ---------- 11) Motion preference ---------- */
+@media (prefers-reduced-motion:reduce) {
+    * {
+        transition: none !important
+    }
+}
+
+.actions {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap
+}
+
+.project-preview {
+    background: transparent;
+    border: 1px solid #2b3a70;
+    color: var(--text);
+    border-radius: 10px;
+    padding: .6rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.project-preview:hover {
+    border-color: var(--accent)
+}
+
+.project-preview:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 10px
+}
+
+/* modal */
+.preview-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    display: grid;
+    place-items: center
+}
+
+.preview-modal[hidden] {
+    display: none
+}
+
+.preview-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, .55);
+    backdrop-filter: blur(2px)
+}
+
+.preview-dialog {
+    position: relative;
+    width: min(1100px, 92vw);
+    height: min(72vh, 800px);
+    background: var(--bg-mid);
+    border: 1px solid var(--line, #24345a);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, .45);
+    display: grid;
+    grid-template-rows: auto 1fr;
+    overflow: hidden
+}
+
+.preview-bar {
+    display: flex;
     align-items: center;
-    /* center button/tags block */
+    gap: .5rem;
+    padding: .5rem .75rem;
+    border-bottom: 1px solid var(--line, #24345a)
 }
 
-.project-card.featured.compact .tags {
-    justify-content: center;
-    /* center tech tags row */
+.preview-bar strong {
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    font-size: .95rem
 }
 
-/* Center the “Sections” search */
-#dir-search {
-    display: block;
-    max-width: 420px;
-    /* keep it readable */
-    margin: 0.5rem auto 0;
-    /* center horizontally */
+.preview-open {
+    margin-left: auto;
+    padding: .35rem .6rem;
+    border: 1px solid #2b3a70;
+    border-radius: 8px;
+    font-size: .85rem
 }
 
-/* Compact card variant: no big banner */
-.project-card.compact .banner {
+.preview-close {
+    margin-left: .5rem;
+    background: transparent;
+    border: 0;
+    color: var(--muted);
+    font-size: 1.1rem;
+    cursor: pointer
+}
+
+.preview-frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    background: var(--bg-0, #0f1425)
+}
+
+.inline-preview {
+    position: relative;
+    margin: .6rem 0 1rem;
+    aspect-ratio: 16/10;
+    border: 1px solid #24345a;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--bg-mid);
+}
+
+.inline-preview__frame {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    pointer-events: auto;
+}
+
+.inline-preview__fallback {
+    position: absolute;
+    inset: 0;
     display: none;
-}
-
-.project-card.compact {
-    padding: 1rem 1rem 1.1rem;
-}
-
-.project-card.compact h2 {
-    font-size: 1.25rem;
-    margin: .25rem 0;
-}
-
-.project-card.compact h3 {
-    font-size: .95rem;
-    margin: 0 0 .4rem;
+    align-items: center;
+    justify-content: center;
+    gap: .5rem;
     color: var(--muted);
 }
 
-.project-card.compact p {
-    margin: 0 0 .75rem;
-    line-height: 1.4;
-}
-
-.project-card.compact .tags {
-    margin: 0 0 .75rem;
-}
-
-.project-card.compact .project-launch {
-    padding: .5rem .9rem;
-    font-weight: 600;
+.inline-preview.is-fallback .inline-preview__fallback {
+    display: flex;
 }

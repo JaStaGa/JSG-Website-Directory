@@ -1,145 +1,344 @@
-/* directory.css */
-
-/* 1) Fonts & Vars */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@300;400&display=swap');
-
+/* JSG Directory – professional theme (CSS-only drop-in) */
+/* ---------- 1) Design tokens ---------- */
 :root {
-    --bg-dark: #1a1a2e;
-    --bg-mid: #16213e;
-    --bg-light: #0f3460;
-    --accent: #e94560;
-    --text: #f0f0f0;
-    --muted: #bbbbbb;
+  --bg-0:#0f1425; --bg-1:#131b35; --bg-2:#1a2550; --line:#27386f;
+  --text:#eef2f8; --muted:#b8c1d6; --accent:#e94560;
+    /* actions + focus */
+    --radius: 12px;
+    --shadow: 0 8px 28px rgba(0, 0, 0, .35);
+    --shadow-sm: 0 4px 14px rgba(0, 0, 0, .25);
+    --container: 1200px;
 }
 
-/* 2) Base resets */
+/* ---------- 2) Base ---------- */
+* {
+    box-sizing: border-box
+}
+
+html,
+body {
+    height: 100%
+}
+
 body {
     margin: 0;
-    padding: 0;
-    font-family: 'Roboto', sans-serif;
-    background: var(--bg-dark);
+    font-family: Roboto, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    background: var(--bg-0);
     color: var(--text);
+    line-height: 1.55;
 }
 
 a {
-    text-decoration: none;
+    color: inherit;
+    text-decoration: none
 }
 
-/* 3) Header */
+img {
+    max-width: 100%;
+    display: block;
+    height: auto
+}
+
+hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+    opacity: .6;
+    margin: 1.5rem 0
+}
+
+/* ---------- 3) Header ---------- */
 header {
-    background: var(--bg-mid);
+    background: var(--bg-1);
+    padding: 2.25rem 1rem 1.75rem;
     text-align: center;
-    padding: 2rem 1rem;
+    box-shadow: inset 0 -1px 0 var(--line);
 }
 
 header h1 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 2.5rem;
-    margin-bottom: .5rem;
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    font-size: 2.4rem;
+    margin: .1rem 0 .4rem;
+    letter-spacing: .2px;
 }
 
 header p {
     color: var(--muted);
-    max-width: 600px;
-    margin: 0 auto;
-    line-height: 1.4;
+    max-width: 720px;
+    margin: .25rem auto 0;
 }
 
-/* 4) Nav */
-nav {
-    background: var(--bg-light);
-}
-
-nav ul {
-    list-style: none;
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0;
-    padding: .75rem 0;
-}
-
-nav li {
-    margin: 0 .75rem;
-}
-
-nav a {
-    color: var(--text);
-    font-weight: 500;
-    position: relative;
-    padding-bottom: 2px;
-}
-
-nav a::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width .25s ease;
-}
-
-nav a:hover::after {
-    width: 100%;
-}
-
-/* 5) Main & Grid */
+/* ---------- 4) Sections / layout ---------- */
 main {
-    padding: 2rem 1rem;
+    padding: 2rem 1rem
 }
 
+.section {
+    max-width: var(--container);
+    margin: 0 auto 2rem
+}
+
+.directory-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.25rem;
+}
+
+@media (max-width:900px) {
+    .directory-layout {
+        grid-template-columns: 1fr
+    }
+}
+
+/* ---------- 5) Sidebar ---------- */
+.sidebar {
+    background: var(--bg-1);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+    align-self: start;
+    box-shadow: var(--shadow-sm);
+}
+
+.sidebar h3 {
+    margin: .1rem 0 .6rem;
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+.side-label {
+    display: block;
+    margin: .75rem 0 .35rem;
+    color: var(--muted);
+    font-size: .92rem
+}
+
+.divider {
+    height: 1px;
+    background: var(--line);
+    margin: .9rem 0
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: .55rem;
+    margin: .45rem 0;
+    cursor: pointer;
+}
+
+.check input {
+    accent-color: var(--accent);
+    transform: translateY(1px);
+}
+
+.hint {
+    color: var(--muted);
+    font-size: .85rem;
+    margin-top: .5rem
+}
+
+/* ---------- 6) Search field ---------- */
+.search {
+    width: 100%;
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    color: var(--text);
+    border-radius: 10px;
+    padding: .6rem .8rem;
+    transition: border-color .15s ease, box-shadow .15s ease;
+}
+
+.search::placeholder {
+    color: #9aa6c0
+}
+
+.search:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(233, 69, 96, .2);
+}
+
+/* ---------- 7) Grids ---------- */
 .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 2rem;
-    max-width: 1200px;
-    margin: 0 auto;
+    gap: 1.6rem;
 }
 
-/* 6) Project Cards */
+.section-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1rem;
+}
+
+/* ---------- 8) Feature + link cards ---------- */
+.project-card,
+.link-card {
+    background: var(--bg-2);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-sm);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+/* Feature cards (articles) */
 .project-card {
-    background: var(--bg-light);
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
-    padding: 1.5rem;
+    padding: 1.15rem 1.15rem 1.3rem;
     display: flex;
     flex-direction: column;
+    overflow: hidden;
+}
+
+.project-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    border-color: #2f437a;
 }
 
 .project-card h2 {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.5rem;
-    margin-bottom: .75rem;
+    font-family: Montserrat, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+    font-size: 1.35rem;
+    margin: .15rem 0 .2rem;
+}
+
+.project-card h3 {
+    color: var(--muted);
+    font-weight: 500;
+    margin: 0 0 .55rem;
+    font-size: .98rem
 }
 
 .project-card p {
-    flex-grow: 1;
-    line-height: 1.5;
-    color: var(--text);
-    margin-bottom: 1.25rem;
+    margin: 0 0 1rem
 }
 
+/* Simple banner (keeps your existing classes) */
+.banner {
+    aspect-ratio: 16/9;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+    background-image: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .35)),
+        var(--banner-img, linear-gradient(135deg, #203a67, #0f3460));
+    background-size: cover;
+    background-position: center;
+}
+
+.banner--macro {
+    background: linear-gradient(135deg, #1d3c34, #0f3460)
+}
+
+/* Tags */
+.tags {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: .45rem;
+    padding: 0;
+    margin: 0 0 1rem
+}
+
+.tags li {
+    font-size: .8rem;
+    color: var(--muted);
+    padding: .28rem .55rem;
+    border: 1px solid #2b3a70;
+    border-radius: 999px
+}
+
+/* Buttons */
 .project-launch {
     display: inline-block;
+    user-select: none;
     background: var(--accent);
     color: #fff;
-    padding: .6rem 1.2rem;
-    border-radius: 4px;
+    padding: .65rem 1.1rem;
+    border-radius: 10px;
     font-weight: 700;
-    transition: background .3s;
+    transition: filter .15s ease, transform .05s ease, box-shadow .15s ease;
+    box-shadow: 0 4px 10px rgba(233, 69, 96, .25);
 }
 
 .project-launch:hover {
-    background: darken(var(--accent), 10%);
+    filter: brightness(.93)
 }
 
-/* 7) Footer */
+.project-launch:active {
+    transform: translateY(1px)
+}
+
+a.project-launch:focus-visible,
+.link-card:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 10px
+}
+
+/* Compact variant already used in HTML */
+.project-card.compact {
+    padding: 1rem 1rem 1.05rem
+}
+
+.project-card.compact h2 {
+    font-size: 1.2rem
+}
+
+.project-card.compact h3 {
+    font-size: .95rem
+}
+
+/* Link cards used in sections */
+.link-card {
+    display: block;
+    padding: .85rem 1rem;
+    color: var(--text);
+}
+
+.link-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow);
+    border-color: var(--accent);
+}
+
+/* Featured layout helpers */
+#featured-grid {
+    justify-items: center
+}
+
+.project-card.featured {
+    grid-column: span 1
+}
+
+@media (min-width:980px) {
+    .project-card.featured {
+        grid-column: span 2
+    }
+}
+
+/* ---------- 9) Accessibility helpers ---------- */
+.sr-only {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* ---------- 10) Footer ---------- */
 footer {
-    background: var(--bg-mid);
-    text-align: center;
-    padding: 1rem;
+    background: var(--bg-1);
     color: var(--muted);
-    font-size: .9rem;
+    text-align: center;
+    padding: 1rem 1rem;
+    box-shadow: inset 0 1px 0 var(--line);
+}
+
+/* ---------- 11) Motion preference ---------- */
+@media (prefers-reduced-motion:reduce) {
+    * {
+        transition: none !important
+    }
 }

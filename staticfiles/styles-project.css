@@ -325,7 +325,7 @@ a {
 }
 
 /* remove bullets & reset padding on custom lists */
-.build-summary li.no-bullets {
+.build-summary ul.no-bullets {
   list-style-type: none !important;
   margin: 0 !important;
   padding: 0 !important;

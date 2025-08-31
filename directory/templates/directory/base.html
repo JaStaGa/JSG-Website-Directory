@@ -6,11 +6,114 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>JSG Web Projects Directory</title>
+  <meta name="description"
+    content="A curated directory of Jaylin Starlin Ganaway’s web projects — Django, Next.js, React, and more.">
   <link rel="stylesheet" href="{% static 'directory.css' %}">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;700&family=Roboto:wght@400;500&display=swap"
     rel="stylesheet">
+
+  <!-- Chips + featured grid + inline preview tweaks -->
+  <style>
+    /* nicer chips (sidebar only) */
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem
+    }
+
+    .chip {
+      --bd: #2a3a6a;
+      appearance: none;
+      border: 1px solid var(--bd);
+      background: linear-gradient(180deg, #1b2856, #16224a);
+      color: #e6e8ee;
+      border-radius: 999px;
+      padding: .42rem .8rem;
+      font: 500 .92rem/1.1 Roboto, system-ui, Arial, sans-serif;
+      cursor: pointer;
+      transition: transform .08s, box-shadow .15s, background .2s, border-color .2s, opacity .2s;
+    }
+
+    .chip:hover {
+      filter: brightness(.98)
+    }
+
+    .chip:active {
+      transform: translateY(1px)
+    }
+
+    .chip.is-active {
+      background: linear-gradient(180deg, #e94766, #d23b57);
+      border-color: #e94560;
+      color: #fff
+    }
+
+    .chip:focus-visible {
+      outline: 2px solid #e94560;
+      outline-offset: 2px
+    }
+
+    /* Featured: 2 per row on md+, uniform sizing */
+    #featured-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1.25rem
+    }
+
+    @media (min-width:760px) {
+      #featured-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr))
+      }
+    }
+
+    #featured-grid .project-card.featured {
+      height: 100%;
+      display: flex;
+      flex-direction: column
+    }
+
+    #featured-grid .project-card .actions {
+      margin-top: auto
+    }
+
+    /* Square inline preview */
+    .inline-preview {
+      position: relative;
+      aspect-ratio: 1/1;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid #24345a;
+      background: #0f1533;
+      margin: .75rem 0 1rem;
+    }
+
+    .inline-preview__frame {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: #0b1028
+    }
+
+    .inline-preview__fallback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #b9c0cf;
+      font-size: .9rem;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .inline-preview.is-loaded .inline-preview__fallback {
+      display: none
+    }
+  </style>
 </head>
 
 <body>
@@ -20,13 +123,25 @@
     <hr>
   </header>
 
+  <nav aria-label="Primary">
+    <ul>
+      <li><a href="https://jastaga.github.io/JSG-portfolio/">Back to Portfolio</a></li>
+    </ul>
+  </nav>
+
   <main>
-    <!-- Featured -->
+    <!-- Featured (always visible; search-only filtering) -->
     <section aria-labelledby="featured-title" class="section">
       <h2 id="featured-title">Featured projects</h2>
       <div class="projects-grid" id="featured-grid">
-        <!-- Restaurant (external) -->
-        <article class="project-card featured compact" data-title="Restaurant Demo">
+        <!-- Restaurant -->
+        <article class="project-card featured compact" data-title="Restaurant Demo" data-tech="nextjs react typescript">
+          <div class="inline-preview" data-src="https://jsg-restaurant.vercel.app/">
+            <div class="inline-preview__fallback">
+              Preview blocked by site. <a href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener">Open
+                ↗</a>
+            </div>
+          </div>
           <h2>Restaurant Demo</h2>
           <h3>Next.js sample site</h3>
           <p>High-contrast bistro theme. Gallery and menu pages. Responsive and fast.</p>
@@ -35,12 +150,20 @@
             <li>React</li>
             <li>TypeScript</li>
           </ul>
-          <a href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch
-            App</a>
+          <div class="actions">
+            <a href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch
+              App</a>
+          </div>
         </article>
 
-        <!-- JSG Drip (external) -->
-        <article class="project-card featured compact" data-title="JSG Drip">
+        <!-- JSG Drip -->
+        <article class="project-card featured compact" data-title="JSG Drip"
+          data-tech="nextjs react typescript api utils">
+          <div class="inline-preview" data-src="https://jsg-drip.vercel.app/">
+            <div class="inline-preview__fallback">
+              Preview blocked by site. <a href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener">Open ↗</a>
+            </div>
+          </div>
           <h2>JSG Drip</h2>
           <h3>Sneaker Sizing + Converters</h3>
           <p>Conversions and simple utilities for shoppers. Clean UI and fast nav.</p>
@@ -48,12 +171,23 @@
             <li>Next.js</li>
             <li>React</li>
             <li>TypeScript</li>
+            <li>API</li>
+            <li>Utils</li>
           </ul>
-          <a href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
+          <div class="actions">
+            <a href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
+          </div>
         </article>
 
-        <!-- Harry Potter (external) -->
-        <article class="project-card featured compact" data-title="Harry Potter Game">
+        <!-- Harry Potter -->
+        <article class="project-card featured compact" data-title="Harry Potter Game"
+          data-tech="nextjs react javascript">
+          <div class="inline-preview" data-src="https://harry-potter-guessing-game.vercel.app/">
+            <div class="inline-preview__fallback">
+              Preview blocked by site. <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank"
+                rel="noopener">Open ↗</a>
+            </div>
+          </div>
           <h2>Harry Potter Game</h2>
           <h3>Guess the Character</h3>
           <p>Silhouette-based guessing game with hints and a simple state machine.</p>
@@ -62,13 +196,21 @@
             <li>React</li>
             <li>JavaScript</li>
           </ul>
-          <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
-            class="project-launch">Launch App</a>
+          <div class="actions">
+            <a href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
+              class="project-launch">Launch App</a>
+          </div>
         </article>
 
-        <!-- MacroLens (Featured) -->
-        <article class="project-card featured compact" data-title="MacroLens">
-          <div class="banner banner--macro"></div>
+        <!-- MacroLens -->
+        <article class="project-card featured compact" data-title="MacroLens"
+          data-tech="nextjs javascript api ai charts">
+          <div class="inline-preview" data-src="https://macro-lens.vercel.app/">
+            <div class="inline-preview__fallback">
+              Preview blocked by site. <a href="https://macro-lens.vercel.app/" target="_blank" rel="noopener">Open
+                ↗</a>
+            </div>
+          </div>
           <h2>MacroLens</h2>
           <h3>Markets Insightboard</h3>
           <p>Free macro data dashboard (FRED/BLS/ECB) with in-browser summaries and KPI micro-charts.</p>
@@ -77,82 +219,110 @@
             <li>JavaScript</li>
             <li>API</li>
             <li>AI</li>
+            <li>Charts</li>
           </ul>
-          <a href="https://macro-lens.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch App</a>
+          <div class="actions">
+            <a href="https://macro-lens.vercel.app/" target="_blank" rel="noopener" class="project-launch">Launch
+              App</a>
+          </div>
         </article>
       </div>
     </section>
 
-    <!-- Directory controls + layout -->
+    <!-- Directory -->
     <section aria-labelledby="directory-title" class="section">
       <h2 id="directory-title" class="sr-only">Directory</h2>
 
       <div class="directory-layout">
         <!-- Sidebar -->
-        <aside class="sidebar" aria-label="Section filters">
-          <h3>Sections</h3>
-          <label class="check">
-            <input type="checkbox" data-section-checkbox value="business">
-            <span>Business <small>(<span data-count="business">0</span>)</small></span>
-          </label>
-          <label class="check">
-            <input type="checkbox" data-section-checkbox value="finance">
-            <span>Finance <small>(<span data-count="finance">0</span>)</small></span>
-          </label>
-          <label class="check">
-            <input type="checkbox" data-section-checkbox value="misc">
-            <span>Miscellaneous <small>(<span data-count="misc">0</span>)</small></span>
-          </label>
+        <aside class="sidebar" aria-label="Filters">
+          <label for="dir-search" class="side-label">Search projects</label>
+          <input id="dir-search" type="search" class="search" placeholder="Search by title or tag" />
 
           <div class="divider"></div>
 
-          <label for="dir-search" class="side-label">Search</label>
-          <input id="dir-search" type="search" class="search" placeholder="Search visible items…">
-          <p class="hint">Featured is always visible. Other sections show when checked.</p>
+          <h3 class="side-label">Sections</h3>
+          <div class="filters">
+            <button type="button" class="chip chip--section" data-section="business"
+              aria-pressed="false">Business</button>
+            <button type="button" class="chip chip--section" data-section="finance"
+              aria-pressed="false">Finance</button>
+            <button type="button" class="chip chip--section" data-section="misc" aria-pressed="false">Misc</button>
+          </div>
+
+          <h3 class="side-label">Tech / Tags</h3>
+          <div class="filters">
+            <button type="button" class="chip" data-filter="django" aria-pressed="false">Django</button>
+            <button type="button" class="chip" data-filter="nextjs" aria-pressed="false">Next.js</button>
+            <button type="button" class="chip" data-filter="react" aria-pressed="false">React</button>
+            <button type="button" class="chip" data-filter="typescript" aria-pressed="false">TypeScript</button>
+            <button type="button" class="chip" data-filter="javascript" aria-pressed="false">JavaScript</button>
+            <button type="button" class="chip" data-filter="python" aria-pressed="false">Python</button>
+            <button type="button" class="chip" data-filter="postgres" aria-pressed="false">Postgres</button>
+            <button type="button" class="chip" data-filter="api" aria-pressed="false">API</button>
+            <button type="button" class="chip" data-filter="ai" aria-pressed="false">AI</button>
+            <button type="button" class="chip" data-filter="charts" aria-pressed="false">Charts</button>
+            <button type="button" class="chip" data-filter="auth" aria-pressed="false">Auth</button>
+            <button type="button" class="chip" data-filter="utils" aria-pressed="false">Utils</button>
+          </div>
+
+          <div class="divider"></div>
+          <button id="clear-filters" type="button" class="chip" aria-pressed="false">Clear all</button>
         </aside>
 
         <!-- Content -->
         <div class="section-content">
           <!-- Business -->
-          <section class="dir-section is-hidden" data-section="business" aria-labelledby="business-title">
+          <section class="dir-section" data-section="business" aria-labelledby="business-title">
             <h3 id="business-title">Business samples</h3>
             <div class="section-grid">
-              <a class="link-card" href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener"
-                data-title="Restaurant Demo Next.js business sample">Restaurant Demo</a>
-              <a class="link-card" href="https://jsg-construction.vercel.app/" target="_blank" rel="noopener"
-                data-title="Construction Demo Next.js business sample">Construction Demo</a>
+              <a class="link-card" href="https://jsg-restaurant.vercel.app/" target="_blank" rel="noopener noreferrer"
+                data-title="Restaurant Demo Next.js business sample" data-tech="nextjs react typescript">Restaurant
+                Demo</a>
+
+              <a class="link-card" href="https://jsg-construction.vercel.app/" target="_blank" rel="noopener noreferrer"
+                data-title="Construction Demo Next.js business sample" data-tech="nextjs react typescript">Construction
+                Demo</a>
             </div>
           </section>
 
           <!-- Finance -->
-          <section class="dir-section is-hidden" data-section="finance" aria-labelledby="finance-title">
+          <section class="dir-section" data-section="finance" aria-labelledby="finance-title">
             <h3 id="finance-title">Finance</h3>
             <div class="section-grid">
-              <a class="link-card" href="https://macro-lens.vercel.app/" target="_blank" rel="noopener"
-                data-title="MacroLens markets dashboard AI">MacroLens</a>
-              <a class="link-card" href="https://price-pulse-five.vercel.app/" target="_blank" rel="noopener"
-                data-title="PricePulse crypto movers charts">PricePulse</a>
+              <a class="link-card" href="https://macro-lens.vercel.app/" target="_blank" rel="noopener noreferrer"
+                data-title="MacroLens markets dashboard AI" data-tech="nextjs javascript api ai charts">MacroLens</a>
+
+              <a class="link-card" href="https://price-pulse-five.vercel.app/" target="_blank" rel="noopener noreferrer"
+                data-title="PricePulse crypto movers charts" data-tech="nextjs javascript api ai charts">PricePulse</a>
             </div>
           </section>
 
           <!-- Misc -->
-          <section class="dir-section is-hidden" data-section="misc" aria-labelledby="misc-title">
+          <section class="dir-section" data-section="misc" aria-labelledby="misc-title">
             <h3 id="misc-title">Miscellaneous</h3>
             <div class="section-grid">
-              <a class="link-card" href="https://harry-potter-guessing-game.vercel.app/" target="_blank" rel="noopener"
-                data-title="Harry Potter guessing game">Harry Potter Game</a>
-              <a class="link-card" href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener"
-                data-title="JSG Drip sneaker utilities">JSG Drip</a>
+              <a class="link-card" href="https://harry-potter-guessing-game.vercel.app/" target="_blank"
+                rel="noopener noreferrer" data-title="Harry Potter guessing game"
+                data-tech="nextjs react javascript">Harry Potter Game</a>
 
-              <a class="link-card" href="{% url 'project' %}" data-title="2KHub MyPlayer build planner Django">2KHub
-                (MyPlayer Planner)</a>
-              <a class="link-card" href="{% url 'voter_analytics' %}"
-                data-title="Voter Analytics Django Plotly Pandas">Voter Analytics</a>
-              <a class="link-card" href="{% url 'restaurants' %}" data-title="Sanji’s Kitchen Django demo">Sanji’s
-                Kitchen</a>
-              <a class="link-card" href="{% url 'mini_fb' %}"
-                data-title="FriendZone mini social network Django">FriendZone</a>
-              <a class="link-card" href="{% url 'quotes' %}" data-title="Lil Wayne Quotes Django">Lil Wayne Quotes</a>
+              <a class="link-card" href="https://jsg-drip.vercel.app/" target="_blank" rel="noopener noreferrer"
+                data-title="JSG Drip sneaker utilities" data-tech="nextjs react typescript api utils">JSG Drip</a>
+
+              <a class="link-card" href="{% url 'project' %}" data-title="2KHub MyPlayer build planner Django"
+                data-tech="django python">2KHub (MyPlayer Planner)</a>
+
+              <a class="link-card" href="{% url 'voter_analytics' %}" data-title="Voter Analytics Django Plotly Pandas"
+                data-tech="django python charts">Voter Analytics</a>
+
+              <a class="link-card" href="{% url 'restaurants' %}" data-title="Sanji’s Kitchen Django demo"
+                data-tech="django python">Sanji’s Kitchen</a>
+
+              <a class="link-card" href="{% url 'mini_fb' %}" data-title="FriendZone mini social network Django"
+                data-tech="django python auth">FriendZone</a>
+
+              <a class="link-card" href="{% url 'quotes' %}" data-title="Lil Wayne Quotes Django"
+                data-tech="django python">Lil Wayne Quotes</a>
             </div>
           </section>
         </div>
@@ -165,93 +335,120 @@
     <p>&copy; {% now "Y" %} Jaylin Starlin Ganaway</p>
   </footer>
 
+  <!-- Filters + search -->
   <script>
-    // --- helpers
     const qs = (s, el = document) => el.querySelector(s);
     const qsa = (s, el = document) => Array.from(el.querySelectorAll(s));
 
-    const checkboxes = qsa('[data-section-checkbox]');
-    const sections = qsa('.dir-section');
     const search = qs('#dir-search');
+    const sectionChips = qsa('.chip--section');
+    const techChips = qsa('.chip[data-filter]');
+    const clearBtn = qs('#clear-filters');
 
-    function selectedSectionsFromURL() {
-      const params = new URLSearchParams(location.search);
-      const raw = params.get('sections');
-      if (!raw) return [];
-      return raw.split(',').map(s => s.trim()).filter(Boolean);
+    const featuredCards = qsa('#featured-grid .project-card');
+    const sections = qsa('.dir-section');
+
+    const getParamList = (key) => {
+      const v = new URL(location.href).searchParams.get(key);
+      return v ? v.split(',').map(s => s.trim()).filter(Boolean) : [];
+    };
+    const setParamList = (key, arr) => {
+      const url = new URL(location.href);
+      arr.length ? url.searchParams.set(key, arr.join(',')) : url.searchParams.delete(key);
+      history.replaceState(null, '', url.toString());
+    };
+
+    const getActiveSections = () => sectionChips.filter(c => c.classList.contains('is-active')).map(c => c.dataset.section);
+    const getActiveTech = () => techChips.filter(c => c.classList.contains('is-active')).map(c => c.dataset.filter);
+
+    function applySectionVisibility() {
+      const active = new Set(getActiveSections());
+      const limit = active.size > 0;
+      sections.forEach(sec => { sec.style.display = (!limit || active.has(sec.dataset.section)) ? '' : 'none'; });
     }
 
-    function setURLFromSelection(values) {
-      const params = new URLSearchParams(location.search);
-      if (values.length) params.set('sections', values.join(','));
-      else params.delete('sections');
-      const newUrl = `${location.pathname}?${params.toString()}${location.hash}`;
-      history.replaceState(null, '', newUrl);
+    function matchesTech(el, active) {
+      if (active.length === 0) return true;
+      const hay = (el.dataset.tech || '').toLowerCase();
+      return active.every(f => hay.includes(f));
     }
 
-    function getSelected() {
-      return checkboxes.filter(cb => cb.checked).map(cb => cb.value);
-    }
-
-    function syncCheckboxesFromURL() {
-      const sel = new Set(selectedSectionsFromURL());
-      checkboxes.forEach(cb => cb.checked = sel.has(cb.value));
-    }
-
-    function updateCounts() {
-      const map = {};
-      sections.forEach(sec => {
-        const key = sec.dataset.section;
-        map[key] = qsa('.link-card', sec).length;
-      });
-      Object.entries(map).forEach(([k, v]) => {
-        const span = qs(`[data-count="${k}"]`);
-        if (span) span.textContent = v;
-      });
-    }
-
-    function applyVisibility() {
-      const selected = new Set(getSelected());
-      sections.forEach(sec => {
-        const isOn = selected.has(sec.dataset.section);
-        sec.classList.toggle('is-hidden', !isOn);
-      });
-    }
-
-    function applySearch() {
+    function applyFilters() {
       const q = (search.value || '').toLowerCase();
+      const activeTech = getActiveTech();
 
-      // filter featured cards as well
-      qsa('#featured-grid .project-card').forEach(card => {
-        const text = card.innerText.toLowerCase();
-        card.style.display = q ? (text.includes(q) ? '' : 'none') : '';
+      // Featured: search-only
+      featuredCards.forEach(card => {
+        const okText = q ? card.innerText.toLowerCase().includes(q) : true;
+        card.style.display = okText ? '' : 'none';
       });
 
-      // filter visible section link-cards
+      // Directory items
       sections.forEach(sec => {
-        if (sec.classList.contains('is-hidden')) return;
+        if (sec.style.display === 'none') return;
         qsa('.link-card', sec).forEach(a => {
-          const text = (a.dataset.title || a.textContent).toLowerCase();
-          a.style.display = q ? (text.includes(q) ? '' : 'none') : '';
+          const okText = q ? (a.dataset.title || a.textContent).toLowerCase().includes(q) : true;
+          const okTech = matchesTech(a, activeTech);
+          a.style.display = (okText && okTech) ? '' : 'none';
         });
       });
     }
 
-    // init
-    syncCheckboxesFromURL();
-    applyVisibility();
-    updateCounts();
-    applySearch();
+    function applyAll() { applySectionVisibility(); applyFilters(); }
 
-    // events
-    checkboxes.forEach(cb => {
-      cb.addEventListener('change', () => {
-        applyVisibility();
-        setURLFromSelection(getSelected());
-        applySearch(); // re-run search on new visibility
-      });
+    function toggleChip(chip) {
+      chip.classList.toggle('is-active');
+      chip.setAttribute('aria-pressed', chip.classList.contains('is-active') ? 'true' : 'false');
+    }
+
+    sectionChips.forEach(chip => chip.addEventListener('click', () => {
+      toggleChip(chip); setParamList('sections', getActiveSections()); applyAll();
+    }));
+    techChips.forEach(chip => chip.addEventListener('click', () => {
+      toggleChip(chip); setParamList('filters', getActiveTech()); applyFilters();
+    }));
+    search.addEventListener('input', applyFilters);
+
+    clearBtn.addEventListener('click', () => {
+      [...sectionChips, ...techChips].forEach(c => { c.classList.remove('is-active'); c.setAttribute('aria-pressed', 'false'); });
+      setParamList('sections', []); setParamList('filters', []);
+      search.value = ''; applyAll();
     });
-    search.addEventListener('input', applySearch);
+
+    // Initial from URL
+    const initSections = new Set(getParamList('sections'));
+    const initTech = new Set(getParamList('filters'));
+    sectionChips.forEach(c => { if (initSections.has(c.dataset.section)) { c.classList.add('is-active'); c.setAttribute('aria-pressed', 'true'); } });
+    techChips.forEach(c => { if (initTech.has(c.dataset.filter)) { c.classList.add('is-active'); c.setAttribute('aria-pressed', 'true'); } });
+    applyAll();
+  </script>
+
+  <!-- Inline previews -->
+  <script>
+    (function () {
+      const boxes = Array.from(document.querySelectorAll('.inline-preview[data-src]'));
+      function mount(box) {
+        if (box.dataset.mounted) return;
+        box.dataset.mounted = '1';
+        const url = box.dataset.src;
+        const f = document.createElement('iframe');
+        f.className = 'inline-preview__frame';
+        f.loading = 'lazy';
+        f.allow = 'clipboard-read; clipboard-write; geolocation';
+        f.addEventListener('load', () => box.classList.add('is-loaded'));
+        box.appendChild(f);
+        requestAnimationFrame(() => { f.src = url; });
+        setTimeout(() => { if (!box.classList.contains('is-loaded')) box.classList.add('is-fallback'); }, 8000);
+      }
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach(e => { if (e.isIntersecting) { mount(e.target); io.unobserve(e.target); } });
+        }, { rootMargin: '200px' });
+        boxes.forEach(el => io.observe(el));
+      } else {
+        boxes.forEach(mount);
+      }
+    })();
   </script>
 </body>
 
